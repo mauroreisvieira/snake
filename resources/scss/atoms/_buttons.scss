@@ -1,0 +1,87 @@
+.button {
+  background: none;
+  border-radius: $border-radius-buttons;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: block;
+  float: left;
+  font-family: $font-family-default;
+  height: 34px;
+  letter-spacing: .4px;
+  line-height: 34px;
+  margin: 0;
+  padding: 0 16px;
+  position: relative;
+  text-transform: uppercase;
+  vertical-align: middle;
+  z-index: 0;
+
+  &--fullwidth {
+    width: 100%;
+  }
+
+  &--large {
+    font-size: $font-medium ;
+    font-weight: $font-bold;
+    height: 60px;
+    line-height: 52px;
+    padding: 0 52px;
+  }
+
+  &--medium {
+    font-size: $font-medium ;
+    font-weight: $font-bold;
+    height: 48px;
+    line-height: 40px;
+    padding: 0 32px;
+  }
+
+  &--small {
+    font-size: $font-small;
+    font-weight: $font-light;
+    height: 40px;
+    line-height: 32px;
+    padding: 0 18px;
+  }
+
+  @each $key, $values in $buttons {
+
+    &--#{$key} {
+      background-color: nth($values, 1);
+      color: nth($values, 2);
+      overflow: hidden;
+      transition: border-color 0.3s, color 0.3s;
+
+      &:before {
+        background-color: nth($values, 3);
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transform-origin: left bottom;
+        transform: rotate3d(0, 0, 1, -90deg);
+        transition: transform .3s, background-color .3s;
+        width: 150%;
+        will-change: transform;
+        z-index: -1;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        color: nth($values, 4);
+
+        &:before {
+          background-color: nth($values, 3);
+          opacity: 1;
+          transform: rotate3d(0, 0, 1, 0deg);
+          transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+        }
+      }
+    }
+  }
+}

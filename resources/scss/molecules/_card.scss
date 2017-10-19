@@ -1,0 +1,64 @@
+.card {
+  border-radius: $border-radius-card;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  text-align: left;
+  width: 100%;
+
+  &--border {
+    border-right: 2px solid $color-yellow;
+  }
+
+  &--center {
+    align-items: center;
+  }
+
+  &--small {
+    max-width: 400px;
+  }
+
+  &--medium {
+    max-width: 740px;
+  }
+
+  &--large {
+    max-width: 960px;
+  }
+
+  .card__fullImage {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .card__header {
+    align-items: center;
+    display: flex;
+    justify-content: baseline;
+    flex-direction: column;
+    padding: 20px 40px;
+  }
+
+  .card__content {
+    width: 100%;
+
+    .card__contentInfo {
+      font-size: $font-medium;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .card__footer {
+    width: 100%;
+  }
+}
+

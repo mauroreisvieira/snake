@@ -1,0 +1,78 @@
+input {
+  border: 1px solid $color-greylight;
+  box-sizing: border-box;
+  font-family: $font-family-base;
+  font-size: $font-medium;
+  height: 44px;
+  padding: 0 14px;
+  width: 100%;
+
+  &::selection {
+    background: $color-salmon;
+    color: $color-white;
+  }
+
+  &:focus {
+    outline: none;
+
+    & + svg {
+
+      rect {
+        stroke-dasharray: 1000;
+      }
+    }
+  }
+}
+
+textarea {
+  resize: none;
+}
+
+label {
+  color: $color-salmon;
+  font-family: $font-family-base;
+  font-size: $font-x-small;
+  font-weight: $font-bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  transition: transform .3s ease;
+}
+
+// Remove yellow background in input (auto-fill) Chrome
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px $color-white inset;
+}
+
+svg {
+  bottom: 0;
+  fill: transparent;
+  height: 44px;
+  pointer-events: none;
+  position: absolute;
+  stroke: $color-salmon;
+  width: 100%;
+  z-index: 1;
+
+  rect {
+    fill: transparent;
+    stroke-dasharray: 0 1000;
+    stroke-width: 3px;
+    transition: stroke-dasharray .4s ease-in-out, stroke-width .4s ease-in-out;
+  }
+}
+
+::-webkit-input-placeholder {
+  color: $color-greylight;
+}
+:-moz-placeholder {
+  color: $color-greylight;
+}
+::-moz-placeholder {
+  color: $color-greylight;
+}
+:-ms-input-placeholder {
+  color: $color-greylight;
+}
+::-ms-input-placeholder {
+  color: $color-greylight;
+}

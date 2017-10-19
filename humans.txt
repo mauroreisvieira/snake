@@ -1,0 +1,11 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+    Mauro Reis Vieira -- Frond End Developer -- @mauroreisvieira
+
+# THANKS
+    Mom and Dad
+
+# TECHNOLOGY COLOPHON
+    HTML5, CSS3, JAVASCRIPT, PHP

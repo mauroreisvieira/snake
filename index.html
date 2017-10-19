@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <meta name="google-site-verification" content=""/>
+    <meta name="robots" content="">
+    <meta name="author" content="">
+    <meta name="designer" content="">
+    <meta name="rating" content="general">
+    <meta name="distribution" content="global">
+    <meta name="copyright" content="@mauroreisvieira">
+    <meta name="description" content="Snake game using ES6 and Canvas">
+    <meta name="keywords" content="">
+    <title>Login | Snake Battle</title>
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#36f7ce">
+    <meta name="msapplication-navbutton-color" content="#36f7ce">
+    <meta name="msapplication-TileColor" content="#36f7ce">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#36f7ce">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- MANIFEST -->
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Raleway:300,600,700" rel="stylesheet">
+
+    <!-- STYLES -->
+    <link rel="stylesheet" type="text/css" href="public/css/app.css">
+</head>
+
+<body class="login">
+    <!-- MAIN -->
+    <main role="main">
+        <div class="logo">
+            <img src="./public/images/logo/snake.svg" alt="Snake Battle" title="Snake Battle">
+        </div>
+        <div class="card card--center card--small">
+            <div class="card__content">
+                <div class="card__contentInfo">
+                    <form class="form">
+                        <div class="form__fieldset form__fieldset--column">
+                            <label for="inputName">Nickname:</label>
+                            <input type="text" id="inputName" name="name" placeholder="John Doe">
+                            <svg>
+                                <rect width="100%" height="100%" class="stroke-salmon"></rect>
+                            </svg>
+                        </div>
+                        <div class="form__fieldset form__fieldset--column">
+                            <label for="inputEmail">Email:</label>
+                            <input type="email" id="inputEmail" name="email" placeholder="john.doe@mail.eu">
+                            <svg>
+                                <rect width="100%" height="100%" class="stroke-salmon"></rect>
+                            </svg>
+                        </div>
+                        <div class="form__fieldset form__fieldset--column">
+                            <button class="button button--large button--fullwidth button--aqua" type="submit">Start Play</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>Created with <span>♥</span> by <a href="https://twitter.com/mauroreisvieira" target="_blank">@mauroreisvieira</a> in Portugal</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script type="text/javascript" src="public/js/bundle.js"></script>
+</body>
+</html>

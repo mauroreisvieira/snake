@@ -1,0 +1,93 @@
+// Colors
+$color-black     : #000;
+$color-white     : #fff;
+$color-yellow    : #E7BB18;
+$color-orange    : #ff974e;
+$color-red       : #ff4d63;
+$color-salmon    : #f86755; // New
+$color-pink      : #DF1070;
+$color-violet    : #a677fb;
+$color-blue      : #10A9E7;
+$color-darkblue  : #072c61; // New
+$color-cyan      : #0193a3; // New
+$color-aqua      : #36f7ce; // New
+$color-green     : #98d9b2;
+$color-darkgreen : #02202C;
+$color-greylight : #D1DDED; // New
+
+
+// Default Colors
+$color-text-default   : $color-black ;
+$color-title-default  : $color-salmon;
+$color-border-default : $color-greylight;
+
+// Other
+$border-radius-card    : 2px;
+$border-radius-inputs  : 2px;
+$border-radius-buttons : 2px;
+
+// Typography
+$font-family-base    : 'Raleway', sans-serif;
+$font-family-default : 'Open Sans', sans-serif;
+
+// Font Size
+$font-xx-small  : 10px;
+$font-x-small   : 12px;
+$font-small     : 14px;
+$font-medium    : 16px;
+$font-large     : 20px;
+$font-x-large   : 28px;
+$font-xx-large  : 36px;
+$font-xxx-large : 42px;
+
+// Font Weight
+$font-thin       : 300;
+$font-light      : 400;
+$font-normal     : 500;
+$font-bold       : 600;
+$font-extra-bold : 900;
+
+// Buttons
+$headings: (
+  'h1' : ($color-black, 52px, $font-light),
+  'h2' : ($color-black, 44px, $font-extra-bold),
+  'h3' : ($color-black, 36px, $font-bold),
+  'h4' : ($color-black, 26px, $font-bold),
+  'h5' : ($color-darkgreen, 20px, $font-bold),
+  'h6' : ($color-black, 18px, $font-normal)
+);
+
+// Content Width
+$content-width-default: 1024px;
+
+$grid: $content-width-default;
+$columns: 12;
+$gutter: 15px;
+
+$class-row: 'row';
+$class-cell: 'cell';
+$class-off: 'off';
+
+
+// Breakpoints
+$min-device : 280px;
+$mobile : 767px;
+$tablet : 992px;
+$desktop : 1200px;
+
+$breakpoints: (
+  (small, $min-device),
+  (medium, $tablet),
+  (large, $desktop)
+);
+
+// Buttons
+$buttons: (
+  'aqua'     : ($color-aqua, $color-white, $color-salmon, $color-white),
+  'yellow'   : ($color-yellow, $color-white, $color-darkblue, $color-white),
+  'darkblue' : ($color-darkblue, $color-white, $color-yellow, $color-black),
+  'salmon'   : ($color-salmon, $color-white, $color-aqua, $color-black),
+  'cyan'     : ($color-cyan, $color-white, $color-darkgreen, $color-white),
+  'white'    : ($color-white, $color-black, $color-salmon, $color-white),
+  'black'    : ($color-black, $color-white, $color-salmon, $color-black)
+);

@@ -1,0 +1,27 @@
+.header {
+  background-color: $color-white;
+
+  .content {
+    align-items: center;
+    display: flex;
+    margin: auto;
+    width: $content-width-default;
+
+    .header__logo {
+      align-items: center;
+      display: flex;
+      flex-basis: 20%;
+      justify-content: center;
+      width: 20%;
+
+      .header__logoImage {
+        width: 100%;
+      }
+    }
+
+    .header__nav {
+      flex-basis: 80%;
+      width: 80%;
+    }
+  }
+}

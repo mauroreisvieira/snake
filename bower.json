@@ -1,0 +1,20 @@
+{
+  "name": "BE-iNNOVATION",
+  "description": "",
+  "version": "1.0.0",
+  "author": {
+    "name": "BE-iNNOVATION",
+    "email": "info@be-innovation.pt",
+    "url": "http://www.be-innovation.pt"
+  },
+  "main": "",
+  "license": "Proprietary",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "3.*",
+    "animate.css": "3.*",
+    "Ionicons": "ionicons#^2.0.1"
+  },
+  "extra-plugins": {},
+  "comments": []
+}

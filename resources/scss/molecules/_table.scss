@@ -1,0 +1,52 @@
+.table {
+  border-spacing: 0;
+  width: 100%;
+
+  tr {
+
+    td {
+      border-bottom: 1px solid $color-border-default;
+      padding: 10px 0;
+    }
+
+    &:last-of-type {
+      td {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .table__image {
+
+    img {
+      border-radius: 50%;
+      height: 60px;
+      object-fit: cover;
+      overflow: hidden;
+      width: 60px;
+    }
+  }
+
+  .table_postion {
+    @include typography($font-large, $font-bold);
+    color: $color-darkblue;
+  }
+
+  .table_name {
+    @include typography($font-medium, $font-light);
+    color: $color-text-default;
+  }
+
+  .table__scrore {
+    font-family: $font-family-default;
+    font-size: $font-medium;
+    font-weight: $font-bold;
+    margin-top: 8px;
+  }
+
+  .table__stars {
+    font-size: $font-medium;
+    color: $color-salmon;
+    text-align: right;
+  }
+}

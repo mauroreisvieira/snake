@@ -1,0 +1,30 @@
+.friends {
+  background-color: $color-darkblue;
+  background-repeat: no-repeat;
+  background: linear-gradient(45deg, lighten($color-darkblue, 8%) 10%, $color-darkblue 40%);
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 100px;
+  grid-template-areas:
+  "header"
+  "main"
+  "footer"
+}
+
+.header {
+  grid-area: header;
+}
+
+.main {
+  grid-area: main;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+h1 {
+  color: $color-white;
+  text-align: center;
+}
