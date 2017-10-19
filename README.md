@@ -1,3 +1,1 @@
-## SNAKE PROJECT
-
-
+## SNAKE GAME
