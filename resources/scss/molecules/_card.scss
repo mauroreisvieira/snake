@@ -1,5 +1,6 @@
 .card {
   border-radius: $border-radius-card;
+  box-shadow: 0 3rem 5rem -2rem rgba($color-black, .4);
   display: flex;
   flex-direction: column;
   justify-content: center;

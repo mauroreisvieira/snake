@@ -43,7 +43,7 @@ export default class Setting {
     }
 
     static get COLOR_WALL () {
-        return '#000';
+        return '#35f7cf';
     }
 
 }

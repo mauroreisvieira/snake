@@ -64,6 +64,8 @@ class Game {
             this.matriz[this.snakePosX][this.snakePosY] = this.snake;
 
             this.int = setInterval(this.gameLoop, this.interval);
+
+            this.speedGame();
         }
 
         this.addEventListeners();
@@ -184,29 +186,33 @@ class Game {
     }
 
     keyPressed(evt) {
-
         switch(evt.keyCode) {
             case Setting.KEY_UP:
+            evt.preventDefault();
             if (this.direction != 2) {
                 this.tempdir = 1;
             }
             break;
             case Setting.KEY_DOWN:
+            evt.preventDefault();
             if (this.direction != 1) {
                 this.tempdir = 2;
             }
             break;
             case Setting.KEY_RIGHT:
+            evt.preventDefault();
             if (this.direction != 0) {
                 this.tempdir = -1;
             }
             break;
             case Setting.KEY_LEFT:
+            evt.preventDefault();
             if (this.direction != -1) {
                 this.tempdir = 0;
             }
             break;
             case Setting.KEY_PAUSE:
+            evt.preventDefault();
             this.running = !this.running;
             break;
         }
@@ -225,7 +231,8 @@ class Game {
         window.addEventListener('keydown', evt => {
             this.keyPressed(evt);
         });
-    if (!this.form) return;
+
+        if (!this.form) return;
         this.form.addEventListener('submit', evt => {
             evt.preventDefault();
             this.callback(evt);

@@ -45,7 +45,7 @@ staticAccessors.COLOR_BOARD.get = function () {
 };
 
 staticAccessors.COLOR_WALL.get = function () {
-    return '#000';
+    return '#35f7cf';
 };
 
 Object.defineProperties( Setting, staticAccessors );
@@ -82,7 +82,7 @@ Piece.prototype.view = function view (line, column) {
 
 var Wall = (function (Piece$$1) {
     function Wall (line, column) {
-        Piece$$1.call(this, line, column, '#000');
+        Piece$$1.call(this, line, column, Setting.COLOR_WALL);
         this.isFruit = false;
     }
 
@@ -95,7 +95,7 @@ var Wall = (function (Piece$$1) {
 
 var Blank = (function (Piece$$1) {
     function Blank (line, column) {
-        Piece$$1.call(this, line, column, '#fff');
+        Piece$$1.call(this, line, column, Setting.COLOR_BOARD);
         this.isFruit = false;
     }
 
@@ -317,6 +317,8 @@ var Game = function Game () {
         this.matriz[this.snakePosX][this.snakePosY] = this.snake;
 
         this.int = setInterval(this.gameLoop, this.interval);
+
+        this.speedGame();
     }
 
     this.addEventListeners();
@@ -437,29 +439,33 @@ Game.prototype.timeGame = function timeGame () {
 };
 
 Game.prototype.keyPressed = function keyPressed (evt) {
-
     switch(evt.keyCode) {
         case Setting.KEY_UP:
+        evt.preventDefault();
         if (this.direction != 2) {
             this.tempdir = 1;
         }
         break;
         case Setting.KEY_DOWN:
+        evt.preventDefault();
         if (this.direction != 1) {
             this.tempdir = 2;
         }
         break;
         case Setting.KEY_RIGHT:
+        evt.preventDefault();
         if (this.direction != 0) {
             this.tempdir = -1;
         }
         break;
         case Setting.KEY_LEFT:
+        evt.preventDefault();
         if (this.direction != -1) {
             this.tempdir = 0;
         }
         break;
         case Setting.KEY_PAUSE:
+        evt.preventDefault();
         this.running = !this.running;
         break;
     }
@@ -480,7 +486,8 @@ Game.prototype.addEventListeners = function addEventListeners () {
     window.addEventListener('keydown', function (evt) {
         this$1.keyPressed(evt);
     });
-if (!this.form) { return; }
+
+    if (!this.form) { return; }
     this.form.addEventListener('submit', function (evt) {
         evt.preventDefault();
         this$1.callback(evt);

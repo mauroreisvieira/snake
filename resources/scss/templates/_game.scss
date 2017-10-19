@@ -16,8 +16,35 @@
   }
 
   .sidebar {
+    align-items: left;
+    background-color: $color-white;
+    box-shadow: 0 3rem 5rem -2rem rgba($color-black, .4);
+    display: flex;
+    flex-direction: column;
     grid-area: sidebar;
-    height: 70vh;
+    justify-content: center;
+    padding: 0 40px;
+
+    .sidebar__item {
+      font-size: $font-large;
+      margin: 20px 0;
+    }
+  }
+
+  .aside {
+    align-items: left;
+    background-color: $color-white;
+    box-shadow: 0 3rem 5rem -2rem rgba($color-black, .4);
+    display: flex;
+    flex-direction: column;
+    grid-area: sidebar;
+    justify-content: center;
+    padding: 0 40px;
+
+    .sidebar__item {
+      font-size: $font-large;
+      margin: 20px 0;
+    }
   }
 
   .main {
@@ -26,6 +53,7 @@
 
     table {
       border-spacing: 0;
+      box-shadow: 0 3rem 5rem -2rem rgba($color-black, .4);
       margin: auto;
 
       td {
