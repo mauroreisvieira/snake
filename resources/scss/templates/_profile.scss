@@ -9,22 +9,28 @@
   grid-template-areas:
   "header"
   "main"
-  "footer"
-}
+  "footer";
 
-.header {
-  grid-area: header;
-}
 
-.main {
-  grid-area: main;
-}
+  .header {
+    grid-area: header;
+  }
 
-.footer {
-  grid-area: footer;
-}
+  .main {
+    align-items: center;
+    display: flex;
+    grid-area: main;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+  }
 
-h1 {
-  color: $color-white;
-  text-align: center;
+  .footer {
+    grid-area: footer;
+  }
+
+  h1 {
+    color: $color-white;
+    text-align: center;
+  }
 }

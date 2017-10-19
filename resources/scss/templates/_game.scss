@@ -1,0 +1,46 @@
+.game {
+  background-color: $color-darkblue;
+  background-repeat: no-repeat;
+  background: linear-gradient(45deg, lighten($color-darkblue, 8%) 10%, $color-darkblue 40%);
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 100px;
+  grid-template-areas:
+  "header header header"
+  "sidebar main aside"
+  "footer footer footer";
+
+  .header {
+    grid-area: header;
+  }
+
+  .sidebar {
+    grid-area: sidebar;
+    height: 70vh;
+  }
+
+  .main {
+    grid-area: main;
+    height: 70vh;
+
+    table {
+      border-spacing: 0;
+      margin: auto;
+
+      td {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .aside {
+    grid-area: aside;
+    height: 70vh;
+  }
+
+  .footer {
+    grid-area: footer;
+  }
+}

@@ -32,13 +32,14 @@
     <link rel="stylesheet" type="text/css" href="public/css/app.css">
 </head>
 
-<body class="friends">
+<body class="game">
+    <!-- HEADER -->
     <header class="header">
         <div class="content">
             <div class="header__logo">
                 <img src="./public/images/logo/snake_invert.svg"
-                    alt="Snake Battle"
-                    title="Snake Battle" class="header__logoImage">
+                alt="Snake Battle"
+                title="Snake Battle" class="header__logoImage">
             </div>
             <nav class="header__nav">
                 <ul class="nav nav--right">
@@ -51,18 +52,21 @@
             </nav>
         </div>
     </header>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+    </div>
+
     <!-- MAIN -->
     <main class="main" role="main">
-        <header>
-            <div class="box">Score : <score>0</score></div>
-            <div class="box">Time : <time>0s</time></div>
-            <div class="box">Speed : <speed>0</speed>
-            </header>
-
-            <main role="main">
-                <game-board></game-board>
-            </main>
+        <game-board></game-board>
     </main>
+
+    <!-- ASIDE -->
+    <aside class="aside">
+
+    </aside>
+
     <!-- FOOTER -->
     <footer class="footer">
         <p>Created with <span>♥</span> by <a href="https://twitter.com/mauroreisvieira" target="_blank">@mauroreisvieira</a> in Portugal</p>
