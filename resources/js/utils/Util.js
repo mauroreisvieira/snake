@@ -1,6 +1,14 @@
-export default class Setting {
+export default class Util {
 
     constructor () {}
+
+    rand (min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    redirect(url) {
+        window.location.href = './' + url + '.html';
+    }
 
     static get SPEED () {
         return 200;
@@ -45,5 +53,4 @@ export default class Setting {
     static get COLOR_WALL () {
         return '#35f7cf';
     }
-
 }
