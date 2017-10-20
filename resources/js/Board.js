@@ -1,4 +1,4 @@
-import Setting from './utils/Setting.js';
+import Util from './utils/Util.js';
 import Wall from './board/Wall.js';
 import Blank from './board/Blank.js';
 
@@ -10,8 +10,8 @@ export default class Board {
         this.cols = cols;
         this.displayInView = displayInView;
 
-        this.colorBoard = Setting.COLOR_BOARD;
-        this.colorWall = Setting.COLOR_WALL;
+        this.colorBoard = Util.COLOR_BOARD;
+        this.colorWall = Util.COLOR_WALL;
 
         this.board = new Array(this.lines);
         this.create();

@@ -1,8 +1,0 @@
-export default class Util {
-
-    constructor () {}
-
-    rand (min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
-    }
-}

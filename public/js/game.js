@@ -1,8 +1,40 @@
 'use strict';
 
-var Setting = function Setting () {};
+var Service = function Service () {};
+
+Service.prototype.gravatar = function gravatar (hash, size) {
+        if ( size === void 0 ) size = 200;
+
+    return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
+};
+
+Service.prototype.addItem = function addItem (name, value) {
+    localStorage.setItem(name, value);
+};
+
+Service.prototype.getItem = function getItem (item) {
+    return localStorage.getItem(item);
+};
+
+Service.prototype.checkAuth = function checkAuth () {
+    var exists = true;
+    if (localStorage.getItem('email') === null) {
+        exists = false;
+    }
+    return exists;
+};
+
+var Util = function Util () {};
 
 var staticAccessors = { SPEED: {},BOARD_COLS: {},BOARD_LINES: {},KEY_PAUSE: {},KEY_UP: {},KEY_LEFT: {},KEY_RIGHT: {},KEY_DOWN: {},COLOR_SNAKE: {},COLOR_BOARD: {},COLOR_WALL: {} };
+
+Util.prototype.rand = function rand (min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+};
+
+Util.prototype.redirect = function redirect (url) {
+    window.location.href = './' + url + '.html';
+};
 
 staticAccessors.SPEED.get = function () {
     return 200;
@@ -48,41 +80,7 @@ staticAccessors.COLOR_WALL.get = function () {
     return '#35f7cf';
 };
 
-Object.defineProperties( Setting, staticAccessors );
-
-var Service = function Service () {};
-
-Service.prototype.gravatar = function gravatar (hash, size) {
-        if ( size === void 0 ) size = 200;
-
-    return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
-};
-
-Service.prototype.addItem = function addItem (name, value) {
-    localStorage.setItem(name, value);
-};
-
-Service.prototype.getItem = function getItem (item) {
-    localStorage.getItem(item);
-};
-
-Service.prototype.checkAuth = function checkAuth () {
-    var exists = true;
-    if (localStorage.getItem('email') === null) {
-        exists = false;
-    }
-    return exists;
-};
-
-Service.prototype.redirect = function redirect (url) {
-    window.location.href = './' + url + '.html';
-};
-
-var Util = function Util () {};
-
-Util.prototype.rand = function rand (min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-};
+Object.defineProperties( Util, staticAccessors );
 
 var Md5 = function Md5 () {
   this.hexTab = '0123456789abcdef';
@@ -360,7 +358,7 @@ Piece.prototype.view = function view (line, column) {
 
 var Wall = (function (Piece$$1) {
     function Wall (line, column) {
-        Piece$$1.call(this, line, column, Setting.COLOR_WALL);
+        Piece$$1.call(this, line, column, Util.COLOR_WALL);
         this.isFruit = false;
     }
 
@@ -373,7 +371,7 @@ var Wall = (function (Piece$$1) {
 
 var Blank = (function (Piece$$1) {
     function Blank (line, column) {
-        Piece$$1.call(this, line, column, Setting.COLOR_BOARD);
+        Piece$$1.call(this, line, column, Util.COLOR_BOARD);
         this.isFruit = false;
     }
 
@@ -389,8 +387,8 @@ var Board = function Board (lines, cols, displayInView) {
     this.cols = cols;
     this.displayInView = displayInView;
 
-    this.colorBoard = Setting.COLOR_BOARD;
-    this.colorWall = Setting.COLOR_WALL;
+    this.colorBoard = Util.COLOR_BOARD;
+    this.colorWall = Util.COLOR_WALL;
 
     this.board = new Array(this.lines);
     this.create();
@@ -438,7 +436,7 @@ Board.prototype.clean = function clean (posX, posY) {
 var Snake = function Snake (posX, posY) {
     this.x = posX;
     this.y = posY;
-    this.color = Setting.COLOR_SNAKE;
+    this.color = Util.COLOR_SNAKE;
 
     this.snake = new Array();
     this.create();
@@ -550,9 +548,12 @@ var Game = function Game () {
     this.service = new Service();
 
     this.gamInBoard = document.querySelector('game-board');
-    this.form = document.querySelector('form');
 
-    if (this.service.checkAuth() && this.gamInBoard) {
+    if (!this.service.checkAuth()) {
+        this.util.redirect('index');
+    }
+
+    if (this.gamInBoard) {
         this.listFruit = new Array(0,1,2,3,4);
 
         this.length = 0;
@@ -571,9 +572,9 @@ var Game = function Game () {
         this.score = 0;
         this.time = 0;
 
-        this.numberLines = Setting.BOARD_LINES;
-        this.numberCols = Setting.BOARD_COLS;
-        this.interval = Setting.SPEED;
+        this.numberLines = Util.BOARD_LINES;
+        this.numberCols = Util.BOARD_COLS;
+        this.interval = Util.SPEED;
 
         this.gameLoop = this.gameLoop.bind(this);
         this.update = this.update.bind(this);
@@ -717,31 +718,31 @@ Game.prototype.timeGame = function timeGame () {
 
 Game.prototype.keyPressed = function keyPressed (evt) {
     switch(evt.keyCode) {
-        case Setting.KEY_UP:
+        case Util.KEY_UP:
             evt.preventDefault();
             if (this.direction != 2) {
                 this.tempdir = 1;
             }
         break;
-        case Setting.KEY_DOWN:
+        case Util.KEY_DOWN:
             evt.preventDefault();
             if (this.direction != 1) {
                 this.tempdir = 2;
             }
         break;
-        case Setting.KEY_RIGHT:
+        case Util.KEY_RIGHT:
             evt.preventDefault();
             if (this.direction != 0) {
                 this.tempdir = -1;
             }
         break;
-        case Setting.KEY_LEFT:
+        case Util.KEY_LEFT:
             evt.preventDefault();
             if (this.direction != -1) {
                 this.tempdir = 0;
             }
         break;
-        case Setting.KEY_PAUSE:
+        case Util.KEY_PAUSE:
             evt.preventDefault();
             this.running = !this.running;
         break;
@@ -758,4 +759,4 @@ Game.prototype.addEventListeners = function addEventListeners () {
 };
 
 new Game();
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=game.js.map

@@ -1,10 +1,10 @@
-import Setting from './../utils/Setting.js';
+import Util from './../utils/Util.js';
 import Piece from './../Piece.js';
 
 export default class Wall extends Piece {
 
     constructor (line, column) {
-        super(line, column, Setting.COLOR_WALL);
+        super(line, column, Util.COLOR_WALL);
         this.isFruit = false;
     }
 

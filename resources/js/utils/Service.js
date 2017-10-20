@@ -1,17 +1,24 @@
 export default class Service {
 
-    constructor () {
+    constructor () {}
 
+    gravatar(hash, size = 200) {
+        return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
     }
 
-    getAvatar(hash, size = 200) {
-        fetch('http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size, {
-            method: 'get'
-        }).then(response => {
-            console.info(response);
-        }).catch(err => {
-            console.warn(err);
-        });
+    addItem(name, value) {
+        localStorage.setItem(name, value);
     }
 
+    getItem(item) {
+        return localStorage.getItem(item);
+    }
+
+    checkAuth() {
+        var exists = true;
+        if (localStorage.getItem('email') === null) {
+            exists = false;
+        }
+        return exists;
+    }
 }

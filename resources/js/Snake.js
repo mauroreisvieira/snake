@@ -1,11 +1,11 @@
-import Setting from './utils/Setting.js';
+import Util from './utils/Util.js';
 
 export default class Snake {
 
     constructor (posX, posY) {
         this.x = posX;
         this.y = posY;
-        this.color = Setting.COLOR_SNAKE;
+        this.color = Util.COLOR_SNAKE;
 
         this.snake = new Array();
         this.create();

@@ -1,6 +1,4 @@
-import Md5 from './utils/Md5.js';
 import Service from './utils/Service.js';
-import Setting from './utils/Setting.js';
 import Util from './utils/Util.js';
 import User from './player/User.js';
 import Board from './Board.js';
@@ -18,17 +16,15 @@ class Game {
     constructor () {
 
         this.util = new Util();
-        this.hash = new Md5();
         this.service = new Service();
-        let h = this.hash.md5('mauroreisvieira@gmail.com');
-        let avatar = this.service.getAvatar(h);
 
         this.gamInBoard = document.querySelector('game-board');
-        this.form = document.querySelector('form');
-        this.player = new User('Mauro Reis Vieira', 'mauroreisvieira@gmail.com');
-        console.log(this.player);
 
-        if (this.gamInBoard ) {
+        if (!this.service.checkAuth()) {
+            this.util.redirect('index');
+        }
+
+        if (this.gamInBoard) {
             this.listFruit = new Array(0,1,2,3,4);
 
             this.length = 0;
@@ -47,9 +43,9 @@ class Game {
             this.score = 0;
             this.time = 0;
 
-            this.numberLines = Setting.BOARD_LINES;
-            this.numberCols = Setting.BOARD_COLS;
-            this.interval = Setting.SPEED;
+            this.numberLines = Util.BOARD_LINES;
+            this.numberCols = Util.BOARD_COLS;
+            this.interval = Util.SPEED;
 
             this.gameLoop = this.gameLoop.bind(this);
             this.update = this.update.bind(this);
@@ -193,55 +189,41 @@ class Game {
 
     keyPressed(evt) {
         switch(evt.keyCode) {
-            case Setting.KEY_UP:
-            evt.preventDefault();
-            if (this.direction != 2) {
-                this.tempdir = 1;
-            }
+            case Util.KEY_UP:
+                evt.preventDefault();
+                if (this.direction != 2) {
+                    this.tempdir = 1;
+                }
             break;
-            case Setting.KEY_DOWN:
-            evt.preventDefault();
-            if (this.direction != 1) {
-                this.tempdir = 2;
-            }
+            case Util.KEY_DOWN:
+                evt.preventDefault();
+                if (this.direction != 1) {
+                    this.tempdir = 2;
+                }
             break;
-            case Setting.KEY_RIGHT:
-            evt.preventDefault();
-            if (this.direction != 0) {
-                this.tempdir = -1;
-            }
+            case Util.KEY_RIGHT:
+                evt.preventDefault();
+                if (this.direction != 0) {
+                    this.tempdir = -1;
+                }
             break;
-            case Setting.KEY_LEFT:
-            evt.preventDefault();
-            if (this.direction != -1) {
-                this.tempdir = 0;
-            }
+            case Util.KEY_LEFT:
+                evt.preventDefault();
+                if (this.direction != -1) {
+                    this.tempdir = 0;
+                }
             break;
-            case Setting.KEY_PAUSE:
-            evt.preventDefault();
-            this.running = !this.running;
+            case Util.KEY_PAUSE:
+                evt.preventDefault();
+                this.running = !this.running;
             break;
         }
     }
 
-    callback(evt) {
-        var name = evt.srcElement[0].value;
-        var email = evt.srcElement[1].value;
-        this.player = new User(name, email);
-        console.log(this.player);
-        localStorage.setItem(21323213231, this.player.name);
-        localStorage.setItem('email', this.player.email);
-    }
-
     addEventListeners () {
+
         window.addEventListener('keydown', evt => {
             this.keyPressed(evt);
-        });
-
-        if (!this.form) return;
-        this.form.addEventListener('submit', evt => {
-            evt.preventDefault();
-            this.callback(evt);
         });
     }
 }

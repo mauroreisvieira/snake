@@ -1,15 +1,16 @@
-var gulp = require('gulp');
-var rollup = require('rollup');
-var rollupTypescript = require('rollup-plugin-typescript');
-var buble = require('rollup-plugin-buble');
-var pump = require('pump');
-var uglify = require('gulp-uglify');
-var uglifyjs = require('uglify-js');
-var minifier = require('gulp-uglify/minifier');
-var minify = require('uglify-js');
-var sourcemaps = require("gulp-sourcemaps");
-var sass = require('gulp-sass');
-var concat = require("gulp-concat");
+const gulp             = require('gulp');
+const rollup           = require('rollup');
+const rollupTypescript = require('rollup-plugin-typescript');
+const buble            = require('rollup-plugin-buble');
+const pump             = require('pump');
+const uglify           = require('gulp-uglify');
+const uglifyjs         = require('uglify-js');
+const minifier         = require('gulp-uglify/minifier');
+const minify           = require('uglify-js');
+const sourcemaps       = require("gulp-sourcemaps");
+const sass             = require('gulp-sass');
+const concat           = require("gulp-concat");
+const eslint           = require('gulp-eslint');
 
 gulp.task('production', function (cb) {
   // the same options as described above
@@ -26,19 +27,58 @@ gulp.task('production', function (cb) {
   );
 });
 
-gulp.task('javascript', function () {
+gulp.task('js --game', function () {
     return rollup.rollup({
         entry: "./resources/js/Game.js",
         plugins: [
             buble(),
-            uglify()
+            uglify(),
+            eslint()
         ],
     })
     .then(function (bundle) {
         bundle.write({
             format: "cjs",
             moduleName: "main",
-            dest: "./public/js/bundle.js",
+            dest: "./public/js/game.js",
+            sourceMap: true
+        });
+    })
+});
+
+gulp.task('js --auth', function () {
+    return rollup.rollup({
+        entry: "./resources/js/Auth.js",
+        plugins: [
+            buble(),
+            uglify(),
+            eslint()
+        ],
+    })
+    .then(function (bundle) {
+        bundle.write({
+            format: "cjs",
+            moduleName: "main",
+            dest: "./public/js/auth.js",
+            sourceMap: true
+        });
+    })
+});
+
+gulp.task('js --setting', function () {
+    return rollup.rollup({
+        entry: "./resources/js/Setting.js",
+        plugins: [
+            buble(),
+            uglify(),
+            eslint()
+        ],
+    })
+    .then(function (bundle) {
+        bundle.write({
+            format: "cjs",
+            moduleName: "main",
+            dest: "./public/js/setting.js",
             sourceMap: true
         });
     })
@@ -52,6 +92,6 @@ gulp.task('scss', function () {
 
 gulp.task('watch', function () {
     gulp.watch('./resources/scss/app.scss', ['scss']);
-    gulp.watch('./resources/js/Game.js', ['javascript']);
+    gulp.watch('./resources/js/Game.js', ['js --game', 'js --auth', 'js --setting']);
 });
 
