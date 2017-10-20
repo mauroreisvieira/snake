@@ -1,3 +1,5 @@
+import Md5 from './utils/Md5.js';
+import Service from './utils/Service.js';
 import Setting from './utils/Setting.js';
 import Util from './utils/Util.js';
 import User from './player/User.js';
@@ -16,6 +18,10 @@ class Game {
     constructor () {
 
         this.util = new Util();
+        this.hash = new Md5();
+        this.service = new Service();
+        let h = this.hash.md5('mauroreisvieira@gmail.com');
+        let avatar = this.service.getAvatar(h);
 
         this.gamInBoard = document.querySelector('game-board');
         this.form = document.querySelector('form');
