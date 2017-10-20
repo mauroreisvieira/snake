@@ -103,12 +103,14 @@ class Game {
         fruit.view(lineRand, columnRand);
     }
 
-    updateSnake() {
+    updateSnake(eat) {
         console.log("UPDATE SNAKE");
         // Update Snake
         this.snake.update(this.snakePosX, this.snakePosY);
         this.snake.view(this.snakePosX, this.snakePosY);
         console.log(this.snake);
+
+        if (eat) return;
         // Remove Snake Tail
         var tailSnake = this.snake.remove();
         // Clean Snake Trail
@@ -141,7 +143,7 @@ class Game {
         }
 
         // draws the head of the snake on the tail
-        this.updateSnake();
+        this.updateSnake(false);
 
         // checks for collisions with self
         // for (var i = this.tailX.length - 1; i >=0; i--) {
@@ -157,14 +159,12 @@ class Game {
             //checks for collisions with fruit
         } else if (this.matriz[this.snakePosX][this.snakePosY].isFruit === true) {
             this.score += this.matriz[this.snakePosX][this.snakePosY].power;
-            if (this.interval > 100) {
-                this.interval = this.interval - this.matriz[this.snakePosX][this.snakePosY].speed;
-            }
             this.matriz[this.snakePosX][this.snakePosY] = new Blank(this.snakePosX, this.snakePosY);
             this.resetInterval();
+
+            this.updateSnake(true);
             // creates new fruit, which automatically replaces the old one
             this.writeFruit();
-
             this.scoreGame();
         }
 

@@ -6,10 +6,15 @@
   margin: 0 auto;
   display: grid;
   grid-gap: 100px;
+  grid-auto-columns: 100%;
   grid-template-areas:
   "header"
   "main"
   "footer";
+
+  @include tablet() {
+    grid-gap: 0;
+  }
 
   .header {
     grid-area: header;
@@ -52,6 +57,7 @@
     color: $color-salmon;
     width: 100%;
     text-align: center;
+
   }
 
   .details {

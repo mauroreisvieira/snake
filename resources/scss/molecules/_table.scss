@@ -18,6 +18,10 @@
 
   .table__image {
 
+  @include mobile() {
+      display: none;
+    }
+
     img {
       border-radius: 50%;
       height: 60px;
@@ -48,5 +52,9 @@
     font-size: $font-medium;
     color: $color-salmon;
     text-align: right;
+
+    @include mobile() {
+      display: none;
+    }
   }
 }

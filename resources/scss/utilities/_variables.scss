@@ -1,17 +1,17 @@
 // Colors
 $color-black     : #000;
 $color-white     : #fff;
-$color-yellow    : #E7BB18;
+$color-yellow    : #FDBC59;
 $color-orange    : #ff974e;
 $color-red       : #ff4d63;
 $color-salmon    : #f86755; // New
 $color-pink      : #DF1070;
-$color-violet    : #a677fb;
+$color-violet    : #6F1EFB;
 $color-blue      : #10A9E7;
 $color-darkblue  : #072c61; // New
 $color-cyan      : #0193a3; // New
 $color-aqua      : #36f7ce; // New
-$color-green     : #98d9b2;
+$color-green     : #01D097;
 $color-darkgreen : #02202C;
 $color-greylight : #D1DDED; // New
 
@@ -84,10 +84,9 @@ $breakpoints: (
 // Buttons
 $buttons: (
   'aqua'     : ($color-aqua, $color-white, $color-salmon, $color-white),
-  'yellow'   : ($color-yellow, $color-white, $color-darkblue, $color-white),
+  'yellow'   : ($color-yellow, $color-white, $color-violet, $color-white),
   'darkblue' : ($color-darkblue, $color-white, $color-yellow, $color-white),
   'salmon'   : ($color-salmon, $color-white, $color-aqua, $color-black),
-  'cyan'     : ($color-cyan, $color-white, $color-darkgreen, $color-white),
   'white'    : ($color-white, $color-black, $color-salmon, $color-white),
   'black'    : ($color-black, $color-white, $color-salmon, $color-black)
 );

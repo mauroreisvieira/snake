@@ -3,7 +3,7 @@ export default class Setting {
     constructor () {}
 
     static get SPEED () {
-        return 400;
+        return 200;
     }
 
     static get BOARD_COLS () {

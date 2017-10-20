@@ -9,6 +9,7 @@
 @import 'utilities/mixins';
 @import 'utilities/grid';
 @import 'utilities/helpers';
+@import 'utilities/global';
 
 /**
  * Atoms
@@ -51,6 +52,6 @@
  */
 @import 'templates/login';
 @import 'templates/game';
-@import 'templates/profile';
+@import 'templates/settings';
 @import 'templates/friends';
 @import 'templates/rating';

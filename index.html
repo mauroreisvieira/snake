@@ -35,34 +35,38 @@
 <body class="login">
     <!-- MAIN -->
     <main class="main" role="main">
-        <div class="logo">
-            <img src="./public/images/logo/snake.svg" alt="Snake Battle" title="Snake Battle">
-        </div>
-        <div class="card card--center card--small">
-            <div class="card__content">
-                <div class="card__contentInfo">
-                    <form class="form">
-                        <div class="form__fieldset form__fieldset--column">
-                            <label for="inputName">Nickname:</label>
-                            <input type="text" id="inputName" name="name" placeholder="John Doe">
-                            <svg>
-                                <rect width="100%" height="100%" class="stroke-salmon"></rect>
-                            </svg>
+        <section class="gird">
+            <div class="container">
+                <div class="logo">
+                    <img src="./public/images/logo/snake.svg" alt="Snake Battle" title="Snake Battle">
+                </div>
+                <div class="card card--center card--small">
+                    <div class="card__content">
+                        <div class="card__contentInfo">
+                            <form class="form">
+                                <div class="form__fieldset form__fieldset--column">
+                                    <label for="inputName">Nickname:</label>
+                                    <input type="text" id="inputName" name="name" placeholder="John Doe">
+                                    <svg>
+                                        <rect width="100%" height="100%" class="stroke-salmon"></rect>
+                                    </svg>
+                                </div>
+                                <div class="form__fieldset form__fieldset--column">
+                                    <label for="inputEmail">Email:</label>
+                                    <input type="email" id="inputEmail" name="email" placeholder="john.doe@mail.eu">
+                                    <svg>
+                                        <rect width="100%" height="100%" class="stroke-salmon"></rect>
+                                    </svg>
+                                </div>
+                                <div class="form__fieldset form__fieldset--column">
+                                    <button class="button button--large button--fullwidth button--aqua" type="submit">Start Play</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form__fieldset form__fieldset--column">
-                            <label for="inputEmail">Email:</label>
-                            <input type="email" id="inputEmail" name="email" placeholder="john.doe@mail.eu">
-                            <svg>
-                                <rect width="100%" height="100%" class="stroke-salmon"></rect>
-                            </svg>
-                        </div>
-                        <div class="form__fieldset form__fieldset--column">
-                            <button class="button button--large button--fullwidth button--aqua" type="submit">Start Play</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
     <!-- FOOTER -->
     <footer class="footer">

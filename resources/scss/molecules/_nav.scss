@@ -5,6 +5,10 @@
 
   &--right {
     justify-content: flex-end;
+
+    @include tablet() {
+      justify-content: center;
+    }
   }
 
   .nav__item {
@@ -12,7 +16,7 @@
     .nav__itemLink {
       color: $color-darkblue;
       display: block;
-      font-size: $font-medium;
+      font-size: $font-small;
       font-weight: $font-bold;
       padding: 4px 14px;
       position: relative;

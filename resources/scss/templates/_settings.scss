@@ -6,24 +6,22 @@
   margin: 0 auto;
   display: grid;
   grid-gap: 100px;
+  grid-auto-columns: 100%;
   grid-template-areas:
   "header"
   "main"
   "footer";
 
+  @include tablet() {
+    grid-gap: 0;
+  }
 
   .header {
     grid-area: header;
   }
 
   .main {
-    align-items: center;
-    display: flex;
     grid-area: main;
-    justify-content: center;
-    min-height: 60vh;
-    text-align: center;
-
 
     .photo {
       border-radius: 50%;
@@ -31,6 +29,7 @@
       margin-top: 25px;
       overflow: hidden;
       width: 220px;
+      margin: auto;
     }
 
     .card {
