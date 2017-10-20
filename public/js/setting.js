@@ -360,7 +360,7 @@ Settings.prototype.view = function view () {
 };
 
 Settings.prototype.updateUser = function updateUser (evt) {
-    console.log("callback");
+    console.log("updateUser");
     var name = evt.srcElement[0].value;
     var email = evt.srcElement[1].value;
 

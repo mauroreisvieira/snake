@@ -547,11 +547,12 @@ var Game = function Game () {
     this.util = new Util();
     this.service = new Service();
 
-    this.gamInBoard = document.querySelector('game-board');
 
     if (!this.service.checkAuth()) {
         this.util.redirect('index');
     }
+
+    this.gamInBoard = document.querySelector('game-board');
 
     if (this.gamInBoard) {
         this.listFruit = new Array(0,1,2,3,4);
@@ -611,8 +612,8 @@ Game.prototype.writeFruit = function writeFruit () {
     var lineRand = this.util.rand(2, this.numberLines - 2);
     var columnRand = this.util.rand(2, this.numberCols - 2);
     var fruit;
-
     var numberFruit = this.listFruit[Math.floor(Math.random() * this.listFruit.length)];
+
     if (numberFruit === 0) {
         // Chili :: Super Fast
         fruit = new Chili(lineRand, columnRand);
@@ -635,7 +636,6 @@ Game.prototype.writeFruit = function writeFruit () {
 };
 
 Game.prototype.updateSnake = function updateSnake (eat) {
-    console.log("UPDATE SNAKE");
     // Update Snake
     this.snake.update(this.snakePosX, this.snakePosY);
     this.snake.view(this.snakePosX, this.snakePosY);
@@ -657,10 +657,7 @@ Game.prototype.gameLoop = function gameLoop () {
 };
 
 Game.prototype.update = function update () {
-    console.log("UPDATE");
     this.direction = this.tempdir;
-    //update the tail
-    //sets the last segment of the tail to blank  before moving the snake
 
     // updates the position of the snake according to the direction
     if (this.direction == 0) {
@@ -751,7 +748,6 @@ Game.prototype.keyPressed = function keyPressed (evt) {
 
 Game.prototype.addEventListeners = function addEventListeners () {
         var this$1 = this;
-
 
     window.addEventListener('keydown', function (evt) {
         this$1.keyPressed(evt);

@@ -18,11 +18,12 @@ class Game {
         this.util = new Util();
         this.service = new Service();
 
-        this.gamInBoard = document.querySelector('game-board');
 
         if (!this.service.checkAuth()) {
             this.util.redirect('index');
         }
+
+        this.gamInBoard = document.querySelector('game-board');
 
         if (this.gamInBoard) {
             this.listFruit = new Array(0,1,2,3,4);
@@ -79,11 +80,11 @@ class Game {
     }
 
     writeFruit() {
-        var lineRand = this.util.rand(2, this.numberLines - 2);
-        var columnRand = this.util.rand(2, this.numberCols - 2);
-        var fruit;
+        let lineRand = this.util.rand(2, this.numberLines - 2);
+        let columnRand = this.util.rand(2, this.numberCols - 2);
+        let fruit;
+        let numberFruit = this.listFruit[Math.floor(Math.random() * this.listFruit.length)];
 
-        var numberFruit = this.listFruit[Math.floor(Math.random() * this.listFruit.length)];
         if (numberFruit === 0) {
             // Chili :: Super Fast
             fruit = new Chili(lineRand, columnRand);
@@ -106,7 +107,6 @@ class Game {
     }
 
     updateSnake(eat) {
-        console.log("UPDATE SNAKE");
         // Update Snake
         this.snake.update(this.snakePosX, this.snakePosY);
         this.snake.view(this.snakePosX, this.snakePosY);
@@ -128,10 +128,7 @@ class Game {
     }
 
     update() {
-        console.log("UPDATE");
         this.direction = this.tempdir;
-        //update the tail
-        //sets the last segment of the tail to blank  before moving the snake
 
         // updates the position of the snake according to the direction
         if (this.direction == 0) {
@@ -221,7 +218,6 @@ class Game {
     }
 
     addEventListeners () {
-
         window.addEventListener('keydown', evt => {
             this.keyPressed(evt);
         });

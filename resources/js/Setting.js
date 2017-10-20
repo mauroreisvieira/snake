@@ -26,7 +26,7 @@ class Settings {
     }
 
     updateUser(evt) {
-        console.log("callback");
+        console.log("updateUser");
         let name = evt.srcElement[0].value;
         let email = evt.srcElement[1].value;
 
