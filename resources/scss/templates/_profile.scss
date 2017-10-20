@@ -23,6 +23,19 @@
     justify-content: center;
     min-height: 60vh;
     text-align: center;
+
+
+    .photo {
+      border-radius: 50%;
+      height: 220px;
+      margin-top: 25px;
+      overflow: hidden;
+      width: 220px;
+    }
+
+    .card {
+      background-color: $color-white;
+    }
   }
 
   .footer {

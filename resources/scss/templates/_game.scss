@@ -2,7 +2,6 @@
   background-color: $color-darkblue;
   background-repeat: no-repeat;
   background: linear-gradient(45deg, lighten($color-darkblue, 8%) 10%, $color-darkblue 40%);
-  min-height: 100vh;
   margin: 0 auto;
   display: grid;
   grid-gap: 100px;
@@ -23,6 +22,7 @@
     flex-direction: column;
     grid-area: sidebar;
     justify-content: center;
+    margin: 40px;
     padding: 0 40px;
 
     .sidebar__item {
@@ -39,6 +39,7 @@
     flex-direction: column;
     grid-area: sidebar;
     justify-content: center;
+    margin: 40px;
     padding: 0 40px;
 
     .sidebar__item {

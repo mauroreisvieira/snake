@@ -18,7 +18,7 @@ input {
     & + svg {
 
       rect {
-        stroke-dasharray: 1000;
+        stroke-dasharray: 2000;
       }
     }
   }
@@ -55,7 +55,7 @@ svg {
 
   rect {
     fill: transparent;
-    stroke-dasharray: 0 1000;
+    stroke-dasharray: 0 2000;
     stroke-width: 3px;
     transition: stroke-dasharray .4s ease-in-out, stroke-width .4s ease-in-out;
   }

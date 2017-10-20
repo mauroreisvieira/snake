@@ -54,7 +54,7 @@ $headings: (
   'h3' : ($color-black, 36px, $font-bold),
   'h4' : ($color-black, 26px, $font-bold),
   'h5' : ($color-darkgreen, 20px, $font-bold),
-  'h6' : ($color-black, 18px, $font-normal)
+  'h6' : ($color-greylight, 18px, $font-bold)
 );
 
 // Content Width
@@ -85,7 +85,7 @@ $breakpoints: (
 $buttons: (
   'aqua'     : ($color-aqua, $color-white, $color-salmon, $color-white),
   'yellow'   : ($color-yellow, $color-white, $color-darkblue, $color-white),
-  'darkblue' : ($color-darkblue, $color-white, $color-yellow, $color-black),
+  'darkblue' : ($color-darkblue, $color-white, $color-yellow, $color-white),
   'salmon'   : ($color-salmon, $color-white, $color-aqua, $color-black),
   'cyan'     : ($color-cyan, $color-white, $color-darkgreen, $color-white),
   'white'    : ($color-white, $color-black, $color-salmon, $color-white),
