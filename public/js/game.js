@@ -16,12 +16,20 @@ Service.prototype.getItem = function getItem (item) {
     return localStorage.getItem(item);
 };
 
+Service.prototype.removeItem = function removeItem (item) {
+    localStorage.removeItem(item);
+};
+
 Service.prototype.checkAuth = function checkAuth () {
     var exists = true;
     if (localStorage.getItem('email') === null) {
         exists = false;
     }
     return exists;
+};
+
+Service.prototype.logout = function logout () {
+    this.removeItem('email');
 };
 
 var Util = function Util () {};
@@ -553,6 +561,7 @@ var Game = function Game () {
     }
 
     this.gamInBoard = document.querySelector('game-board');
+    this.logout = document.querySelector('#logout');
 
     if (this.gamInBoard) {
         this.listFruit = new Array(0,1,2,3,4);
@@ -751,6 +760,12 @@ Game.prototype.addEventListeners = function addEventListeners () {
 
     window.addEventListener('keydown', function (evt) {
         this$1.keyPressed(evt);
+    });
+
+    this.logout.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        this$1.service.logout();
+        this$1.util.redirect('index');
     });
 };
 

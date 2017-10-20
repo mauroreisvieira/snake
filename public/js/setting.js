@@ -16,12 +16,20 @@ Service.prototype.getItem = function getItem (item) {
     return localStorage.getItem(item);
 };
 
+Service.prototype.removeItem = function removeItem (item) {
+    localStorage.removeItem(item);
+};
+
 Service.prototype.checkAuth = function checkAuth () {
     var exists = true;
     if (localStorage.getItem('email') === null) {
         exists = false;
     }
     return exists;
+};
+
+Service.prototype.logout = function logout () {
+    this.removeItem('email');
 };
 
 var Util = function Util () {};
@@ -347,6 +355,7 @@ var Settings = function Settings () {
     }
 
     this.form = document.querySelector('form');
+    this.logout = document.querySelector('#logout');
 
     this.view();
     this.addEventListeners();
@@ -375,6 +384,12 @@ Settings.prototype.addEventListeners = function addEventListeners () {
     this.form.addEventListener('submit', function (evt) {
         evt.preventDefault();
         this$1.updateUser(evt);
+    });
+
+    this.logout.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        this$1.service.logout();
+        this$1.util.redirect('index');
     });
 };
 

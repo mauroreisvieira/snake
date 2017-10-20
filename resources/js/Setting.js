@@ -13,6 +13,7 @@ class Settings {
         }
 
         this.form = document.querySelector('form');
+        this.logout = document.querySelector('#logout');
 
         this.view();
         this.addEventListeners();
@@ -39,6 +40,12 @@ class Settings {
         this.form.addEventListener('submit', evt => {
             evt.preventDefault();
             this.updateUser(evt);
+        });
+
+        this.logout.addEventListener('click', evt => {
+            evt.preventDefault();
+            this.service.logout();
+            this.util.redirect('index');
         });
     }
 }

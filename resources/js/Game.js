@@ -24,6 +24,7 @@ class Game {
         }
 
         this.gamInBoard = document.querySelector('game-board');
+        this.logout = document.querySelector('#logout');
 
         if (this.gamInBoard) {
             this.listFruit = new Array(0,1,2,3,4);
@@ -220,6 +221,12 @@ class Game {
     addEventListeners () {
         window.addEventListener('keydown', evt => {
             this.keyPressed(evt);
+        });
+
+        this.logout.addEventListener('click', evt => {
+            evt.preventDefault();
+            this.service.logout();
+            this.util.redirect('index');
         });
     }
 }

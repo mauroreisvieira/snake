@@ -14,11 +14,19 @@ export default class Service {
         return localStorage.getItem(item);
     }
 
+    removeItem(item) {
+        localStorage.removeItem(item);
+    }
+
     checkAuth() {
         var exists = true;
         if (localStorage.getItem('email') === null) {
             exists = false;
         }
         return exists;
+    }
+
+    logout() {
+        this.removeItem('email');
     }
 }
