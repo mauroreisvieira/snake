@@ -359,7 +359,6 @@ var Auth = function Auth () {
 
 
 Auth.prototype.callback = function callback (evt) {
-    console.log("callback");
     var name = evt.srcElement[0].value;
     var email = evt.srcElement[1].value;
 

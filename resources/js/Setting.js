@@ -21,9 +21,13 @@ class Settings {
 
 
     view() {
-        this.form[0].value = this.service.getItem('name');
-        this.form[1].value = this.service.getItem('email');
-        document.querySelector('#photoProfile').src = this.service.getItem('photo');
+        const name = document.querySelector('#inputName');
+        const email = document.querySelector('#inputEmail');
+        const photo = document.querySelector('#photoProfile');
+
+        name.value = this.service.getItem('name');
+        email.value = this.service.getItem('email');
+        photo.src = this.service.getItem('photo');
     }
 
     updateUser(evt) {

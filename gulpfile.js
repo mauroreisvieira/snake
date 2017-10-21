@@ -84,6 +84,25 @@ gulp.task('js --setting', function () {
     })
 });
 
+gulp.task('js --rating', function () {
+    return rollup.rollup({
+        entry: "./resources/js/Rating.js",
+        plugins: [
+            buble(),
+            uglify(),
+            eslint()
+        ],
+    })
+    .then(function (bundle) {
+        bundle.write({
+            format: "cjs",
+            moduleName: "main",
+            dest: "./public/js/rating.js",
+            sourceMap: true
+        });
+    })
+});
+
 gulp.task('scss', function () {
     return gulp.src('./resources/scss/app.scss')
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
@@ -92,6 +111,6 @@ gulp.task('scss', function () {
 
 gulp.task('watch', function () {
     gulp.watch('./resources/scss/app.scss', ['scss']);
-    gulp.watch('./resources/js/Game.js', ['js --game', 'js --auth', 'js --setting']);
+    gulp.watch('./resources/js/Game.js', ['js --game', 'js --auth', 'js --setting', 'js --rating']);
 });
 

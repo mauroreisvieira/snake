@@ -363,9 +363,13 @@ var Settings = function Settings () {
 
 
 Settings.prototype.view = function view () {
-    this.form[0].value = this.service.getItem('name');
-    this.form[1].value = this.service.getItem('email');
-    document.querySelector('#photoProfile').src = this.service.getItem('photo');
+    var name = document.querySelector('#inputName');
+    var email = document.querySelector('#inputEmail');
+    var photo = document.querySelector('#photoProfile');
+
+    name.value = this.service.getItem('name');
+    email.value = this.service.getItem('email');
+    photo.src = this.service.getItem('photo');
 };
 
 Settings.prototype.updateUser = function updateUser (evt) {

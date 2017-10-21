@@ -17,7 +17,6 @@ class Auth {
 
 
     callback(evt) {
-        console.log("callback");
         let name = evt.srcElement[0].value;
         let email = evt.srcElement[1].value;
 

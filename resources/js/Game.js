@@ -18,6 +18,19 @@ class Game {
         this.util = new Util();
         this.service = new Service();
 
+        fetch('https://randomuser.me/api/?results=9')
+            .then( response => { return response.json(); })
+            .then( data => {
+                const playerList = [];
+                data.results.forEach( (val, key) => {
+                    playerList.push({
+                        'name' : val.name.first + ' ' + val.name.last,
+                        'email' : val.email,
+                        'photo' : val.picture.medium
+                    });
+                });
+                this.service.addItem('players', JSON.stringify(playerList));
+        });
 
         if (!this.service.checkAuth()) {
             this.util.redirect('index');

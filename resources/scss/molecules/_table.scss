@@ -39,6 +39,7 @@
   .table_name {
     @include typography($font-medium, $font-light);
     color: $color-text-default;
+    text-transform: capitalize;
   }
 
   .table__scrore {
