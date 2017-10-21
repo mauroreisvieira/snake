@@ -18,7 +18,7 @@ class Game {
         this.util = new Util();
         this.service = new Service();
 
-        fetch('https://randomuser.me/api/?results=9')
+        fetch('https://randomuser.me/api/?results=9&nat=us')
             .then( response => { return response.json(); })
             .then( data => {
                 const playerList = [];
