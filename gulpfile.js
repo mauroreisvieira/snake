@@ -103,6 +103,25 @@ gulp.task('js --rating', function () {
     })
 });
 
+gulp.task('js --friend', function () {
+    return rollup.rollup({
+        entry: "./resources/js/Friend.js",
+        plugins: [
+            buble(),
+            uglify(),
+            eslint()
+        ],
+    })
+    .then(function (bundle) {
+        bundle.write({
+            format: "cjs",
+            moduleName: "main",
+            dest: "./public/js/friend.js",
+            sourceMap: true
+        });
+    })
+});
+
 gulp.task('scss', function () {
     return gulp.src('./resources/scss/app.scss')
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
@@ -111,6 +130,6 @@ gulp.task('scss', function () {
 
 gulp.task('watch', function () {
     gulp.watch('./resources/scss/app.scss', ['scss']);
-    gulp.watch('./resources/js/Game.js', ['js --game', 'js --auth', 'js --setting', 'js --rating']);
+    gulp.watch('./resources/js/Game.js', ['js --game', 'js --auth', 'js --setting', 'js --rating', 'js --friend']);
 });
 

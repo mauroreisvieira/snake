@@ -22,10 +22,13 @@ class Game {
             .then( response => { return response.json(); })
             .then( data => {
                 const playerList = [];
+                var points = 1400;
                 data.results.forEach( (val, key) => {
+                    points = points - 100;
                     playerList.push({
                         'name' : val.name.first + ' ' + val.name.last,
                         'email' : val.email,
+                        'points' : points,
                         'photo' : val.picture.medium
                     });
                 });
