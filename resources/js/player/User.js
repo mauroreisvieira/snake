@@ -1,5 +1,5 @@
-import {Md5} from './../utils/Md5.js';
-import {Service} from './../utils/Service.js';
+import Md5 from './../utils/Md5.js';
+import Service from './../utils/Service.js';
 
 export default class User {
 

@@ -106,7 +106,7 @@ var Rating = function Rating() {
 Rating.prototype.view = function view () {
     var table = document.querySelector('.table');
     this.players = JSON.parse(this.service.getItem('players'));
-    table.innerHTML = this.players.map(function (player, key) {
+    table.innerHTML = this.players.map(function (player) {
         return ("<tr>\n                    <td class=\"table__image\">\n                        <img src=\"" + (player.photo) + "\" alt=\"" + (player.name) + "\" title=\"" + (player.name) + "\">\n                    </td>\n                    <td class=\"table_name\">" + (player.name) + "</td>\n                    <td class=\"table__scrore\">" + (player.points) + " /pts</td>\n                    <td class=\"table__stars\">★★★★</td>\n                </tr>");
     }).join('');
 };

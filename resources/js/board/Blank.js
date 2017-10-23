@@ -1,5 +1,5 @@
-import {Util} from './../utils/Util.js';
-import {Piece} from './../Piece.js';
+import Util from './../utils/Util.js';
+import Piece from './../Piece.js';
 
 export default class Blank extends Piece {
 

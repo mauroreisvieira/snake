@@ -1,4 +1,4 @@
-import {Util} from './utils/Util.js';
+import Util from './utils/Util.js';
 
 export default class Snake {
 

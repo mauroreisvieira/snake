@@ -1,13 +1,13 @@
-import {Service} from './utils/Service.js';
-import {Util} from './utils/Util.js';
-import {Board} from './Board.js';
-import {Blank} from './board/Blank.js';
-import {Snake} from './Snake.js';
-import {Apple} from './fruits/Apple.js';
-import {Chili} from './fruits/Chili.js';
-import {Banana} from './fruits/Banana.js';
-import {Melon} from './fruits/Melon.js';
-import {Strawberry} from './fruits/Strawberry.js';
+import Service from './utils/Service.js';
+import Util from './utils/Util.js';
+import Board from './Board.js';
+import Blank from './board/Blank.js';
+import Snake from './Snake.js';
+import Apple from './fruits/Apple.js';
+import Chili from './fruits/Chili.js';
+import Banana from './fruits/Banana.js';
+import Melon from './fruits/Melon.js';
+import Strawberry from './fruits/Strawberry.js';
 
 class Game {
 

@@ -1,6 +1,7 @@
-import {Util} from './utils/Util.js';
-import {Wall} from './board/Wall.js';
-import {Blank} from './board/Blank.js';
+import Util from './utils/Util.js';
+import Wall from './board/Wall.js';
+import Blank from './board/Blank.js';
+
 
 export default class Board {
 
@@ -38,7 +39,7 @@ export default class Board {
         innerHTML += "<table>";
         for (let line = 0; line < this.lines; line++) {
             innerHTML += "<tr>";
-            for ( var col = 0; col < this.cols; col++) {
+            for ( let col = 0; col < this.cols; col++) {
                 innerHTML += "<td style='background-color: " + this.board[line][col].color + "'></td>";
             }
             innerHTML += "</tr>";

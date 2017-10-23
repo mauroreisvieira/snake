@@ -1,5 +1,5 @@
-import {Util} from './utils/Util.js';
-import {Service} from './utils/Service.js';
+import Util from './utils/Util.js';
+import Service from './utils/Service.js';
 
 class Rating {
 
