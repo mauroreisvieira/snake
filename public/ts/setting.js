@@ -1,41 +1,117 @@
-export default class Md5 {
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(factory());
+}(this, (function () { 'use strict';
 
-    constructor () {}
+var Service = (function () {
+    function Service() {
+    }
+    /**
+     * Method to return avatar based in email.
+     * @param  {String} hash [description]
+     * @param  {Number} size [description]
+     * @return {[type]}      [description]
+     */
+    Service.prototype.gravatar = function (hash, size) {
+        if (size === void 0) { size = 200; }
+        return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
+    };
+    Service.prototype.addItem = function (name, value) {
+        localStorage.setItem(name, value);
+    };
+    Service.prototype.getItem = function (item) {
+        return localStorage.getItem(item);
+    };
+    Service.prototype.removeItem = function (item) {
+        localStorage.removeItem(item);
+    };
+    Service.prototype.checkAuth = function () {
+        var exists = true;
+        if (localStorage.getItem('email') === null) {
+            exists = false;
+        }
+        return exists;
+    };
+    Service.prototype.logout = function () {
+        this.removeItem('email');
+    };
+    return Service;
+}());
 
-    safeAdd (x : number, y : number) : any {
+var Util = (function () {
+    function Util() {
+    }
+    /**
+     * Receive two number to define limit of random.
+     * @param  {integer} min
+     * @param  {integer} max
+     * @return {integer}
+     */
+    Util.prototype.rand = function (min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    };
+    /**
+     * Receive array and field used to orde this array.
+     * @param  {array} array
+     * @param  {string} field
+     * @return {integer}
+     */
+    Util.prototype.compare = function (array, field) {
+        return array.sort(function (a, b) { return a.field !== b.field ? a.field < b.field ? -1 : 1 : 0; });
+    };
+    /**
+     * Method to redirect to other url.
+     * @param  string url
+     * @return void
+     */
+    Util.prototype.redirect = function (url) {
+        window.location.href = './' + url + '.html';
+    };
+    Util.SPEED = 200;
+    Util.BOARD_COLS = 30;
+    Util.BOARD_LINES = 30;
+    Util.KEY_PAUSE = 32;
+    Util.KEY_UP = 38;
+    Util.KEY_LEFT = 37;
+    Util.KEY_RIGHT = 39;
+    Util.KEY_DOWN = 40;
+    Util.COLOR_SNAKE = '#607d8b';
+    Util.COLOR_BLANK = '#fff';
+    Util.COLOR_BOARD = '#fff';
+    Util.COLOR_WALL = '#35f7cf';
+    return Util;
+}());
+
+var Md5 = (function () {
+    function Md5() {
+    }
+    Md5.prototype.safeAdd = function (x, y) {
         var lsw = (x & 0xffff) + (y & 0xffff);
         var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
         return (msw << 16) | (lsw & 0xffff);
-    }
-
-    bitRotateLeft (num: number, cnt: number) : any {
+    };
+    Md5.prototype.bitRotateLeft = function (num, cnt) {
         return (num << cnt) | (num >>> (32 - cnt));
-    }
-
-    md5cmn (q: any, a: any, b: any, x: any, s: any, t: any): any{
+    };
+    Md5.prototype.md5cmn = function (q, a, b, x, s, t) {
         return this.safeAdd(this.bitRotateLeft(this.safeAdd(this.safeAdd(a, q), this.safeAdd(x, t)), s), b);
-    }
-
-    md5ff (a: any, b: any, c: any, d: any, x: any, s: any, t: any): any{
+    };
+    Md5.prototype.md5ff = function (a, b, c, d, x, s, t) {
         return this.md5cmn((b & c) | (~b & d), a, b, x, s, t);
-    }
-
-    md5gg (a: any, b: any, c: any, d: any, x: any, s: any, t: any): any {
+    };
+    Md5.prototype.md5gg = function (a, b, c, d, x, s, t) {
         return this.md5cmn((b & d) | (c & ~d), a, b, x, s, t);
-    }
-
-    md5hh (a: any, b: any, c: any, d: any, x: any, s: any, t: any): any {
+    };
+    Md5.prototype.md5hh = function (a, b, c, d, x, s, t) {
         return this.md5cmn(b ^ c ^ d, a, b, x, s, t);
-    }
-
-    md5ii (a: any, b: any, c: any, d: any, x: any, s: any, t: any): any {
+    };
+    Md5.prototype.md5ii = function (a, b, c, d, x, s, t) {
         return this.md5cmn(c ^ (b | ~d), a, b, x, s, t);
-    }
-
-    binlMD5 (x: any, len: any): any {
+    };
+    Md5.prototype.binlMD5 = function (x, len) {
         x[len >> 5] |= 0x80 << (len % 32);
         x[((len + 64) >>> 9 << 4) + 14] = len;
-
         var i;
         var olda;
         var oldb;
@@ -45,13 +121,11 @@ export default class Md5 {
         var b = -271733879;
         var c = -1732584194;
         var d = 271733878;
-
         for (i = 0; i < x.length; i += 16) {
             olda = a;
             oldb = b;
             oldc = c;
             oldd = d;
-
             a = this.md5ff(a, b, c, d, x[i], 7, -680876936);
             d = this.md5ff(d, a, b, c, x[i + 1], 12, -389564586);
             c = this.md5ff(c, d, a, b, x[i + 2], 17, 606105819);
@@ -68,7 +142,6 @@ export default class Md5 {
             d = this.md5ff(d, a, b, c, x[i + 13], 12, -40341101);
             c = this.md5ff(c, d, a, b, x[i + 14], 17, -1502002290);
             b = this.md5ff(b, c, d, a, x[i + 15], 22, 1236535329);
-
             a = this.md5gg(a, b, c, d, x[i + 1], 5, -165796510);
             d = this.md5gg(d, a, b, c, x[i + 6], 9, -1069501632);
             c = this.md5gg(c, d, a, b, x[i + 11], 14, 643717713);
@@ -85,7 +158,6 @@ export default class Md5 {
             d = this.md5gg(d, a, b, c, x[i + 2], 9, -51403784);
             c = this.md5gg(c, d, a, b, x[i + 7], 14, 1735328473);
             b = this.md5gg(b, c, d, a, x[i + 12], 20, -1926607734);
-
             a = this.md5hh(a, b, c, d, x[i + 5], 4, -378558);
             d = this.md5hh(d, a, b, c, x[i + 8], 11, -2022574463);
             c = this.md5hh(c, d, a, b, x[i + 11], 16, 1839030562);
@@ -102,7 +174,6 @@ export default class Md5 {
             d = this.md5hh(d, a, b, c, x[i + 12], 11, -421815835);
             c = this.md5hh(c, d, a, b, x[i + 15], 16, 530742520);
             b = this.md5hh(b, c, d, a, x[i + 2], 23, -995338651);
-
             a = this.md5ii(a, b, c, d, x[i], 6, -198630844);
             d = this.md5ii(d, a, b, c, x[i + 7], 10, 1126891415);
             c = this.md5ii(c, d, a, b, x[i + 14], 15, -1416354905);
@@ -119,17 +190,14 @@ export default class Md5 {
             d = this.md5ii(d, a, b, c, x[i + 11], 10, -1120210379);
             c = this.md5ii(c, d, a, b, x[i + 2], 15, 718787259);
             b = this.md5ii(b, c, d, a, x[i + 9], 21, -343485551);
-
             a = this.safeAdd(a, olda);
             b = this.safeAdd(b, oldb);
             c = this.safeAdd(c, oldc);
             d = this.safeAdd(d, oldd);
         }
-
         return [a, b, c, d];
-    }
-
-    binl2rstr (input: any): any {
+    };
+    Md5.prototype.binl2rstr = function (input) {
         var i;
         var output = '';
         var length32 = input.length * 32;
@@ -137,9 +205,8 @@ export default class Md5 {
             output += String.fromCharCode((input[i >> 5] >>> (i % 32)) & 0xff);
         }
         return output;
-    }
-
-    rstr2binl (input: any): any {
+    };
+    Md5.prototype.rstr2binl = function (input) {
         var i;
         var output = [];
         output[(input.length >> 2) - 1] = undefined;
@@ -151,19 +218,17 @@ export default class Md5 {
             output[i >> 5] |= (input.charCodeAt(i / 8) & 0xff) << (i % 32);
         }
         return output;
-    }
-
+    };
     /*
     * Calculate the MD5 of a raw string
     */
-    rstrMD5 (s: any): any {
+    Md5.prototype.rstrMD5 = function (s) {
         return this.binl2rstr(this.binlMD5(this.rstr2binl(s), s.length * 8));
-    }
-
+    };
     /*
     * Calculate the HMAC-MD5, of a key and some data (raw strings)
     */
-    rstrHMACMD5 (key: number, data: any): any {
+    Md5.prototype.rstrHMACMD5 = function (key, data) {
         var i;
         var bkey = this.rstr2binl(key);
         var ipad = [];
@@ -179,9 +244,8 @@ export default class Md5 {
         }
         hash = this.binlMD5(ipad.concat(this.rstr2binl(data)), 512 + data.length * 8);
         return this.binl2rstr(this.binlMD5(opad.concat(hash), 512 + 128));
-    }
-
-    rstr2hex (input: any): any {
+    };
+    Md5.prototype.rstr2hex = function (input) {
         var output = '';
         var hexTab = '0123456789abcdef';
         var x;
@@ -191,29 +255,23 @@ export default class Md5 {
             output += hexTab.charAt((x >>> 4) & 0x0f) + hexTab.charAt(x & 0x0f);
         }
         return output;
-    }
-
-    str2rstrUTF8 (input: any): any {
+    };
+    Md5.prototype.str2rstrUTF8 = function (input) {
         return unescape(encodeURIComponent(input));
-    }
-
-    rawMD5 (s: any): any {
+    };
+    Md5.prototype.rawMD5 = function (s) {
         return this.rstrMD5(this.str2rstrUTF8(s));
-    }
-
-    hexMD5 (s: any): any {
+    };
+    Md5.prototype.hexMD5 = function (s) {
         return this.rstr2hex(this.rawMD5(s));
-    }
-
-    rawHMACMD5 (k: any, d: any): any {
+    };
+    Md5.prototype.rawHMACMD5 = function (k, d) {
         return this.rstrHMACMD5(this.str2rstrUTF8(k), this.str2rstrUTF8(d));
-    }
-
-    hexHMACMD5 (k: any, d: any): any {
+    };
+    Md5.prototype.hexHMACMD5 = function (k, d) {
         return this.rstr2hex(this.rawHMACMD5(k, d));
-    }
-
-    md5 (string: string, key: boolean, raw: boolean): any {
+    };
+    Md5.prototype.md5 = function (string, key, raw) {
         if (!key) {
             if (!raw) {
                 return this.hexMD5(string);
@@ -224,5 +282,82 @@ export default class Md5 {
             return this.hexHMACMD5(key, string);
         }
         return this.rawHMACMD5(key, string);
+    };
+    return Md5;
+}());
+
+var User = (function () {
+    function User(name, email, score) {
+        this.name = name;
+        this.email = email;
+        this.score = score;
+        var hash = new Md5();
+        var service = new Service();
+        this.hash = hash.md5(this.email, false, false);
+        this.photo = service.gravatar(this.hash);
+        service.addItem('name', this.name);
+        service.addItem('email', this.email);
+        service.addItem('photo', this.photo);
     }
-}
+    Object.defineProperty(User.prototype, "fullName", {
+        get: function () {
+            return this.name;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(User.prototype, "userPhoto", {
+        get: function () {
+            return this.photo;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return User;
+}());
+
+var Settings = (function () {
+    function Settings() {
+        this.util = new Util();
+        this.service = new Service();
+        if (!this.service.checkAuth()) {
+            this.util.redirect('index');
+        }
+        this.form = document.querySelector('form');
+        this.logout = document.querySelector('#logout');
+        this.view();
+        this.addEventListeners();
+    }
+    Settings.prototype.view = function () {
+        var name = document.querySelector('#inputName');
+        var email = document.querySelector('#inputEmail');
+        var photo = document.querySelector('#photoProfile');
+        name.value = this.service.getItem('name');
+        email.value = this.service.getItem('email');
+        photo.src = this.service.getItem('photo');
+    };
+    Settings.prototype.updateUser = function (evt) {
+        var name = evt.srcElement[0].value;
+        var email = evt.srcElement[1].value;
+        if (email.length > 0) {
+            new User(name, email);
+        }
+    };
+    Settings.prototype.addEventListeners = function () {
+        var _this = this;
+        this.form.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+            _this.updateUser(evt);
+        });
+        this.logout.addEventListener('click', function (evt) {
+            evt.preventDefault();
+            _this.service.logout();
+            _this.util.redirect('index');
+        });
+    };
+    return Settings;
+}());
+new Settings();
+
+})));
+//# sourceMappingURL=setting.js.map

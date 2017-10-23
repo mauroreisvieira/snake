@@ -1,15 +1,38 @@
-import Service from './utils/Service.js';
-import Util from './utils/Util.js';
-import Board from './Board.js';
-import Blank from './board/Blank.js';
-import Snake from './Snake.js';
-import Apple from './fruits/Apple.js';
-import Chili from './fruits/Chili.js';
-import Banana from './fruits/Banana.js';
-import Melon from './fruits/Melon.js';
-import Strawberry from './fruits/Strawberry.js';
+import Service from './utils/Service';
+import Util from './utils/Util';
+import Board from './Board';
+import Blank from './board/Blank';
+import Snake from './Snake';
+import Apple from './fruits/Apple';
+import Chili from './fruits/Chili';
+import Banana from './fruits/Banana';
+import Melon from './fruits/Melon';
+import Strawberry from './fruits/Strawberry';
 
 class Game {
+    private util: any;
+    private service: any;
+    private gamInBoard: any;
+    private logout: any;
+    private listFruit: any = [0,1,2,3,4];
+    private length: number = 0;
+    private tailX: any = [];
+    private tailY: any = [];
+    private running: boolean = false;
+    private gameOver: boolean = false;
+    private direction: number = 2;
+    private int: number;
+    private tempdir = 2;
+    private snakePosX: number = 2;
+    private snakePosY: number = 2;
+    private score: number = 0;
+    private time: number = 0;
+    private numberLines: number = Util.BOARD_LINES;
+    private numberCols: number = Util.BOARD_COLS;
+    private interval: number = Util.SPEED;
+    private board: any;
+    private matriz: any;
+    private snake: any;
 
     constructor () {
 
@@ -41,27 +64,9 @@ class Game {
         this.logout = document.querySelector('#logout');
 
         if (this.gamInBoard) {
-            this.listFruit = new Array(0,1,2,3,4);
 
-            this.length = 0;
             this.tailX = [this.snakePosX];
             this.tailY = [this.snakePosY];
-
-            this.running = false;
-            this.gameOver = false;
-            this.direction = 2;
-            this.int;
-            this.tempdir = this.direction;
-
-            this.snakePosX = 2;
-            this.snakePosY = 2;
-
-            this.score = 0;
-            this.time = 0;
-
-            this.numberLines = Util.BOARD_LINES;
-            this.numberCols = Util.BOARD_COLS;
-            this.interval = Util.SPEED;
 
             this.gameLoop = this.gameLoop.bind(this);
             this.update = this.update.bind(this);
@@ -89,12 +94,12 @@ class Game {
         this.addEventListeners();
     }
 
-    resetInterval() {
+    resetInterval(): void {
         clearInterval(this.int);
         this.int = setInterval(this.gameLoop, this.interval);
     }
 
-    writeFruit() {
+    writeFruit(): void {
         let lineRand = this.util.rand(2, this.numberLines - 2);
         let columnRand = this.util.rand(2, this.numberCols - 2);
         let fruit;
@@ -121,11 +126,10 @@ class Game {
         fruit.view(lineRand, columnRand);
     }
 
-    updateSnake(eat) {
+    updateSnake(eat: boolean): void {
         // Update Snake
         this.snake.update(this.snakePosX, this.snakePosY);
         this.snake.view(this.snakePosX, this.snakePosY);
-        console.log(this.snake);
 
         if (eat) return;
         // Remove Snake Tail
@@ -134,7 +138,7 @@ class Game {
         this.board.clean(tailSnake.x , tailSnake.y);
     }
 
-    gameLoop() {
+    gameLoop(): void {
         if (this.running && !this.gameOver) {
             this.update();
         } else if (this.gameOver){
@@ -142,9 +146,8 @@ class Game {
         }
     }
 
-    update() {
+    update(): void {
         this.direction = this.tempdir;
-
         // updates the position of the snake according to the direction
         if (this.direction == 0) {
             this.snakePosY--;
@@ -186,20 +189,20 @@ class Game {
         this.timeGame();
     }
 
-    speedGame() {
+    speedGame(): void {
         document.querySelector("speed").innerHTML = this.interval;
     }
 
-    scoreGame() {
+    scoreGame(): void {
         document.querySelector("score").innerHTML = this.score;
     }
 
-    timeGame() {
+    timeGame(): void {
         setInterval(this.time, 100);
         document.querySelector("time").innerHTML = this.time++;
     }
 
-    keyPressed(evt) {
+    keyPressed(evt: any): void {
         switch(evt.keyCode) {
         case Util.KEY_UP:
             evt.preventDefault();
@@ -232,7 +235,7 @@ class Game {
         }
     }
 
-    addEventListeners () {
+    addEventListeners(): void {
         window.addEventListener('keydown', evt => {
             this.keyPressed(evt);
         });

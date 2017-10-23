@@ -24,7 +24,7 @@ class Settings {
     }
 
 
-    view() {
+    view(): void {
         const name = document.querySelector('#inputName');
         const email = document.querySelector('#inputEmail');
         const photo = document.querySelector('#photoProfile');
@@ -34,7 +34,7 @@ class Settings {
         photo.src = this.service.getItem('photo');
     }
 
-    updateUser(evt) {
+    updateUser(evt: any): void {
 
         let name = evt.srcElement[0].value;
         let email = evt.srcElement[1].value;
@@ -44,7 +44,7 @@ class Settings {
         }
     }
 
-    addEventListeners () {
+    addEventListeners (): void {
         this.form.addEventListener('submit', evt => {
             evt.preventDefault();
             this.updateUser(evt);

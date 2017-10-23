@@ -1,7 +1,10 @@
-import Util from './utils/Util.js';
-import Service from './utils/Service.js';
+import Util from './utils/Util';
+import Service from './utils/Service';
 
 class Rating {
+    private util: any;
+    private service: any;
+    private players: any = {};
 
     constructor() {
 
@@ -11,14 +14,13 @@ class Rating {
         if (!this.service.checkAuth()) {
             this.util.redirect('index');
         }
-
-        this.players = [];
         this.view();
     }
 
-    view() {
+    view(): void {
         const table = document.querySelector('.table');
         this.players = JSON.parse(this.service.getItem('players'));
+        // Sort Array
         this.players.sort(function(a, b) {
             return a.points - b.points;
         });

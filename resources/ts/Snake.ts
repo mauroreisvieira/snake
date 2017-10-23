@@ -1,24 +1,25 @@
-import Util from './utils/Util.js';
+import Util from './utils/Util';
 
 export default class Snake {
+    private x: number;
+    private y: number;
+    private color: any = Util.COLOR_SNAKE;
+    private snake: any = [];
 
-    constructor (posX, posY) {
+    constructor (posX: number, posY: number) {
         this.x = posX;
         this.y = posY;
-        this.color = Util.COLOR_SNAKE;
-
-        this.snake = new Array();
         this.create();
     }
 
-    create() {
+    create(): void {
         this.snake.unshift({
             x : this.x,
             y : this.y
         });
     }
 
-    update(posX, posY) {
+    update(posX: number, posY: number): any {
         this.snake.unshift({
             x : posX,
             y : posY
@@ -26,11 +27,11 @@ export default class Snake {
         return this.snake;
     }
 
-    remove() {
+    remove(): any {
         return this.snake.pop();
     }
 
-    view(posX, posY) {
+    view(posX: number, posY: number): void{
         document.querySelectorAll('table tr:nth-child(' + posX + ') td:nth-child(' + posY + ')')[0].style.backgroundColor = this.color;
     }
 }

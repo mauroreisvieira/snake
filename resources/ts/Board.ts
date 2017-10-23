@@ -1,27 +1,29 @@
-import Util from './utils/Util.js';
-import Wall from './board/Wall.js';
-import Blank from './board/Blank.js';
-
+import Util from './utils/Util';
+import Wall from './board/Wall';
+import Blank from './board/Blank';
 
 export default class Board {
+    private lines: number;
+    private cols: number;
+    private displayInView: any;
+    private colorBoard: any = Util.COLOR_BOARD;
+    private colorWall: any = Util.COLOR_WALL;
+    private board: any = [];
 
-    constructor (lines, cols, displayInView) {
+    constructor (lines: number, cols: number, displayInView: any) {
         this.lines = lines;
         this.cols = cols;
         this.displayInView = displayInView;
-
-        this.colorBoard = Util.COLOR_BOARD;
-        this.colorWall = Util.COLOR_WALL;
 
         this.board = new Array(this.lines);
         this.create();
     }
 
-    get() {
+    get(): any {
         return this.board;
     }
 
-    create() {
+    create(): void {
         for (var line = 0; line < this.lines; line++) {
             this.board[line] = new Array(this.cols);
             for ( var col = 0; col < this.cols; col++) {
@@ -34,7 +36,7 @@ export default class Board {
         }
     }
 
-    view() {
+    view(): void {
         var innerHTML = "";
         innerHTML += "<table>";
         for (let line = 0; line < this.lines; line++) {
@@ -48,7 +50,7 @@ export default class Board {
         this.displayInView.innerHTML = innerHTML;
     }
 
-    clean(posX, posY) {
+    clean(posX: number, posY: number): void {
         document.querySelectorAll('table tr:nth-child(' + posX + ') td:nth-child(' + posY + ')')[0].style.backgroundColor = this.colorBoard;
     }
 }

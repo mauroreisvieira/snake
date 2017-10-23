@@ -1,7 +1,9 @@
-import Service from './utils/Service.js';
-import Util from './utils/Util.js';
+import Util from './utils/Util';
+import Service from './utils/Service';
 
 class Friend {
+    private util: any;
+    private service: any;
 
     constructor () {
 
@@ -11,7 +13,6 @@ class Friend {
         if (!this.service.checkAuth()) {
             this.util.redirect('index');
         }
-
     }
 }
 

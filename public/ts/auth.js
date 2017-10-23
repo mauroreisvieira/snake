@@ -77,6 +77,7 @@ var Util = (function () {
     Util.KEY_RIGHT = 39;
     Util.KEY_DOWN = 40;
     Util.COLOR_SNAKE = '#607d8b';
+    Util.COLOR_BLANK = '#fff';
     Util.COLOR_BOARD = '#fff';
     Util.COLOR_WALL = '#35f7cf';
     return Util;
@@ -292,7 +293,7 @@ var User = (function () {
         this.score = score;
         var hash = new Md5();
         var service = new Service();
-        this.hash = hash.md5(this.email);
+        this.hash = hash.md5(this.email, false, false);
         this.photo = service.gravatar(this.hash);
         service.addItem('name', this.name);
         service.addItem('email', this.email);
@@ -315,48 +316,34 @@ var User = (function () {
     return User;
 }());
 
-var Settings = (function () {
-    function Settings() {
+var Auth = (function () {
+    function Auth() {
         this.util = new Util();
         this.service = new Service();
-        if (!this.service.checkAuth()) {
-            this.util.redirect('index');
+        if (this.service.checkAuth()) {
+            this.util.redirect('game');
         }
         this.form = document.querySelector('form');
-        this.logout = document.querySelector('#logout');
-        this.view();
         this.addEventListeners();
     }
-    Settings.prototype.view = function () {
-        var name = document.querySelector('#inputName');
-        var email = document.querySelector('#inputEmail');
-        var photo = document.querySelector('#photoProfile');
-        name.value = this.service.getItem('name');
-        email.value = this.service.getItem('email');
-        photo.src = this.service.getItem('photo');
-    };
-    Settings.prototype.updateUser = function (evt) {
+    Auth.prototype.callback = function (evt) {
         var name = evt.srcElement[0].value;
         var email = evt.srcElement[1].value;
         if (email.length > 0) {
-            new User(name, email);
+            new User(name, email, 0);
+            this.util.redirect('game');
         }
     };
-    Settings.prototype.addEventListeners = function () {
+    Auth.prototype.addEventListeners = function () {
         var _this = this;
         this.form.addEventListener('submit', function (evt) {
             evt.preventDefault();
-            _this.updateUser(evt);
-        });
-        this.logout.addEventListener('click', function (evt) {
-            evt.preventDefault();
-            _this.service.logout();
-            _this.util.redirect('index');
+            _this.callback(evt);
         });
     };
-    return Settings;
+    return Auth;
 }());
-new Settings();
+new Auth();
 
 })));
-//# sourceMappingURL=settings.js.map
+//# sourceMappingURL=auth.js.map

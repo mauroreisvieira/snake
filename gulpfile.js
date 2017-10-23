@@ -22,23 +22,6 @@ gulp.task('production', function (cb) {
     ], cb);
 });
 
-gulp.task('ts --user', function () {
-    return rollup.rollup({
-        entry: "./resources/ts/player/User.ts",
-        plugins: [
-            rollupTypescript()
-        ],
-    })
-    .then(function (bundle) {
-        bundle.write({
-            format: "umd",
-            moduleName: "library",
-            dest: "./public/js/user.js",
-            sourceMap: true
-        });
-    });
-});
-
 gulp.task('ts --settings', function () {
     return rollup.rollup({
         entry: "./resources/ts/Setting.ts",
@@ -50,7 +33,75 @@ gulp.task('ts --settings', function () {
         bundle.write({
             format: "umd",
             moduleName: "library",
-            dest: "./public/js/settings.js",
+            dest: "./public/ts/setting.js",
+            sourceMap: true
+        });
+    });
+});
+
+gulp.task('ts --auth', function () {
+    return rollup.rollup({
+        entry: "./resources/ts/Auth.ts",
+        plugins: [
+            rollupTypescript()
+        ],
+    })
+    .then(function (bundle) {
+        bundle.write({
+            format: "umd",
+            moduleName: "library",
+            dest: "./public/ts/auth.js",
+            sourceMap: true
+        });
+    });
+});
+
+gulp.task('ts --game', function () {
+    return rollup.rollup({
+        entry: "./resources/ts/Game.ts",
+        plugins: [
+            rollupTypescript()
+        ],
+    })
+    .then(function (bundle) {
+        bundle.write({
+            format: "umd",
+            moduleName: "library",
+            dest: "./public/ts/game.js",
+            sourceMap: true
+        });
+    });
+});
+
+gulp.task('ts --friend', function () {
+    return rollup.rollup({
+        entry: "./resources/ts/Friend.ts",
+        plugins: [
+            rollupTypescript()
+        ],
+    })
+    .then(function (bundle) {
+        bundle.write({
+            format: "umd",
+            moduleName: "library",
+            dest: "./public/ts/friend.js",
+            sourceMap: true
+        });
+    });
+});
+
+gulp.task('ts --rating', function () {
+    return rollup.rollup({
+        entry: "./resources/ts/Rating.ts",
+        plugins: [
+            rollupTypescript()
+        ],
+    })
+    .then(function (bundle) {
+        bundle.write({
+            format: "umd",
+            moduleName: "library",
+            dest: "./public/ts/rating.js",
             sourceMap: true
         });
     });
@@ -159,15 +210,22 @@ gulp.task('scss', function () {
 
 gulp.task('watch', function () {
     gulp.watch('./resources/scss/app.scss', ['scss']);
-    gulp.watch('./resources/js/Game.js',
+    gulp.watch('./resources/**/*.js',
         [
             'js --game',
             'js --auth',
             'js --setting',
             'js --rating',
-            'js --friend',
-            'ts --user',
-            'ts --settings'
+            'js --friend'
+        ]
+    );
+    gulp.watch('./resources/**/*.ts',
+        [
+            'ts --game',
+            'ts --auth',
+            'ts --settings',
+            'ts --rating',
+            'ts --friend'
         ]
     );
 });

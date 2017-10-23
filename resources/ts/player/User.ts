@@ -16,7 +16,7 @@ export default class User {
         let hash = new Md5();
         let service = new Service();
 
-        this.hash = hash.md5(this.email);
+        this.hash = hash.md5(this.email, false, false);
         this.photo = service.gravatar(this.hash);
 
         service.addItem('name', this.name);
