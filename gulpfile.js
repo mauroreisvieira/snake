@@ -6,25 +6,37 @@ const pump             = require('pump');
 const uglify           = require('gulp-uglify');
 const uglifyjs         = require('uglify-js');
 const minifier         = require('gulp-uglify/minifier');
-const minify           = require('uglify-js');
-const sourcemaps       = require("gulp-sourcemaps");
 const sass             = require('gulp-sass');
-const concat           = require("gulp-concat");
 const eslint           = require('gulp-eslint');
 
 gulp.task('production', function (cb) {
-  // the same options as described above
-  var options = {
-    preserveComments: 'license'
-  };
+    // the same options as described above
+    var options = {
+        preserveComments: 'license'
+    };
 
-  pump([
-      gulp.src('public/js/*.js'),
-      minifier(options, uglifyjs),
-      gulp.dest('public/js')
-    ],
-    cb
-  );
+    pump([
+        gulp.src('public/js/*.js'),
+        minifier(options, uglifyjs),
+        gulp.dest('public/js')
+    ], cb);
+});
+
+gulp.task('typescript', function () {
+    return rollup.rollup({
+        entry: "./resources/js/player/User.ts",
+        plugins: [
+            rollupTypescript()
+        ],
+    })
+    .then(function (bundle) {
+        bundle.write({
+            format: "umd",
+            moduleName: "library",
+            dest: "./public/js/user.js",
+            sourceMap: true
+        });
+    });
 });
 
 gulp.task('js --game', function () {
@@ -43,7 +55,7 @@ gulp.task('js --game', function () {
             dest: "./public/js/game.js",
             sourceMap: true
         });
-    })
+    });
 });
 
 gulp.task('js --auth', function () {
@@ -62,7 +74,7 @@ gulp.task('js --auth', function () {
             dest: "./public/js/auth.js",
             sourceMap: true
         });
-    })
+    });
 });
 
 gulp.task('js --setting', function () {
@@ -81,7 +93,7 @@ gulp.task('js --setting', function () {
             dest: "./public/js/setting.js",
             sourceMap: true
         });
-    })
+    });
 });
 
 gulp.task('js --rating', function () {
@@ -100,7 +112,7 @@ gulp.task('js --rating', function () {
             dest: "./public/js/rating.js",
             sourceMap: true
         });
-    })
+    });
 });
 
 gulp.task('js --friend', function () {
@@ -119,7 +131,7 @@ gulp.task('js --friend', function () {
             dest: "./public/js/friend.js",
             sourceMap: true
         });
-    })
+    });
 });
 
 gulp.task('scss', function () {
