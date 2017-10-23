@@ -1,15 +1,13 @@
-import Service from './utils/Service.js';
-import Util from './utils/Util.js';
-import User from './player/User.js';
-import Board from './Board.js';
-import Blank from './board/Blank.js';
-import Snake from './Snake.js';
-import Piece from './Piece.js';
-import Apple from './fruits/Apple.js';
-import Chili from './fruits/Chili.js';
-import Banana from './fruits/Banana.js';
-import Melon from './fruits/Melon.js';
-import Strawberry from './fruits/Strawberry.js';
+import {Service} from './utils/Service.js';
+import {Util} from './utils/Util.js';
+import {Board} from './Board.js';
+import {Blank} from './board/Blank.js';
+import {Snake} from './Snake.js';
+import {Apple} from './fruits/Apple.js';
+import {Chili} from './fruits/Chili.js';
+import {Banana} from './fruits/Banana.js';
+import {Melon} from './fruits/Melon.js';
+import {Strawberry} from './fruits/Strawberry.js';
 
 class Game {
 
@@ -23,7 +21,7 @@ class Game {
             .then( data => {
                 const playerList = [];
                 var points = 1400;
-                data.results.forEach( (val, key) => {
+                data.results.forEach( (val) => {
                     points = points - 100;
                     playerList.push({
                         'name' : val.name.first + ' ' + val.name.last,
@@ -33,7 +31,7 @@ class Game {
                     });
                 });
                 this.service.addItem('players', JSON.stringify(playerList));
-        });
+            });
 
         if (!this.service.checkAuth()) {
             this.util.redirect('index');
@@ -203,33 +201,33 @@ class Game {
 
     keyPressed(evt) {
         switch(evt.keyCode) {
-            case Util.KEY_UP:
-                evt.preventDefault();
-                if (this.direction != 2) {
-                    this.tempdir = 1;
-                }
+        case Util.KEY_UP:
+            evt.preventDefault();
+            if (this.direction != 2) {
+                this.tempdir = 1;
+            }
             break;
-            case Util.KEY_DOWN:
-                evt.preventDefault();
-                if (this.direction != 1) {
-                    this.tempdir = 2;
-                }
+        case Util.KEY_DOWN:
+            evt.preventDefault();
+            if (this.direction != 1) {
+                this.tempdir = 2;
+            }
             break;
-            case Util.KEY_RIGHT:
-                evt.preventDefault();
-                if (this.direction != 0) {
-                    this.tempdir = -1;
-                }
+        case Util.KEY_RIGHT:
+            evt.preventDefault();
+            if (this.direction != 0) {
+                this.tempdir = -1;
+            }
             break;
-            case Util.KEY_LEFT:
-                evt.preventDefault();
-                if (this.direction != -1) {
-                    this.tempdir = 0;
-                }
+        case Util.KEY_LEFT:
+            evt.preventDefault();
+            if (this.direction != -1) {
+                this.tempdir = 0;
+            }
             break;
-            case Util.KEY_PAUSE:
-                evt.preventDefault();
-                this.running = !this.running;
+        case Util.KEY_PAUSE:
+            evt.preventDefault();
+            this.running = !this.running;
             break;
         }
     }

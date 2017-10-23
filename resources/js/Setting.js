@@ -1,6 +1,6 @@
-import Service from './utils/Service.js';
-import Util from './utils/Util.js';
-import User from './player/User.js';
+import {Service} from './utils/Service.js';
+import {Util} from './utils/Util.js';
+import {User} from './player/User.js';
 
 class Settings {
 

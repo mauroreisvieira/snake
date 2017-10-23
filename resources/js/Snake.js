@@ -1,4 +1,4 @@
-import Util from './utils/Util.js';
+import {Util} from './utils/Util.js';
 
 export default class Snake {
 
@@ -19,8 +19,6 @@ export default class Snake {
     }
 
     update(posX, posY) {
-        console.log(posX);
-        console.log(posY);
         this.snake.unshift({
             x : posX,
             y : posY

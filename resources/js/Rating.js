@@ -1,5 +1,5 @@
-import Util from './utils/Util.js';
-import Service from './utils/Service.js';
+import {Util} from './utils/Util.js';
+import {Service} from './utils/Service.js';
 
 class Rating {
 
@@ -19,7 +19,7 @@ class Rating {
     view() {
         const table = document.querySelector('.table');
         this.players = JSON.parse(this.service.getItem('players'));
-        table.innerHTML = this.players.map((player, key) => {
+        table.innerHTML = this.players.map((player) => {
             return `<tr>
                     <td class="table__image">
                         <img src="${player.photo}" alt="${player.name}" title="${player.name}">
