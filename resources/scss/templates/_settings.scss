@@ -45,4 +45,31 @@
     color: $color-white;
     text-align: center;
   }
+
+  .colors {
+    list-style: none;
+    padding: 0;
+
+    .colors__item {
+      display: inline-block;
+
+      label {
+        background-color: $color-green;
+        border-radius: 50%;
+        cursor: pointer;
+        display: block;
+        height: 45px;
+        line-height: 45px;
+        overflow: hidden;
+        text-align: center;
+        text-indent: -9999px;
+        width: 45px;
+      }
+
+      input {
+        display: none;
+        visibility: hidden;
+      }
+    }
+  }
 }

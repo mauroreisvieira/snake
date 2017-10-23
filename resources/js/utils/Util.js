@@ -2,10 +2,31 @@ export default class Util {
 
     constructor () {}
 
+    /**
+     * Receive two number to define limit of random.
+     * @param  {integer} min
+     * @param  {integer} max
+     * @return {integer}
+     */
     rand (min, max) {
         return Math.floor(Math.random() * (max - min) + min);
     }
 
+    /**
+     * Receive array and field used to orde this array.
+     * @param  {array} array
+     * @param  {string} field
+     * @return {integer}
+     */
+    compare(array, field) {
+        return array.sort((a, b) => a.field !== b.field ? a.field < b.field ? -1 : 1 : 0);
+    }
+
+    /**
+     * Method to redirect to other url.
+     * @param  string url
+     * @return void
+     */
     redirect(url) {
         window.location.href = './' + url + '.html';
     }

@@ -2,6 +2,12 @@
 
 var Service = function Service () {};
 
+/**
+ * [gravatar description]
+ * @param  {String} hash [description]
+ * @param  {Number} size [description]
+ * @return {[type]}  [description]
+ */
 Service.prototype.gravatar = function gravatar (hash, size) {
         if ( size === void 0 ) size = 200;
 
@@ -36,10 +42,31 @@ var Util = function Util () {};
 
 var staticAccessors = { SPEED: {},BOARD_COLS: {},BOARD_LINES: {},KEY_PAUSE: {},KEY_UP: {},KEY_LEFT: {},KEY_RIGHT: {},KEY_DOWN: {},COLOR_SNAKE: {},COLOR_BOARD: {},COLOR_WALL: {} };
 
+/**
+ * Receive two number to define limit of random.
+ * @param  {integer} min
+ * @param  {integer} max
+ * @return {integer}
+ */
 Util.prototype.rand = function rand (min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 };
 
+/**
+ * Receive array and field used to orde this array.
+ * @param  {array} array
+ * @param  {string} field
+ * @return {integer}
+ */
+Util.prototype.compare = function compare (array, field) {
+    return array.sort(function (a, b) { return a.field !== b.field ? a.field < b.field ? -1 : 1 : 0; });
+};
+
+/**
+ * Method to redirect to other url.
+ * @param  string url
+ * @return void
+ */
 Util.prototype.redirect = function redirect (url) {
     window.location.href = './' + url + '.html';
 };
@@ -305,7 +332,7 @@ var Game = function Game () {
             var playerList = [];
             var points = 1400;
             data.results.forEach( function (val) {
-                points = points - 100;
+                points = this$1.util.rand(100, 2000);
                 playerList.push({
                     'name' : val.name.first + ' ' + val.name.last,
                     'email' : val.email,

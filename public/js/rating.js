@@ -4,10 +4,31 @@ var Util = function Util () {};
 
 var staticAccessors = { SPEED: {},BOARD_COLS: {},BOARD_LINES: {},KEY_PAUSE: {},KEY_UP: {},KEY_LEFT: {},KEY_RIGHT: {},KEY_DOWN: {},COLOR_SNAKE: {},COLOR_BOARD: {},COLOR_WALL: {} };
 
+/**
+ * Receive two number to define limit of random.
+ * @param  {integer} min
+ * @param  {integer} max
+ * @return {integer}
+ */
 Util.prototype.rand = function rand (min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 };
 
+/**
+ * Receive array and field used to orde this array.
+ * @param  {array} array
+ * @param  {string} field
+ * @return {integer}
+ */
+Util.prototype.compare = function compare (array, field) {
+    return array.sort(function (a, b) { return a.field !== b.field ? a.field < b.field ? -1 : 1 : 0; });
+};
+
+/**
+ * Method to redirect to other url.
+ * @param  string url
+ * @return void
+ */
 Util.prototype.redirect = function redirect (url) {
     window.location.href = './' + url + '.html';
 };
@@ -60,6 +81,12 @@ Object.defineProperties( Util, staticAccessors );
 
 var Service = function Service () {};
 
+/**
+ * [gravatar description]
+ * @param  {String} hash [description]
+ * @param  {Number} size [description]
+ * @return {[type]}  [description]
+ */
 Service.prototype.gravatar = function gravatar (hash, size) {
         if ( size === void 0 ) size = 200;
 
@@ -106,6 +133,10 @@ var Rating = function Rating() {
 Rating.prototype.view = function view () {
     var table = document.querySelector('.table');
     this.players = JSON.parse(this.service.getItem('players'));
+    this.players.sort(function(a, b) {
+        return a.points - b.points;
+    });
+    this.players.reverse();
     table.innerHTML = this.players.map(function (player) {
         return ("<tr>\n                    <td class=\"table__image\">\n                        <img src=\"" + (player.photo) + "\" alt=\"" + (player.name) + "\" title=\"" + (player.name) + "\">\n                    </td>\n                    <td class=\"table_name\">" + (player.name) + "</td>\n                    <td class=\"table__scrore\">" + (player.points) + " /pts</td>\n                    <td class=\"table__stars\">★★★★</td>\n                </tr>");
     }).join('');

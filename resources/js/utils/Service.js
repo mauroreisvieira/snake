@@ -2,6 +2,12 @@ export default class Service {
 
     constructor () {}
 
+    /**
+     * [gravatar description]
+     * @param  {String} hash [description]
+     * @param  {Number} size [description]
+     * @return {[type]}      [description]
+     */
     gravatar(hash, size = 200) {
         return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
     }

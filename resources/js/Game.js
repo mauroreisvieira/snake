@@ -22,7 +22,7 @@ class Game {
                 const playerList = [];
                 var points = 1400;
                 data.results.forEach( (val) => {
-                    points = points - 100;
+                    points = this.util.rand(100, 2000);
                     playerList.push({
                         'name' : val.name.first + ' ' + val.name.last,
                         'email' : val.email,

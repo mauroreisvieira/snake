@@ -19,6 +19,10 @@ class Rating {
     view() {
         const table = document.querySelector('.table');
         this.players = JSON.parse(this.service.getItem('players'));
+        this.players.sort(function(a, b) {
+            return a.points - b.points;
+        });
+        this.players.reverse();
         table.innerHTML = this.players.map((player) => {
             return `<tr>
                     <td class="table__image">

@@ -55,52 +55,78 @@
     <main class="main" role="main">
         <section class="gird">
             <div class="container">
-              <div class="card card--center card--large">
-                <div class="card__content">
-                    <div class="card__contentInfo">
-                        <div class="row">
-                            <div class="cell-large-4 cell-medium-4 cell-small-12">
-                                <img src="http://www.gravatar.com/avatar/a1d43ce0a6092c59b8d96bd47a3aae03.jpg?s=220"
+                <div class="card card--center card--large">
+                    <div class="card__content">
+                        <div class="card__contentInfo">
+                            <div class="row">
+                                <div class="cell-large-4 cell-medium-4 cell-small-12">
+                                    <img src="http://www.gravatar.com/avatar/a1d43ce0a6092c59b8d96bd47a3aae03.jpg?s=220"
                                     id="photoProfile"
                                     class="photo"
                                     alt="Name"
                                     title="Name">
-                            </div>
-                            <div class="cell-large-8 cell-medium-8 cell-small-12">
-                                <h6>Profile Settings:</h6>
-                                <form class="form">
-                                    <div class="form__fieldset form__fieldset--column">
-                                        <label for="inputName">Nickname:</label>
-                                        <input type="text" id="inputName" name="playerName" placeholder="John Doe">
-                                        <svg>
-                                            <rect width="100%" height="100%" class="stroke-salmon"></rect>
-                                        </svg>
-                                    </div>
-                                    <div class="form__fieldset form__fieldset--column">
-                                        <label for="inputEmail">Email:</label>
-                                        <input type="email" id="inputEmail" name="playerEmail" placeholder="john.doe@mail.eu">
-                                        <svg>
-                                            <rect width="100%" height="100%" class="stroke-salmon"></rect>
-                                        </svg>
-                                    </div>
-                                    <div class="form__fieldset form__fieldset--column">
-                                        <button class="button button--large button--medium button--yellow" type="submit">Save Changes</button>
-                                    </div>
-                                </form>
+                                </div>
+                                <div class="cell-large-8 cell-medium-8 cell-small-12">
+                                    <h6>Profile Settings:</h6>
+                                    <form class="form">
+                                        <div class="form__fieldset form__fieldset--column">
+                                            <label for="inputName">Nickname:</label>
+                                            <input type="text" id="inputName" name="playerName" placeholder="John Doe">
+                                            <svg>
+                                                <rect width="100%" height="100%" class="stroke-salmon"></rect>
+                                            </svg>
+                                        </div>
+                                        <div class="form__fieldset form__fieldset--column">
+                                            <label for="inputEmail">Email:</label>
+                                            <input type="email" id="inputEmail" name="playerEmail" placeholder="john.doe@mail.eu">
+                                            <svg>
+                                                <rect width="100%" height="100%" class="stroke-salmon"></rect>
+                                            </svg>
+                                        </div>
+                                        <div class="form__fieldset form__fieldset--column">
+                                            <button class="button button--large button--medium button--yellow" type="submit">Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="cell-large-12 cell-medium-12 cell-small-12">
+                                    <h6 class="mt--80">Snake Color:</h6>
+                                    <ul class="colors">
+                                        <li class="colors__item">
+                                            <label class="colors__itemColor" for="colorBlue">Blue</label>
+                                            <input name="color" id="colorBlue" type="radio" value="#ff0" checked="checked" /></input>
+                                        </li>
+                                        <li class="colors__item">
+                                            <label class="colors__itemColor" for="colorRed">Red</label>
+                                            <input name="color" id="colorRed" type="radio" value="#f00" checked="checked" /></input>
+                                        </li>
+                                        <li class="colors__item">
+                                            <label class="colors__itemColor" for="colorGreen">Green</label>
+                                            <input name="color" id="colorGreen" type="radio" value="#f0f" checked="checked" /></input>
+                                        </li>
+                                        <li class="colors__item">
+                                            <label class="colors__itemColor" for="colorRed">Red</label>
+                                            <input name="color" id="colorRed" type="radio" value="#f00" checked="checked" /></input>
+                                        </li>
+                                        <li class="colors__item">
+                                            <label class="colors__itemColor" for="colorRed">Red</label>
+                                            <input name="color" id="colorRed" type="radio" value="#f00" checked="checked" /></input>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
-<!-- FOOTER -->
-<footer class="footer">
-    <p>Created with <span>♥</span> by <a href="https://twitter.com/mauroreisvieira" target="_blank">@mauroreisvieira</a> in Portugal</p>
-</footer>
+        </section>
+    </main>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>Created with <span>♥</span> by <a href="https://twitter.com/mauroreisvieira" target="_blank">@mauroreisvieira</a> in Portugal</p>
+    </footer>
 
-<!-- JAVASCRIPT -->
-<script type="text/javascript" src="public/js/setting.js"></script>
+    <!-- JAVASCRIPT -->
+    <script type="text/javascript" src="public/js/setting.js"></script>
 </body>
 </html>
