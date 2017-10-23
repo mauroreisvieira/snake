@@ -1,7 +1,7 @@
 import Md5 from './../utils/Md5.js';
 import Service from './../utils/Service.js';
 
-export class User {
+export default class User {
 
     constructor (name, email, score) {
         this.name = name;

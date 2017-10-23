@@ -1,46 +1,38 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-	typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	(factory((global.library = global.library || {})));
-}(this, (function (exports) { 'use strict';
+export default class Md5 {
 
-class Md5 {
+    constructor () {}
 
-    constructor () {
-        this.hexTab = '0123456789abcdef';
-    }
-
-    safeAdd (x, y) {
+    safeAdd (x : number, y : number) : any {
         var lsw = (x & 0xffff) + (y & 0xffff);
         var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
         return (msw << 16) | (lsw & 0xffff);
     }
 
-    bitRotateLeft (num, cnt) {
+    bitRotateLeft (num: number, cnt: number) : any {
         return (num << cnt) | (num >>> (32 - cnt));
     }
 
-    md5cmn (q, a, b, x, s, t) {
+    md5cmn (q: any, a: any, b: any, x: any, s: any, t: any): any{
         return this.safeAdd(this.bitRotateLeft(this.safeAdd(this.safeAdd(a, q), this.safeAdd(x, t)), s), b);
     }
 
-    md5ff (a, b, c, d, x, s, t) {
+    md5ff (a: any, b: any, c: any, d: any, x: any, s: any, t: any): any{
         return this.md5cmn((b & c) | (~b & d), a, b, x, s, t);
     }
 
-    md5gg (a, b, c, d, x, s, t) {
+    md5gg (a: any, b: any, c: any, d: any, x: any, s: any, t: any): any {
         return this.md5cmn((b & d) | (c & ~d), a, b, x, s, t);
     }
 
-    md5hh (a, b, c, d, x, s, t) {
+    md5hh (a: any, b: any, c: any, d: any, x: any, s: any, t: any): any {
         return this.md5cmn(b ^ c ^ d, a, b, x, s, t);
     }
 
-    md5ii (a, b, c, d, x, s, t) {
+    md5ii (a: any, b: any, c: any, d: any, x: any, s: any, t: any): any {
         return this.md5cmn(c ^ (b | ~d), a, b, x, s, t);
     }
 
-    binlMD5 (x, len) {
+    binlMD5 (x: any, len: any): any {
         x[len >> 5] |= 0x80 << (len % 32);
         x[((len + 64) >>> 9 << 4) + 14] = len;
 
@@ -137,7 +129,7 @@ class Md5 {
         return [a, b, c, d];
     }
 
-    binl2rstr (input) {
+    binl2rstr (input: any): any {
         var i;
         var output = '';
         var length32 = input.length * 32;
@@ -147,7 +139,7 @@ class Md5 {
         return output;
     }
 
-    rstr2binl (input) {
+    rstr2binl (input: any): any {
         var i;
         var output = [];
         output[(input.length >> 2) - 1] = undefined;
@@ -164,14 +156,14 @@ class Md5 {
     /*
     * Calculate the MD5 of a raw string
     */
-    rstrMD5 (s) {
+    rstrMD5 (s: any): any {
         return this.binl2rstr(this.binlMD5(this.rstr2binl(s), s.length * 8));
     }
 
     /*
     * Calculate the HMAC-MD5, of a key and some data (raw strings)
     */
-    rstrHMACMD5 (key, data) {
+    rstrHMACMD5 (key: number, data: any): any {
         var i;
         var bkey = this.rstr2binl(key);
         var ipad = [];
@@ -189,38 +181,39 @@ class Md5 {
         return this.binl2rstr(this.binlMD5(opad.concat(hash), 512 + 128));
     }
 
-    rstr2hex (input) {
+    rstr2hex (input: any): any {
         var output = '';
+        var hexTab = '0123456789abcdef';
         var x;
         var i;
         for (i = 0; i < input.length; i += 1) {
             x = input.charCodeAt(i);
-            output += this.hexTab.charAt((x >>> 4) & 0x0f) + this.hexTab.charAt(x & 0x0f);
+            output += hexTab.charAt((x >>> 4) & 0x0f) + hexTab.charAt(x & 0x0f);
         }
         return output;
     }
 
-    str2rstrUTF8 (input) {
+    str2rstrUTF8 (input: any): any {
         return unescape(encodeURIComponent(input));
     }
 
-    rawMD5 (s) {
+    rawMD5 (s: any): any {
         return this.rstrMD5(this.str2rstrUTF8(s));
     }
 
-    hexMD5 (s) {
+    hexMD5 (s: any): any {
         return this.rstr2hex(this.rawMD5(s));
     }
 
-    rawHMACMD5 (k, d) {
+    rawHMACMD5 (k: any, d: any): any {
         return this.rstrHMACMD5(this.str2rstrUTF8(k), this.str2rstrUTF8(d));
     }
 
-    hexHMACMD5 (k, d) {
+    hexHMACMD5 (k: any, d: any): any {
         return this.rstr2hex(this.rawHMACMD5(k, d));
     }
 
-    md5 (string, key, raw) {
+    md5 (string: string, key: number, raw: any): any {
         if (!key) {
             if (!raw) {
                 return this.hexMD5(string);
@@ -233,79 +226,3 @@ class Md5 {
         return this.rawHMACMD5(key, string);
     }
 }
-
-class Service {
-
-    constructor () {}
-
-    /**
-     * [gravatar description]
-     * @param  {String} hash [description]
-     * @param  {Number} size [description]
-     * @return {[type]}      [description]
-     */
-    gravatar(hash, size = 200) {
-        return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
-    }
-
-    addItem(name, value) {
-        localStorage.setItem(name, value);
-    }
-
-    getItem(item) {
-        return localStorage.getItem(item);
-    }
-
-    removeItem(item) {
-        localStorage.removeItem(item);
-    }
-
-    checkAuth() {
-        var exists = true;
-        if (localStorage.getItem('email') === null) {
-            exists = false;
-        }
-        return exists;
-    }
-
-    logout() {
-        this.removeItem('email');
-    }
-}
-
-var User = (function () {
-    function User(name, email, score) {
-        this.name = name;
-        this.email = email;
-        this.score = score;
-        var hash = new Md5();
-        var service = new Service();
-        this.hash = hash.md5(this.email);
-        this.photo = service.gravatar(this.hash);
-        service.addItem('name', this.name);
-        service.addItem('email', this.email);
-        service.addItem('photo', this.photo);
-    }
-    Object.defineProperty(User.prototype, "fullName", {
-        get: function () {
-            return this.name;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(User.prototype, "userPhoto", {
-        get: function () {
-            return this.photo;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return User;
-}());
-
-exports.User = User;
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
-//# sourceMappingURL=player.js.map

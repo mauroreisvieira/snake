@@ -22,9 +22,9 @@ gulp.task('production', function (cb) {
     ], cb);
 });
 
-gulp.task('typescript', function () {
+gulp.task('ts --user', function () {
     return rollup.rollup({
-        entry: "./resources/js/player/User.ts",
+        entry: "./resources/ts/player/User.ts",
         plugins: [
             rollupTypescript()
         ],
@@ -34,6 +34,23 @@ gulp.task('typescript', function () {
             format: "umd",
             moduleName: "library",
             dest: "./public/js/user.js",
+            sourceMap: true
+        });
+    });
+});
+
+gulp.task('ts --settings', function () {
+    return rollup.rollup({
+        entry: "./resources/ts/Setting.ts",
+        plugins: [
+            rollupTypescript()
+        ],
+    })
+    .then(function (bundle) {
+        bundle.write({
+            format: "umd",
+            moduleName: "library",
+            dest: "./public/js/settings.js",
             sourceMap: true
         });
     });
@@ -142,6 +159,16 @@ gulp.task('scss', function () {
 
 gulp.task('watch', function () {
     gulp.watch('./resources/scss/app.scss', ['scss']);
-    gulp.watch('./resources/js/Game.js', ['js --game', 'js --auth', 'js --setting', 'js --rating', 'js --friend']);
+    gulp.watch('./resources/js/Game.js',
+        [
+            'js --game',
+            'js --auth',
+            'js --setting',
+            'js --rating',
+            'js --friend',
+            'ts --user',
+            'ts --settings'
+        ]
+    );
 });
 

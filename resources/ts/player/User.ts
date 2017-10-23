@@ -1,7 +1,7 @@
 import Md5 from './../utils/Md5';
 import Service from './../utils/Service';
 
-export class User {
+export default class User {
     private name: string;
     private email: string;
     private score: number;
