@@ -1,3 +1,4 @@
+import Service from './utils/Service';
 import Util from './utils/Util';
 
 export default class Snake {
@@ -5,10 +6,14 @@ export default class Snake {
     private y: number;
     private color: any = Util.COLOR_SNAKE;
     private snake: any = [];
+    private service: any;
 
     constructor (posX: number, posY: number) {
         this.x = posX;
         this.y = posY;
+
+        let service = new Service();
+        this.color = service.getItem('color') === undefined ? this.color : service.getItem('color');
         this.create();
     }
 

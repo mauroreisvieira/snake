@@ -15,9 +15,9 @@ var Service = (function () {
     }
     /**
      * Method to return avatar based in email.
-     * @param  {String} hash [description]
-     * @param  {Number} size [description]
-     * @return {[type]}      [description]
+     * @param  {String} hash
+     * @param  {Number} size
+     * @return {String}
      */
     Service.prototype.gravatar = function (hash, size) {
         if (size === void 0) { size = 200; }
@@ -82,10 +82,10 @@ var Util = (function () {
     Util.KEY_LEFT = 37;
     Util.KEY_RIGHT = 39;
     Util.KEY_DOWN = 40;
-    Util.COLOR_SNAKE = '#607d8b';
+    Util.COLOR_SNAKE = '#10A9E7';
     Util.COLOR_BLANK = '#fff';
     Util.COLOR_BOARD = '#fff';
-    Util.COLOR_WALL = '#35f7cf';
+    Util.COLOR_WALL = '#696a6b';
     return Util;
 }());
 
@@ -178,6 +178,8 @@ var Snake = (function () {
         this.snake = [];
         this.x = posX;
         this.y = posY;
+        var service = new Service();
+        this.color = service.getItem('color') === undefined ? this.color : service.getItem('color');
         this.create();
     }
     Snake.prototype.create = function () {

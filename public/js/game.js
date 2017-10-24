@@ -326,6 +326,20 @@ var Game = function Game () {
     this.util = new Util();
     this.service = new Service();
 
+    // const fetchAndDisplay = async ({url, element}) => {
+    // try {
+    //     const response = await fetch(url);
+    //     const text = await response.text();
+    //     element.textContent = text;
+    // }
+    // catch(error) {
+    //     element.textContent = error.message;
+    // }
+    // finally() {
+    //     console.log("OK");
+    // }
+    // };
+
     fetch('https://randomuser.me/api/?results=9&nat=us')
         .then( function (response) { return response.json(); })
         .then( function (data) {

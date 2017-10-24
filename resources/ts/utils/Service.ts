@@ -4,9 +4,9 @@ export default class Service {
 
     /**
      * Method to return avatar based in email.
-     * @param  {String} hash [description]
-     * @param  {Number} size [description]
-     * @return {[type]}      [description]
+     * @param  {String} hash
+     * @param  {Number} size
+     * @return {String}
      */
     gravatar(hash : string, size : number = 200): any {
         return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;

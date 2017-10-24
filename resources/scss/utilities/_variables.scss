@@ -1,4 +1,5 @@
 // Colors
+$color-dark      : #0E0606;
 $color-black     : #000;
 $color-white     : #fff;
 $color-yellow    : #FDBC59;
@@ -22,6 +23,7 @@ $color-title-default  : $color-salmon;
 $color-border-default : $color-greylight;
 
 // Other
+$border-radius-default : 2px;
 $border-radius-card    : 2px;
 $border-radius-inputs  : 2px;
 $border-radius-buttons : 2px;
@@ -84,7 +86,7 @@ $breakpoints: (
 // Buttons
 $buttons: (
   'aqua'     : ($color-aqua, $color-white, $color-salmon, $color-white),
-  'yellow'   : ($color-yellow, $color-white, $color-violet, $color-white),
+  'yellow'   : ($color-yellow, $color-white, $color-salmon, $color-white),
   'darkblue' : ($color-darkblue, $color-white, $color-yellow, $color-white),
   'salmon'   : ($color-salmon, $color-white, $color-aqua, $color-black),
   'white'    : ($color-white, $color-black, $color-salmon, $color-white),

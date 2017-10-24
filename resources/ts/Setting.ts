@@ -28,16 +28,34 @@ class Settings {
         const name = document.querySelector('#inputName');
         const email = document.querySelector('#inputEmail');
         const photo = document.querySelector('#photoProfile');
+        const colors = document.querySelectorAll('[name="color"]');
 
         name.value = this.service.getItem('name');
         email.value = this.service.getItem('email');
         photo.src = this.service.getItem('photo');
+        const currentColor = this.service.getItem('color');
+
+        for(let i = 0; i < colors.length; i++) {
+            colors[i].checked = false;
+            if (colors[i].value === currentColor)
+                colors[i].checked = true;
+        }
+
+        const colorChecked = document.querySelector('[name="color"]:checked');
+        if (!colorChecked) {
+            colors[0].checked = true;
+        }
+
     }
 
     updateUser(evt: any): void {
 
         let name = evt.srcElement[0].value;
         let email = evt.srcElement[1].value;
+        console.log(name);
+        const color = document.querySelector('[name="color"]:checked');
+        console.log(color);
+        this.service.addItem('color', color.value);
 
         if (email.length > 0) {
             new User(name, email);

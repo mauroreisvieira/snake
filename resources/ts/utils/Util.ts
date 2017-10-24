@@ -7,10 +7,10 @@ export default class Util {
     public static KEY_LEFT: number = 37;
     public static KEY_RIGHT: number = 39;
     public static KEY_DOWN: number = 40;
-    public static COLOR_SNAKE: string = '#607d8b';
+    public static COLOR_SNAKE: string = '#10A9E7';
     public static COLOR_BLANK: string = '#fff';
     public static COLOR_BOARD: string = '#fff';
-    public static COLOR_WALL: string = '#35f7cf';
+    public static COLOR_WALL: string = '#696a6b';
 
     constructor () {
 
