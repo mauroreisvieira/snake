@@ -52,9 +52,7 @@ class Settings {
 
         let name = evt.srcElement[0].value;
         let email = evt.srcElement[1].value;
-        console.log(name);
         const color = document.querySelector('[name="color"]:checked');
-        console.log(color);
         this.service.addItem('color', color.value);
 
         if (email.length > 0) {

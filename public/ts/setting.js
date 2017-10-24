@@ -350,9 +350,7 @@ var Settings = (function () {
     Settings.prototype.updateUser = function (evt) {
         var name = evt.srcElement[0].value;
         var email = evt.srcElement[1].value;
-        console.log(name);
         var color = document.querySelector('[name="color"]:checked');
-        console.log(color);
         this.service.addItem('color', color.value);
         if (email.length > 0) {
             new User(name, email);
