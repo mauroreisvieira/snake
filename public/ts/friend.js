@@ -88,8 +88,40 @@ var Util = (function () {
     return Util;
 }());
 
+var Storage = (function () {
+    function Storage() {
+    }
+    /**
+     * Save items in browser storage.
+     * @param {string} name
+     * @param {string} value
+     * @return {void}
+     */
+    Storage.prototype.addItem = function (name, value) {
+        localStorage.setItem(name, value);
+    };
+    /**
+     * Get Item in storage.
+     * @param  {string} item
+     * @return {string}
+     */
+    Storage.prototype.getItem = function (item) {
+        return localStorage.getItem(item);
+    };
+    /**
+     * Remove Item in storage.
+     * @param {string} item [description]
+     * @return {void}
+     */
+    Storage.prototype.removeItem = function (item) {
+        localStorage.removeItem(item);
+    };
+    return Storage;
+}());
+
 var Service = (function () {
     function Service() {
+        this.storage = new Storage();
     }
     /**
     * Method to return avatar based in email.
@@ -101,6 +133,10 @@ var Service = (function () {
         if (size === void 0) { size = 200; }
         return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
     };
+    /**
+     * Check if user have info in storage.
+     * @return {boolean}
+     */
     Service.prototype.checkAuth = function () {
         var exists = true;
         if (localStorage.getItem('email') === null) {
@@ -108,8 +144,12 @@ var Service = (function () {
         }
         return exists;
     };
+    /**
+     * Remove user from storage.
+    * @return void
+    */
     Service.prototype.logout = function () {
-        this.removeItem('email');
+        this.storage.removeItem('email');
     };
     return Service;
 }());
@@ -175,37 +215,6 @@ var Firebase = (function () {
     return Firebase;
 }());
 
-var Storage = (function () {
-    function Storage() {
-    }
-    /**
-     * Save items in browser storage.
-     * @param {string} name
-     * @param {string} value
-     * @return {void}
-     */
-    Storage.prototype.addItem = function (name, value) {
-        localStorage.setItem(name, value);
-    };
-    /**
-     * Get Item in storage.
-     * @param  {string} item
-     * @return {string}
-     */
-    Storage.prototype.getItem = function (item) {
-        return localStorage.getItem(item);
-    };
-    /**
-     * Remove Item in storage.
-     * @param {string} item [description]
-     * @return {void}
-     */
-    Storage.prototype.removeItem = function (item) {
-        localStorage.removeItem(item);
-    };
-    return Storage;
-}());
-
 var Friend = (function () {
     function Friend() {
         var _this = this;
@@ -231,10 +240,21 @@ var Friend = (function () {
             this.friends = JSON.parse(this.service.getItem('friends'));
             this.view();
         }
+        this.addEventListeners();
     }
     Friend.prototype.view = function () {
         console.log("VIEW");
         console.log(this.friends);
+    };
+    Friend.prototype.addEventListeners = function () {
+        var _this = this;
+        // Logout
+        var logout = document.querySelector('#logout');
+        logout.addEventListener('click', function (evt) {
+            evt.preventDefault();
+            _this.service.logout();
+            _this.util.redirect('index');
+        });
     };
     return Friend;
 }());

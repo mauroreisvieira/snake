@@ -8,7 +8,6 @@ class Settings {
     private service: any;
     private storage: any;
     private form: any;
-    private logout: any;
 
     constructor () {
         this.util = new Util();
@@ -20,7 +19,6 @@ class Settings {
         }
 
         this.form = document.querySelector('form');
-        this.logout = document.querySelector('#logout');
 
         this.view();
         this.addEventListeners();
@@ -65,18 +63,20 @@ class Settings {
          }
      }
 
-     addEventListeners (): void {
-         this.form.addEventListener('submit', evt => {
-             evt.preventDefault();
-             this.updateUser(evt);
-         });
+    addEventListeners (): void {
+        this.form.addEventListener('submit', evt => {
+            evt.preventDefault();
+            this.updateUser(evt);
+        });
 
-         this.logout.addEventListener('click', evt => {
-             evt.preventDefault();
-             this.service.logout();
-             this.util.redirect('index');
-         });
-     }
+        // Logout
+        let logout = document.querySelector('#logout');
+        logout.addEventListener('click', evt => {
+            evt.preventDefault();
+            this.service.logout();
+            this.util.redirect('index');
+        });
+    }
  }
 
  new Settings();

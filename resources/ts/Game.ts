@@ -13,7 +13,6 @@ class Game {
     private util: any;
     private service: any;
     private gamInBoard: any;
-    private logout: any;
     private listFruit: any = [0,1,2,3,4];
     private length: number = 0;
     private tailX: any = [];
@@ -44,7 +43,6 @@ class Game {
         }
 
         this.gamInBoard = document.querySelector('game-board');
-        this.logout = document.querySelector('#logout');
 
         if (this.gamInBoard) {
 
@@ -223,7 +221,9 @@ class Game {
             this.keyPressed(evt);
         });
 
-        this.logout.addEventListener('click', evt => {
+        // Logout
+        let logout = document.querySelector('#logout');
+        logout.addEventListener('click', evt => {
             evt.preventDefault();
             this.service.logout();
             this.util.redirect('index');

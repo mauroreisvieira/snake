@@ -33,6 +33,8 @@ class Rating {
             this.ratings = JSON.parse(this.service.getItem('ratings'));
             this.view();
         }
+
+        this.addEventListeners();
     }
 
     view(): void {
@@ -53,6 +55,16 @@ class Rating {
                 <td class="table__stars">★★★★</td>
                 </tr>`;
         }).join('');
+    }
+
+    addEventListeners (): void {
+        // Logout
+        let logout = document.querySelector('#logout');
+        logout.addEventListener('click', evt => {
+            evt.preventDefault();
+            this.service.logout();
+            this.util.redirect('index');
+        });
     }
 }
 

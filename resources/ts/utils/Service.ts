@@ -1,6 +1,11 @@
-    export default class Service {
+import Storage from './Storage';
 
-        constructor () {}
+export default class Service {
+    private storage: any;
+
+    constructor () {
+        this.storage = new Storage();
+    }
 
     /**
     * Method to return avatar based in email.
@@ -12,15 +17,23 @@
         return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
     }
 
-    checkAuth(): boolean{
-        var exists = true;
-        if (localStorage.getItem('email') === null) {
-            exists = false;
-        }
-        return exists;
-    }
+    /**
+     * Check if user have info in storage.
+     * @return {boolean}
+     */
+     checkAuth(): boolean{
+         var exists = true;
+         if (localStorage.getItem('email') === null) {
+             exists = false;
+         }
+         return exists;
+     }
 
+    /**
+     * Remove user from storage.
+    * @return void
+    */
     logout(): void {
-        this.removeItem('email');
+        this.storage.removeItem('email');
     }
 }

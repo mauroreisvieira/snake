@@ -17,6 +17,7 @@ export default class Board {
 
         this.board = new Array(this.lines);
         this.create();
+        this.addEventListeners();
     }
 
     get(): any {
@@ -52,5 +53,15 @@ export default class Board {
 
     clean(posX: number, posY: number): void {
         document.querySelectorAll('table tr:nth-child(' + posX + ') td:nth-child(' + posY + ')')[0].style.backgroundColor = this.colorBoard;
+    }
+
+    addEventListeners(): void {
+        // Logout
+        let logout = document.querySelector('#logout');
+        logout.addEventListener('click', evt => {
+            evt.preventDefault();
+            this.service.logout();
+            this.util.redirect('index');
+        });
     }
 }

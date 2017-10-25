@@ -10,8 +10,40 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
+var Storage = (function () {
+    function Storage() {
+    }
+    /**
+     * Save items in browser storage.
+     * @param {string} name
+     * @param {string} value
+     * @return {void}
+     */
+    Storage.prototype.addItem = function (name, value) {
+        localStorage.setItem(name, value);
+    };
+    /**
+     * Get Item in storage.
+     * @param  {string} item
+     * @return {string}
+     */
+    Storage.prototype.getItem = function (item) {
+        return localStorage.getItem(item);
+    };
+    /**
+     * Remove Item in storage.
+     * @param {string} item [description]
+     * @return {void}
+     */
+    Storage.prototype.removeItem = function (item) {
+        localStorage.removeItem(item);
+    };
+    return Storage;
+}());
+
 var Service = (function () {
     function Service() {
+        this.storage = new Storage();
     }
     /**
     * Method to return avatar based in email.
@@ -23,6 +55,10 @@ var Service = (function () {
         if (size === void 0) { size = 200; }
         return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
     };
+    /**
+     * Check if user have info in storage.
+     * @return {boolean}
+     */
     Service.prototype.checkAuth = function () {
         var exists = true;
         if (localStorage.getItem('email') === null) {
@@ -30,8 +66,12 @@ var Service = (function () {
         }
         return exists;
     };
+    /**
+     * Remove user from storage.
+    * @return void
+    */
     Service.prototype.logout = function () {
-        this.removeItem('email');
+        this.storage.removeItem('email');
     };
     return Service;
 }());
@@ -167,6 +207,7 @@ var Board = (function () {
         this.displayInView = displayInView;
         this.board = new Array(this.lines);
         this.create();
+        this.addEventListeners();
     }
     Board.prototype.get = function () {
         return this.board;
@@ -200,38 +241,17 @@ var Board = (function () {
     Board.prototype.clean = function (posX, posY) {
         document.querySelectorAll('table tr:nth-child(' + posX + ') td:nth-child(' + posY + ')')[0].style.backgroundColor = this.colorBoard;
     };
+    Board.prototype.addEventListeners = function () {
+        var _this = this;
+        // Logout
+        var logout = document.querySelector('#logout');
+        logout.addEventListener('click', function (evt) {
+            evt.preventDefault();
+            _this.service.logout();
+            _this.util.redirect('index');
+        });
+    };
     return Board;
-}());
-
-var Storage = (function () {
-    function Storage() {
-    }
-    /**
-     * Save items in browser storage.
-     * @param {string} name
-     * @param {string} value
-     * @return {void}
-     */
-    Storage.prototype.addItem = function (name, value) {
-        localStorage.setItem(name, value);
-    };
-    /**
-     * Get Item in storage.
-     * @param  {string} item
-     * @return {string}
-     */
-    Storage.prototype.getItem = function (item) {
-        return localStorage.getItem(item);
-    };
-    /**
-     * Remove Item in storage.
-     * @param {string} item [description]
-     * @return {void}
-     */
-    Storage.prototype.removeItem = function (item) {
-        localStorage.removeItem(item);
-    };
-    return Storage;
 }());
 
 var Snake = (function () {
@@ -345,7 +365,6 @@ var Game = (function () {
             this.util.redirect('index');
         }
         this.gamInBoard = document.querySelector('game-board');
-        this.logout = document.querySelector('#logout');
         if (this.gamInBoard) {
             this.tailX = [this.snakePosX];
             this.tailY = [this.snakePosY];
@@ -506,7 +525,9 @@ var Game = (function () {
         window.addEventListener('keydown', function (evt) {
             _this.keyPressed(evt);
         });
-        this.logout.addEventListener('click', function (evt) {
+        // Logout
+        var logout = document.querySelector('#logout');
+        logout.addEventListener('click', function (evt) {
             evt.preventDefault();
             _this.service.logout();
             _this.util.redirect('index');

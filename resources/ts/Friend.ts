@@ -33,11 +33,23 @@ class Friend {
             this.friends = JSON.parse(this.service.getItem('friends'));
             this.view();
         }
+
+        this.addEventListeners();
     }
 
     view(): void {
         console.log("VIEW");
         console.log(this.friends);
+    }
+
+    addEventListeners(): void {
+        // Logout
+        let logout = document.querySelector('#logout');
+        logout.addEventListener('click', evt => {
+            evt.preventDefault();
+            this.service.logout();
+            this.util.redirect('index');
+        });
     }
 }
 
