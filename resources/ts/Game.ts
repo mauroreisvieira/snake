@@ -39,23 +39,6 @@ class Game {
         this.util = new Util();
         this.service = new Service();
 
-        fetch('https://randomuser.me/api/?results=9&nat=us')
-            .then( response => { return response.json(); })
-            .then( data => {
-                const playerList = [];
-                var points = 1400;
-                data.results.forEach( (val) => {
-                    points = this.util.rand(100, 2000);
-                    playerList.push({
-                        'name' : val.name.first + ' ' + val.name.last,
-                        'email' : val.email,
-                        'points' : points,
-                        'photo' : val.picture.medium
-                    });
-                });
-                this.service.addItem('players', JSON.stringify(playerList));
-            });
-
         if (!this.service.checkAuth()) {
             this.util.redirect('index');
         }

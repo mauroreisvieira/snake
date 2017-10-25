@@ -14,23 +14,14 @@ var Service = (function () {
     function Service() {
     }
     /**
-     * Method to return avatar based in email.
-     * @param  {String} hash
-     * @param  {Number} size
-     * @return {String}
-     */
+    * Method to return avatar based in email.
+    * @param  {String} hash
+    * @param  {Number} size
+    * @return {String}
+    */
     Service.prototype.gravatar = function (hash, size) {
         if (size === void 0) { size = 200; }
         return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
-    };
-    Service.prototype.addItem = function (name, value) {
-        localStorage.setItem(name, value);
-    };
-    Service.prototype.getItem = function (item) {
-        return localStorage.getItem(item);
-    };
-    Service.prototype.removeItem = function (item) {
-        localStorage.removeItem(item);
     };
     Service.prototype.checkAuth = function () {
         var exists = true;
@@ -68,11 +59,51 @@ var Util = (function () {
     };
     /**
      * Method to redirect to other url.
-     * @param  string url
-     * @return void
+     * @param  {string} url
+     * @return {void}
      */
     Util.prototype.redirect = function (url) {
         window.location.href = './' + url + '.html';
+    };
+    /**
+  * Check if browser is connected to internet.
+  * @return {boolean}
+  */
+    Util.prototype.online = function () {
+        return navigator.onLine;
+    };
+    /**
+    * Listen for changes to network connectivity:
+    * @return {boolean}
+    */
+    Util.prototype.connection = function () {
+        return navigator.connection;
+    };
+    /**
+     * Method provides information about the system's battery, returns a battery promise.
+     * @return {any}
+     */
+    Util.prototype.battery = function () {
+        var batteryInfo = {};
+        navigator.getBattery().then(function (battery) {
+            batteryInfo = battery;
+            battery.addEventListener('chargingchange', function () {
+                batteryInfo = battery;
+            });
+        });
+        return batteryInfo;
+    };
+    /**
+     * Listen for changes to responsiveness.
+     * @return {void}
+     */
+    Util.prototype.orientation = function () {
+        console.log("ORIENTATION");
+        media.addListener(function (mql) { return console.log(mql.matches); });
+        // Orientation of device changes.
+        window.addEventListener('orientationchange', function (e) {
+            console.log(screen.orientation.angle);
+        });
     };
     Util.SPEED = 200;
     Util.BOARD_COLS = 30;
@@ -172,14 +203,46 @@ var Board = (function () {
     return Board;
 }());
 
+var Storage = (function () {
+    function Storage() {
+    }
+    /**
+     * Save items in browser storage.
+     * @param {string} name
+     * @param {string} value
+     * @return {void}
+     */
+    Storage.prototype.addItem = function (name, value) {
+        localStorage.setItem(name, value);
+    };
+    /**
+     * Get Item in storage.
+     * @param  {string} item
+     * @return {string}
+     */
+    Storage.prototype.getItem = function (item) {
+        return localStorage.getItem(item);
+    };
+    /**
+     * Remove Item in storage.
+     * @param {string} item [description]
+     * @return {void}
+     */
+    Storage.prototype.removeItem = function (item) {
+        localStorage.removeItem(item);
+    };
+    return Storage;
+}());
+
 var Snake = (function () {
     function Snake(posX, posY) {
         this.color = Util.COLOR_SNAKE;
         this.snake = [];
         this.x = posX;
         this.y = posY;
-        var service = new Service();
-        this.color = service.getItem('color') === undefined ? this.color : service.getItem('color');
+        this.service = new Service();
+        this.storage = new Storage();
+        this.color = this.storage.getItem('color') === undefined ? this.color : this.storage.getItem('color');
         this.create();
     }
     Snake.prototype.create = function () {
@@ -261,7 +324,6 @@ var Strawberry = (function (_super) {
 
 var Game = (function () {
     function Game() {
-        var _this = this;
         this.listFruit = [0, 1, 2, 3, 4];
         this.length = 0;
         this.tailX = [];
@@ -279,22 +341,6 @@ var Game = (function () {
         this.interval = Util.SPEED;
         this.util = new Util();
         this.service = new Service();
-        fetch('https://randomuser.me/api/?results=9&nat=us')
-            .then(function (response) { return response.json(); })
-            .then(function (data) {
-            var playerList = [];
-            var points = 1400;
-            data.results.forEach(function (val) {
-                points = _this.util.rand(100, 2000);
-                playerList.push({
-                    'name': val.name.first + ' ' + val.name.last,
-                    'email': val.email,
-                    'points': points,
-                    'photo': val.picture.medium
-                });
-            });
-            _this.service.addItem('players', JSON.stringify(playerList));
-        });
         if (!this.service.checkAuth()) {
             this.util.redirect('index');
         }

@@ -213,7 +213,7 @@ export default class Md5 {
         return this.rstr2hex(this.rawHMACMD5(k, d));
     }
 
-    md5 (string: string, key: boolean, raw: boolean): any {
+    md5 (string: any, key: boolean, raw: boolean): any {
         if (!key) {
             if (!raw) {
                 return this.hexMD5(string);

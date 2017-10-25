@@ -8,23 +8,14 @@ var Service = (function () {
     function Service() {
     }
     /**
-     * Method to return avatar based in email.
-     * @param  {String} hash
-     * @param  {Number} size
-     * @return {String}
-     */
+    * Method to return avatar based in email.
+    * @param  {String} hash
+    * @param  {Number} size
+    * @return {String}
+    */
     Service.prototype.gravatar = function (hash, size) {
         if (size === void 0) { size = 200; }
         return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
-    };
-    Service.prototype.addItem = function (name, value) {
-        localStorage.setItem(name, value);
-    };
-    Service.prototype.getItem = function (item) {
-        return localStorage.getItem(item);
-    };
-    Service.prototype.removeItem = function (item) {
-        localStorage.removeItem(item);
     };
     Service.prototype.checkAuth = function () {
         var exists = true;
@@ -62,11 +53,51 @@ var Util = (function () {
     };
     /**
      * Method to redirect to other url.
-     * @param  string url
-     * @return void
+     * @param  {string} url
+     * @return {void}
      */
     Util.prototype.redirect = function (url) {
         window.location.href = './' + url + '.html';
+    };
+    /**
+  * Check if browser is connected to internet.
+  * @return {boolean}
+  */
+    Util.prototype.online = function () {
+        return navigator.onLine;
+    };
+    /**
+    * Listen for changes to network connectivity:
+    * @return {boolean}
+    */
+    Util.prototype.connection = function () {
+        return navigator.connection;
+    };
+    /**
+     * Method provides information about the system's battery, returns a battery promise.
+     * @return {any}
+     */
+    Util.prototype.battery = function () {
+        var batteryInfo = {};
+        navigator.getBattery().then(function (battery) {
+            batteryInfo = battery;
+            battery.addEventListener('chargingchange', function () {
+                batteryInfo = battery;
+            });
+        });
+        return batteryInfo;
+    };
+    /**
+     * Listen for changes to responsiveness.
+     * @return {void}
+     */
+    Util.prototype.orientation = function () {
+        console.log("ORIENTATION");
+        media.addListener(function (mql) { return console.log(mql.matches); });
+        // Orientation of device changes.
+        window.addEventListener('orientationchange', function (e) {
+            console.log(screen.orientation.angle);
+        });
     };
     Util.SPEED = 200;
     Util.BOARD_COLS = 30;
@@ -81,6 +112,37 @@ var Util = (function () {
     Util.COLOR_BOARD = '#fff';
     Util.COLOR_WALL = '#696a6b';
     return Util;
+}());
+
+var Storage = (function () {
+    function Storage() {
+    }
+    /**
+     * Save items in browser storage.
+     * @param {string} name
+     * @param {string} value
+     * @return {void}
+     */
+    Storage.prototype.addItem = function (name, value) {
+        localStorage.setItem(name, value);
+    };
+    /**
+     * Get Item in storage.
+     * @param  {string} item
+     * @return {string}
+     */
+    Storage.prototype.getItem = function (item) {
+        return localStorage.getItem(item);
+    };
+    /**
+     * Remove Item in storage.
+     * @param {string} item [description]
+     * @return {void}
+     */
+    Storage.prototype.removeItem = function (item) {
+        localStorage.removeItem(item);
+    };
+    return Storage;
 }());
 
 var Md5 = (function () {
@@ -287,17 +349,21 @@ var Md5 = (function () {
 }());
 
 var User = (function () {
-    function User(name, email, score) {
+    function User(name, email, color) {
         this.name = name;
         this.email = email;
-        this.score = score;
+        this.color = color;
         var hash = new Md5();
+        var storage = new Storage();
         var service = new Service();
-        this.hash = hash.md5(this.email, false, false);
-        this.photo = service.gravatar(this.hash);
-        service.addItem('name', this.name);
-        service.addItem('email', this.email);
-        service.addItem('photo', this.photo);
+        var date = new Date().valueOf();
+        this.photo = service.gravatar(hash.md5(this.email, false, false));
+        this.id = hash.md5(date, false, false);
+        storage.addItem('id', this.id);
+        storage.addItem('name', this.name);
+        storage.addItem('email', this.email);
+        storage.addItem('photo', this.photo);
+        storage.addItem('color', this.color);
     }
     Object.defineProperty(User.prototype, "fullName", {
         get: function () {
@@ -320,6 +386,7 @@ var Settings = (function () {
     function Settings() {
         this.util = new Util();
         this.service = new Service();
+        this.storage = new Storage();
         if (!this.service.checkAuth()) {
             this.util.redirect('index');
         }
@@ -333,10 +400,10 @@ var Settings = (function () {
         var email = document.querySelector('#inputEmail');
         var photo = document.querySelector('#photoProfile');
         var colors = document.querySelectorAll('[name="color"]');
-        name.value = this.service.getItem('name');
-        email.value = this.service.getItem('email');
-        photo.src = this.service.getItem('photo');
-        var currentColor = this.service.getItem('color');
+        name.value = this.storage.getItem('name');
+        email.value = this.storage.getItem('email');
+        photo.src = this.storage.getItem('photo');
+        var currentColor = this.storage.getItem('color');
         for (var i = 0; i < colors.length; i++) {
             colors[i].checked = false;
             if (colors[i].value === currentColor)
@@ -347,13 +414,17 @@ var Settings = (function () {
             colors[0].checked = true;
         }
     };
+    /**
+     * Updated info user.
+     * @param {any} evt
+     * @return {void}
+     */
     Settings.prototype.updateUser = function (evt) {
         var name = evt.srcElement[0].value;
         var email = evt.srcElement[1].value;
-        var color = document.querySelector('[name="color"]:checked');
-        this.service.addItem('color', color.value);
+        var color = document.querySelector('[name="color"]:checked').value;
         if (email.length > 0) {
-            new User(name, email);
+            new User(name, email, color);
         }
     };
     Settings.prototype.addEventListeners = function () {

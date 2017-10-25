@@ -12,9 +12,7 @@ export default class Util {
     public static COLOR_BOARD: string = '#fff';
     public static COLOR_WALL: string = '#696a6b';
 
-    constructor () {
-
-    }
+    constructor () {}
 
     /**
      * Receive two number to define limit of random.
@@ -38,10 +36,55 @@ export default class Util {
 
     /**
      * Method to redirect to other url.
-     * @param  string url
-     * @return void
+     * @param  {string} url
+     * @return {void}
      */
      redirect(url : string) : void {
          window.location.href = './' + url + '.html';
      }
+
+      /**
+    * Check if browser is connected to internet.
+    * @return {boolean}
+    */
+    online(): boolean {
+        return navigator.onLine;
+    }
+
+    /**
+    * Listen for changes to network connectivity:
+    * @return {boolean}
+    */
+    connection(): any {
+        return navigator.connection;
+    }
+
+    /**
+     * Method provides information about the system's battery, returns a battery promise.
+     * @return {any}
+     */
+    battery(): any {
+        const batteryInfo = {};
+        navigator.getBattery().then(function(battery) {
+            batteryInfo = battery;
+            battery.addEventListener('chargingchange', function() {
+                batteryInfo = battery;
+            });
+        });
+        return batteryInfo;
+    }
+
+    /**
+     * Listen for changes to responsiveness.
+     * @return {void}
+     */
+    orientation(): void {
+        console.log("ORIENTATION");
+        media.addListener(mql => console.log(mql.matches));
+
+        // Orientation of device changes.
+        window.addEventListener('orientationchange', e => {
+            console.log(screen.orientation.angle)
+        });
+    }
  }

@@ -19,12 +19,12 @@ class Auth {
     }
 
 
-    callback(evt: any): void {
+    login(evt: any): void {
         let name = evt.srcElement[0].value;
         let email = evt.srcElement[1].value;
 
         if (email.length > 0) {
-            new User(name, email, 0);
+            new User(name, email, this.util.COLOR_SNAKE); // Need update user information in Firebase.
             this.util.redirect('game');
         }
     }
@@ -32,7 +32,7 @@ class Auth {
     addEventListeners (): void {
         this.form.addEventListener('submit', evt => {
             evt.preventDefault();
-            this.callback(evt);
+            this.login(evt);
         });
     }
 }

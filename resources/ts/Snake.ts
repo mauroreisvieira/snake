@@ -1,4 +1,5 @@
 import Service from './utils/Service';
+import Storage from './utils/Storage';
 import Util from './utils/Util';
 
 export default class Snake {
@@ -7,13 +8,16 @@ export default class Snake {
     private color: any = Util.COLOR_SNAKE;
     private snake: any = [];
     private service: any;
+    private storage: any;
 
     constructor (posX: number, posY: number) {
         this.x = posX;
         this.y = posY;
 
-        let service = new Service();
-        this.color = service.getItem('color') === undefined ? this.color : service.getItem('color');
+        this.service = new Service();
+        this.storage = new Storage();
+
+        this.color = this.storage.getItem('color') === undefined ? this.color : this.storage.getItem('color');
         this.create();
     }
 
