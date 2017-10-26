@@ -30,11 +30,12 @@
  * These molecules take on their own properties and serve as the backbone of our design system.
  * For example, a search form.
  */
-@import 'molecules/table';
-@import 'molecules/nav';
 @import 'molecules/card';
 @import 'molecules/form';
+@import 'molecules/nav';
 @import 'molecules/snake';
+@import 'molecules/tab';
+@import 'molecules/table';
 
 /**
  * Organisms

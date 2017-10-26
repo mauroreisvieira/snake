@@ -468,7 +468,10 @@ var Settings = (function () {
         var colors = document.querySelectorAll('[name="color"]');
         name.value = this.storage.getItem('name');
         email.value = this.storage.getItem('email');
+        // Add photo to view
         photo.src = this.storage.getItem('photo');
+        photo.alt = this.storage.getItem('name');
+        photo.title = this.storage.getItem('name');
         var currentColor = this.storage.getItem('color');
         for (var i = 0; i < colors.length; i++) {
             colors[i].checked = false;

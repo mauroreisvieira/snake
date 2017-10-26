@@ -34,7 +34,11 @@ class Settings {
 
         name.value = this.storage.getItem('name');
         email.value = this.storage.getItem('email');
+        // Add photo to view
         photo.src = this.storage.getItem('photo');
+        photo.alt = this.storage.getItem('name');
+        photo.title = this.storage.getItem('name');
+
         const currentColor = this.storage.getItem('color');
 
         for(let i = 0; i < colors.length; i++) {

@@ -14,5 +14,9 @@
     &--column {
       flex-direction: column;
     }
+
+    &--hidde {
+      display: none;
+    }
   }
 }
