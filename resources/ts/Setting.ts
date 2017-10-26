@@ -55,7 +55,7 @@ class Settings {
      updateUser(evt: any): void {
 
          let name = evt.srcElement[0].value;
-         let email = evt.srcElement[1].value;
+         let email = this.storage.getItem('email');
          let color = document.querySelector('[name="color"]:checked').value;
 
          if (email.length > 0) {
