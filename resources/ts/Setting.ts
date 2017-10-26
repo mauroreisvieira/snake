@@ -1,6 +1,8 @@
 import Service from './utils/Service';
 import Util from './utils/Util';
+import Md5 from './utils/Md5';
 import Storage from './utils/Storage';
+import Firebase from './utils/Firebase';
 import User from './player/User';
 
 class Settings {
@@ -55,11 +57,21 @@ class Settings {
      updateUser(evt: any): void {
 
          let name = evt.srcElement[0].value;
-         let email = this.storage.getItem('email');
+         let email = evt.srcElement[1].value;
          let color = document.querySelector('[name="color"]:checked').value;
+         let firebase = new Firebase();
+         let hash = new Md5();
 
+         // If email not empty
          if (email.length > 0) {
-             let user = new User(name, email, color);
+             // Check if this email already exists in Players list.
+             firebase.all('players/' + hash.md5(email, false, false)).then(response => {
+                 // If not exists updated user with new email in other case get email in browser storage.
+                 if (response !== null) {
+                     email = this.storage.getItem('email');
+                 }
+                 let user = new User(name, email, color);
+             });
          }
      }
 

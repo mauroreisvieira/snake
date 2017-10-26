@@ -424,10 +424,11 @@ var User = (function () {
         var service = new Service();
         var storage = new Storage();
         var firebase = new Firebase();
+        // Hash (md5) only use to encrypt the email to get photo in Gravatar API.
         this.id = hash.md5(this.email, false, false);
         this.photo = service.gravatar(this.id);
-        // Updated in Firebase.
-        if (this.util.online) {
+        // Updated in Firebase only have connection to internet.
+        if (util.online) {
             firebase.all('players/' + this.id).then(function (response) {
                 firebase.destroy('players', _this.id);
                 firebase.push('players/' + _this.id, _this);
@@ -485,11 +486,22 @@ var Settings = (function () {
      * @return {void}
      */
     Settings.prototype.updateUser = function (evt) {
+        var _this = this;
         var name = evt.srcElement[0].value;
-        var email = this.storage.getItem('email');
+        var email = evt.srcElement[1].value;
         var color = document.querySelector('[name="color"]:checked').value;
+        var firebase = new Firebase();
+        var hash = new Md5();
+        // If email not empty
         if (email.length > 0) {
-            var user = new User(name, email, color);
+            // Check if this email already exists in Players list.
+            firebase.all('players/' + hash.md5(email, false, false)).then(function (response) {
+                // If not exists updated user with new email in other case get email in browser storage.
+                if (response !== null) {
+                    email = _this.storage.getItem('email');
+                }
+                var user = new User(name, email, color);
+            });
         }
     };
     Settings.prototype.addEventListeners = function () {

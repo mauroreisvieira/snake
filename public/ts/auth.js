@@ -424,10 +424,11 @@ var User = (function () {
         var service = new Service();
         var storage = new Storage();
         var firebase = new Firebase();
+        // Hash (md5) only use to encrypt the email to get photo in Gravatar API.
         this.id = hash.md5(this.email, false, false);
         this.photo = service.gravatar(this.id);
-        // Updated in Firebase.
-        if (this.util.online) {
+        // Updated in Firebase only have connection to internet.
+        if (util.online) {
             firebase.all('players/' + this.id).then(function (response) {
                 firebase.destroy('players', _this.id);
                 firebase.push('players/' + _this.id, _this);
