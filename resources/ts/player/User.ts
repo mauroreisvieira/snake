@@ -35,7 +35,8 @@ export default class User {
             });
         }
 
-        this.score = storage.getItem('score') === 'null' ? 0 : storage.getItem('score');
+        // Save current scrore of user.
+        this.score = storage.getItem('score') > 0 ? storage.getItem('score') : 0;
 
         storage.addItem('id', this.id);
         storage.addItem('name', this.name);
