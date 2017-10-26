@@ -169,48 +169,43 @@ var Firebase = (function () {
     }
     /**
      * Push in Firabase
-     * @param {string} cell
+     * @param {string} node
      * @param {any}    list
      */
-    Firebase.prototype.push = function (cell, list) {
-        firebase.database().ref(cell).set(list);
+    Firebase.prototype.push = function (node, list) {
+        firebase.database().ref(node).set(list);
     };
     /**
      * Set in Firabase
-     * @param {string} cell
+     * @param {string} node
      * @param {any}    list
      */
-    Firebase.prototype.set = function (cell, list) {
-        firebase.database().ref(cell).set(list);
+    Firebase.prototype.set = function (node, list) {
+        firebase.database().ref(node).set(list);
     };
     /**
      * Updated in Firabase
-     * @param {string} cell
+     * @param {string} node
      * @param {any}    list
      */
-    Firebase.prototype.update = function (cell, list) {
-        firebase.database().ref(cell).update(list);
+    Firebase.prototype.update = function (node, list) {
+        firebase.database().ref(node).update(list);
     };
     /**
      * Get All Items in Firebase
-     * @param  {string} cell
+     * @param  {string} node
      * @return {any}
      */
-    Firebase.prototype.all = function (cell) {
+    Firebase.prototype.all = function (node) {
         var promise = new Promise(function (resolve, reject) {
-            firebase.app().database().ref(cell).on("value", function (snapshot) {
-                var data = snapshot.val();
-                var list = [];
-                for (var key in data) {
-                    list.push({
-                        name: data[key].name,
-                        email: data[key].email
-                    });
-                }
-                resolve(list);
+            firebase.app().database().ref(node).on("value", function (snapshot) {
+                resolve(snapshot.val());
             });
         });
         return promise;
+    };
+    Firebase.prototype.destroy = function (node, key) {
+        firebase.database().ref(node).child(key).remove();
     };
     return Firebase;
 }());
@@ -218,7 +213,7 @@ var Firebase = (function () {
 var Rating = (function () {
     function Rating() {
         var _this = this;
-        this.ratings = {};
+        this.players = {};
         this.util = new Util();
         this.service = new Service();
         this.storage = new Storage();
@@ -229,25 +224,25 @@ var Rating = (function () {
         }
         // Check if user hava internet connection.
         if (this.util.online) {
-            this.firebase.all('ratings').then(function (response) {
-                _this.ratings = response;
-                _this.storage.addItem('ratings', JSON.stringify(_this.ratings));
+            this.firebase.all('players').then(function (response) {
+                _this.players = response;
+                _this.storage.addItem('players', JSON.stringify(_this.players));
                 _this.view();
             });
         }
         else {
-            this.ratings = JSON.parse(this.service.getItem('ratings'));
+            this.players = JSON.parse(this.service.getItem('players'));
             this.view();
         }
         this.addEventListeners();
     }
     Rating.prototype.view = function () {
         var table = document.querySelector('.table');
-        this.ratings.sort(function (a, b) {
+        this.players.sort(function (a, b) {
             return a.points - b.points;
         });
-        this.ratings.reverse();
-        table.innerHTML = this.ratings.map(function (player) {
+        this.players.reverse();
+        table.innerHTML = this.players.map(function (player) {
             return "<tr>\n                <td class=\"table__image\">\n                <img src=\"" + player.photo + "\" alt=\"" + player.name + "\" title=\"" + player.name + "\">\n                </td>\n                <td class=\"table_name\">" + player.name + "</td>\n                <td class=\"table__scrore\">" + player.points + " /pts</td>\n                <td class=\"table__stars\">\u2605\u2605\u2605\u2605</td>\n                </tr>";
         }).join('');
     };

@@ -8,7 +8,7 @@ class Rating {
     private service: any;
     private storage: any;
     private firebase: any;
-    private ratings: any = {};
+    private players: any = {};
 
     constructor() {
 
@@ -24,13 +24,13 @@ class Rating {
 
         // Check if user hava internet connection.
         if (this.util.online) {
-            this.firebase.all('ratings').then(response => {
-                this.ratings = response;
-                this.storage.addItem('ratings', JSON.stringify(this.ratings));
+            this.firebase.all('players').then(response => {
+                this.players = response;
+                this.storage.addItem('players', JSON.stringify(this.players));
                 this.view();
             });
         } else {
-            this.ratings = JSON.parse(this.service.getItem('ratings'));
+            this.players = JSON.parse(this.service.getItem('players'));
             this.view();
         }
 
@@ -40,12 +40,12 @@ class Rating {
     view(): void {
         const table = document.querySelector('.table');
 
-        this.ratings.sort(function(a, b) {
+        this.players.sort(function(a, b) {
             return a.points - b.points;
         });
 
-        this.ratings.reverse();
-        table.innerHTML = this.ratings.map((player) => {
+        this.players.reverse();
+        table.innerHTML = this.players.map((player) => {
             return `<tr>
                 <td class="table__image">
                 <img src="${player.photo}" alt="${player.name}" title="${player.name}">

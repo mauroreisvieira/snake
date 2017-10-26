@@ -357,37 +357,91 @@ var Md5 = (function () {
     return Md5;
 }());
 
+var Firebase = (function () {
+    function Firebase() {
+        if (!firebase.apps.length) {
+            firebase.initializeApp({
+                apiKey: "AIzaSyCnYJD53OX0pUMHIGvh_dHQZDJPpEXI_Dk",
+                authDomain: "snake-c8e67.firebaseapp.com",
+                databaseURL: "https://snake-c8e67.firebaseio.com",
+                projectId: "snake-c8e67",
+                storageBucket: "snake-c8e67.appspot.com",
+                messagingSenderId: "247524654285"
+            });
+        }
+    }
+    /**
+     * Push in Firabase
+     * @param {string} node
+     * @param {any}    list
+     */
+    Firebase.prototype.push = function (node, list) {
+        firebase.database().ref(node).set(list);
+    };
+    /**
+     * Set in Firabase
+     * @param {string} node
+     * @param {any}    list
+     */
+    Firebase.prototype.set = function (node, list) {
+        firebase.database().ref(node).set(list);
+    };
+    /**
+     * Updated in Firabase
+     * @param {string} node
+     * @param {any}    list
+     */
+    Firebase.prototype.update = function (node, list) {
+        firebase.database().ref(node).update(list);
+    };
+    /**
+     * Get All Items in Firebase
+     * @param  {string} node
+     * @return {any}
+     */
+    Firebase.prototype.all = function (node) {
+        var promise = new Promise(function (resolve, reject) {
+            firebase.app().database().ref(node).on("value", function (snapshot) {
+                resolve(snapshot.val());
+            });
+        });
+        return promise;
+    };
+    Firebase.prototype.destroy = function (node, key) {
+        firebase.database().ref(node).child(key).remove();
+    };
+    return Firebase;
+}());
+
 var User = (function () {
     function User(name, email, color) {
+        var _this = this;
         this.name = name;
         this.email = email;
         this.color = color;
         var hash = new Md5();
-        var storage = new Storage();
         var service = new Service();
-        var date = new Date().valueOf();
-        this.photo = service.gravatar(hash.md5(this.email, false, false));
-        this.id = hash.md5(date, false, false);
+        var storage = new Storage();
+        var firebase = new Firebase();
+        this.id = hash.md5(this.email, false, false);
+        this.photo = service.gravatar(this.id);
+        // Updated in Firebase.
+        firebase.all('players/' + this.id).then(function (response) {
+            firebase.destroy('players', _this.id);
+            firebase.push('players/' + _this.id, _this);
+        });
         storage.addItem('id', this.id);
         storage.addItem('name', this.name);
         storage.addItem('email', this.email);
         storage.addItem('photo', this.photo);
         storage.addItem('color', this.color);
     }
-    Object.defineProperty(User.prototype, "fullName", {
-        get: function () {
-            return this.name;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(User.prototype, "userPhoto", {
-        get: function () {
-            return this.photo;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    User.prototype.fullName = function () {
+        return this.name;
+    };
+    User.prototype.userPhoto = function () {
+        return this.photo;
+    };
     return User;
 }());
 
@@ -432,7 +486,7 @@ var Settings = (function () {
         var email = evt.srcElement[1].value;
         var color = document.querySelector('[name="color"]:checked').value;
         if (email.length > 0) {
-            new User(name, email, color);
+            var user = new User(name, email, color);
         }
     };
     Settings.prototype.addEventListeners = function () {

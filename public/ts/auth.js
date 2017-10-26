@@ -4,72 +4,6 @@
 	(factory());
 }(this, (function () { 'use strict';
 
-var Storage = (function () {
-    function Storage() {
-    }
-    /**
-     * Save items in browser storage.
-     * @param {string} name
-     * @param {string} value
-     * @return {void}
-     */
-    Storage.prototype.addItem = function (name, value) {
-        localStorage.setItem(name, value);
-    };
-    /**
-     * Get Item in storage.
-     * @param  {string} item
-     * @return {string}
-     */
-    Storage.prototype.getItem = function (item) {
-        return localStorage.getItem(item);
-    };
-    /**
-     * Remove Item in storage.
-     * @param {string} item [description]
-     * @return {void}
-     */
-    Storage.prototype.removeItem = function (item) {
-        localStorage.removeItem(item);
-    };
-    return Storage;
-}());
-
-var Service = (function () {
-    function Service() {
-        this.storage = new Storage();
-    }
-    /**
-    * Method to return avatar based in email.
-    * @param  {String} hash
-    * @param  {Number} size
-    * @return {String}
-    */
-    Service.prototype.gravatar = function (hash, size) {
-        if (size === void 0) { size = 200; }
-        return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
-    };
-    /**
-     * Check if user have info in storage.
-     * @return {boolean}
-     */
-    Service.prototype.checkAuth = function () {
-        var exists = true;
-        if (localStorage.getItem('email') === null) {
-            exists = false;
-        }
-        return exists;
-    };
-    /**
-     * Remove user from storage.
-    * @return void
-    */
-    Service.prototype.logout = function () {
-        this.storage.removeItem('email');
-    };
-    return Service;
-}());
-
 var Util = (function () {
     function Util() {
     }
@@ -152,6 +86,128 @@ var Util = (function () {
     Util.COLOR_BOARD = '#fff';
     Util.COLOR_WALL = '#696a6b';
     return Util;
+}());
+
+var Storage = (function () {
+    function Storage() {
+    }
+    /**
+     * Save items in browser storage.
+     * @param {string} name
+     * @param {string} value
+     * @return {void}
+     */
+    Storage.prototype.addItem = function (name, value) {
+        localStorage.setItem(name, value);
+    };
+    /**
+     * Get Item in storage.
+     * @param  {string} item
+     * @return {string}
+     */
+    Storage.prototype.getItem = function (item) {
+        return localStorage.getItem(item);
+    };
+    /**
+     * Remove Item in storage.
+     * @param {string} item [description]
+     * @return {void}
+     */
+    Storage.prototype.removeItem = function (item) {
+        localStorage.removeItem(item);
+    };
+    return Storage;
+}());
+
+var Service = (function () {
+    function Service() {
+        this.storage = new Storage();
+    }
+    /**
+    * Method to return avatar based in email.
+    * @param  {String} hash
+    * @param  {Number} size
+    * @return {String}
+    */
+    Service.prototype.gravatar = function (hash, size) {
+        if (size === void 0) { size = 200; }
+        return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
+    };
+    /**
+     * Check if user have info in storage.
+     * @return {boolean}
+     */
+    Service.prototype.checkAuth = function () {
+        var exists = true;
+        if (localStorage.getItem('email') === null) {
+            exists = false;
+        }
+        return exists;
+    };
+    /**
+     * Remove user from storage.
+    * @return void
+    */
+    Service.prototype.logout = function () {
+        this.storage.removeItem('email');
+    };
+    return Service;
+}());
+
+var Firebase = (function () {
+    function Firebase() {
+        if (!firebase.apps.length) {
+            firebase.initializeApp({
+                apiKey: "AIzaSyCnYJD53OX0pUMHIGvh_dHQZDJPpEXI_Dk",
+                authDomain: "snake-c8e67.firebaseapp.com",
+                databaseURL: "https://snake-c8e67.firebaseio.com",
+                projectId: "snake-c8e67",
+                storageBucket: "snake-c8e67.appspot.com",
+                messagingSenderId: "247524654285"
+            });
+        }
+    }
+    /**
+     * Push in Firabase
+     * @param {string} node
+     * @param {any}    list
+     */
+    Firebase.prototype.push = function (node, list) {
+        firebase.database().ref(node).set(list);
+    };
+    /**
+     * Set in Firabase
+     * @param {string} node
+     * @param {any}    list
+     */
+    Firebase.prototype.set = function (node, list) {
+        firebase.database().ref(node).set(list);
+    };
+    /**
+     * Updated in Firabase
+     * @param {string} node
+     * @param {any}    list
+     */
+    Firebase.prototype.update = function (node, list) {
+        firebase.database().ref(node).update(list);
+    };
+    /**
+     * Get All Items in Firebase
+     * @param  {string} node
+     * @return {any}
+     */
+    Firebase.prototype.all = function (node) {
+        var promise = new Promise(function (resolve, reject) {
+            firebase.app().database().ref(node).on("value", function (snapshot) {
+                resolve(snapshot.val());
+            });
+        });
+        return promise;
+    };
+    Firebase.prototype.destroy = function (node, key) {
+        firebase.database().ref(node).child(key).remove();
+    };
+    return Firebase;
 }());
 
 var Md5 = (function () {
@@ -359,35 +415,33 @@ var Md5 = (function () {
 
 var User = (function () {
     function User(name, email, color) {
+        var _this = this;
         this.name = name;
         this.email = email;
         this.color = color;
         var hash = new Md5();
-        var storage = new Storage();
         var service = new Service();
-        var date = new Date().valueOf();
-        this.photo = service.gravatar(hash.md5(this.email, false, false));
-        this.id = hash.md5(date, false, false);
+        var storage = new Storage();
+        var firebase = new Firebase();
+        this.id = hash.md5(this.email, false, false);
+        this.photo = service.gravatar(this.id);
+        // Updated in Firebase.
+        firebase.all('players/' + this.id).then(function (response) {
+            firebase.destroy('players', _this.id);
+            firebase.push('players/' + _this.id, _this);
+        });
         storage.addItem('id', this.id);
         storage.addItem('name', this.name);
         storage.addItem('email', this.email);
         storage.addItem('photo', this.photo);
         storage.addItem('color', this.color);
     }
-    Object.defineProperty(User.prototype, "fullName", {
-        get: function () {
-            return this.name;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(User.prototype, "userPhoto", {
-        get: function () {
-            return this.photo;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    User.prototype.fullName = function () {
+        return this.name;
+    };
+    User.prototype.userPhoto = function () {
+        return this.photo;
+    };
     return User;
 }());
 
@@ -395,6 +449,8 @@ var Auth = (function () {
     function Auth() {
         this.util = new Util();
         this.service = new Service();
+        this.storage = new Storage();
+        this.firebase = new Firebase();
         if (this.service.checkAuth()) {
             this.util.redirect('game');
         }
@@ -402,11 +458,41 @@ var Auth = (function () {
         this.addEventListeners();
     }
     Auth.prototype.login = function (evt) {
+        var _this = this;
         var name = evt.srcElement[0].value;
         var email = evt.srcElement[1].value;
+        var user;
+        var playerExists = false;
         if (email.length > 0) {
-            new User(name, email, this.util.COLOR_SNAKE); // Need update user information in Firebase.
-            this.util.redirect('game');
+            this.firebase.all('players').then(function (response) {
+                // Get size of object.
+                var size = Object.keys(response).length;
+                if (size > 0) {
+                    for (var key in response) {
+                        if (response[key].email === email) {
+                            playerExists = true; // alreday exists this player.
+                            user = response[key]; // get info this player.
+                        }
+                    }
+                    // If player not exists in Firebase.
+                    if (!playerExists) {
+                        // New User.
+                        user = new User(name, email, Util.COLOR_SNAKE);
+                        // Save in Firebase.
+                        _this.firebase.push('players/' + user.id, user);
+                    }
+                    else {
+                        // Save user info in storage.
+                        _this.storage.addItem('id', user.id);
+                        _this.storage.addItem('name', user.name);
+                        _this.storage.addItem('email', user.email);
+                        _this.storage.addItem('photo', user.photo);
+                        _this.storage.addItem('color', user.color);
+                    }
+                    // Redirect user to game board.
+                    _this.util.redirect('game');
+                }
+            });
         }
     };
     Auth.prototype.addEventListeners = function () {

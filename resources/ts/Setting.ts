@@ -59,24 +59,24 @@ class Settings {
          let color = document.querySelector('[name="color"]:checked').value;
 
          if (email.length > 0) {
-             new User(name, email, color);
+             let user = new User(name, email, color);
          }
      }
 
-    addEventListeners (): void {
-        this.form.addEventListener('submit', evt => {
-            evt.preventDefault();
-            this.updateUser(evt);
-        });
+     addEventListeners (): void {
+         this.form.addEventListener('submit', evt => {
+             evt.preventDefault();
+             this.updateUser(evt);
+         });
 
-        // Logout
-        let logout = document.querySelector('#logout');
-        logout.addEventListener('click', evt => {
-            evt.preventDefault();
-            this.service.logout();
-            this.util.redirect('index');
-        });
-    }
+         // Logout
+         let logout = document.querySelector('#logout');
+         logout.addEventListener('click', evt => {
+             evt.preventDefault();
+             this.service.logout();
+             this.util.redirect('index');
+         });
+     }
  }
 
  new Settings();

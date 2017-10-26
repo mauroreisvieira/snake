@@ -15,50 +15,46 @@ export default class Firebase {
 
     /**
      * Push in Firabase
-     * @param {string} cell
+     * @param {string} node
      * @param {any}    list
      */
-    push(cell: string, list : any): void {
-        firebase.database().ref(cell).set(list);
+    push(node: string, list : any): void {
+        firebase.database().ref(node).set(list);
     }
 
     /**
      * Set in Firabase
-     * @param {string} cell
+     * @param {string} node
      * @param {any}    list
      */
-    set(cell: string, list : any): void {
-        firebase.database().ref(cell).set(list);
+    set(node: string, list : any): void {
+        firebase.database().ref(node).set(list);
     }
 
     /**
      * Updated in Firabase
-     * @param {string} cell
+     * @param {string} node
      * @param {any}    list
      */
-    update(cell: string, list : any): void {
-        firebase.database().ref(cell).update(list);
+    update(node: string, list : any): void {
+        firebase.database().ref(node).update(list);
     }
 
     /**
      * Get All Items in Firebase
-     * @param  {string} cell
+     * @param  {string} node
      * @return {any}
      */
-    all(cell: string): any{
+    all(node: string): any {
         var promise = new Promise((resolve, reject) => {
-            firebase.app().database().ref(cell).on("value", function(snapshot) {
-                let data = snapshot.val();
-                let list = [];
-                for (var key in data) {
-                    list.push({
-                        name: data[key].name,
-                        email: data[key].email
-                    });
-                }
-                resolve(list);
+            firebase.app().database().ref(node).on("value", function(snapshot) {
+                resolve(snapshot.val());
             });
         });
         return promise;
+    }
+
+    destroy(node: string, key: any): void {
+        firebase.database().ref(node).child(key).remove();
     }
 }

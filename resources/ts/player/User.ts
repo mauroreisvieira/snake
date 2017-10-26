@@ -1,12 +1,12 @@
 import Md5 from './../utils/Md5';
 import Service from './../utils/Service';
 import Storage from './../utils/Storage';
+import Firebase from './../utils/Firebase';
 
 export default class User {
-    public id: number;
+    public id: any;
     public name: string;
     public email: string;
-    public hash: string;
     public photo: any;
     public color: any;
 
@@ -16,12 +16,18 @@ export default class User {
         this.color = color;
 
         let hash = new Md5();
-        let storage = new Storage();
         let service = new Service();
-        const date = new Date().valueOf();
+        let storage = new Storage();
+        let firebase = new Firebase();
 
-        this.photo = service.gravatar(hash.md5(this.email, false, false));
-        this.id = hash.md5(date, false, false);
+        this.id = hash.md5(this.email, false, false);
+        this.photo = service.gravatar(this.id);
+
+        // Updated in Firebase.
+        firebase.all('players/' + this.id).then(response => {
+            firebase.destroy('players', this.id);
+            firebase.push('players/' + this.id, this);
+        });
 
         storage.addItem('id', this.id);
         storage.addItem('name', this.name);
@@ -30,11 +36,11 @@ export default class User {
         storage.addItem('color', this.color);
     }
 
-    get fullName(): string {
+    fullName(): string {
         return this.name;
     }
 
-    get userPhoto(): any {
+    userPhoto(): any {
         return this.photo;
     }
 }

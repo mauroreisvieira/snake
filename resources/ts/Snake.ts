@@ -40,7 +40,7 @@ export default class Snake {
         return this.snake.pop();
     }
 
-    view(posX: number, posY: number): void{
+    view(posX: number, posY: number): void {
         document.querySelectorAll('table tr:nth-child(' + posX + ') td:nth-child(' + posY + ')')[0].style.backgroundColor = this.color;
     }
 }

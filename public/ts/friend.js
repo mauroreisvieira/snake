@@ -169,48 +169,43 @@ var Firebase = (function () {
     }
     /**
      * Push in Firabase
-     * @param {string} cell
+     * @param {string} node
      * @param {any}    list
      */
-    Firebase.prototype.push = function (cell, list) {
-        firebase.database().ref(cell).set(list);
+    Firebase.prototype.push = function (node, list) {
+        firebase.database().ref(node).set(list);
     };
     /**
      * Set in Firabase
-     * @param {string} cell
+     * @param {string} node
      * @param {any}    list
      */
-    Firebase.prototype.set = function (cell, list) {
-        firebase.database().ref(cell).set(list);
+    Firebase.prototype.set = function (node, list) {
+        firebase.database().ref(node).set(list);
     };
     /**
      * Updated in Firabase
-     * @param {string} cell
+     * @param {string} node
      * @param {any}    list
      */
-    Firebase.prototype.update = function (cell, list) {
-        firebase.database().ref(cell).update(list);
+    Firebase.prototype.update = function (node, list) {
+        firebase.database().ref(node).update(list);
     };
     /**
      * Get All Items in Firebase
-     * @param  {string} cell
+     * @param  {string} node
      * @return {any}
      */
-    Firebase.prototype.all = function (cell) {
+    Firebase.prototype.all = function (node) {
         var promise = new Promise(function (resolve, reject) {
-            firebase.app().database().ref(cell).on("value", function (snapshot) {
-                var data = snapshot.val();
-                var list = [];
-                for (var key in data) {
-                    list.push({
-                        name: data[key].name,
-                        email: data[key].email
-                    });
-                }
-                resolve(list);
+            firebase.app().database().ref(node).on("value", function (snapshot) {
+                resolve(snapshot.val());
             });
         });
         return promise;
+    };
+    Firebase.prototype.destroy = function (node, key) {
+        firebase.database().ref(node).child(key).remove();
     };
     return Firebase;
 }());
