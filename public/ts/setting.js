@@ -419,6 +419,7 @@ var User = (function () {
         this.name = name;
         this.email = email;
         this.color = color;
+        var util = new Util();
         var hash = new Md5();
         var service = new Service();
         var storage = new Storage();
@@ -426,10 +427,12 @@ var User = (function () {
         this.id = hash.md5(this.email, false, false);
         this.photo = service.gravatar(this.id);
         // Updated in Firebase.
-        firebase.all('players/' + this.id).then(function (response) {
-            firebase.destroy('players', _this.id);
-            firebase.push('players/' + _this.id, _this);
-        });
+        if (this.util.online) {
+            firebase.all('players/' + this.id).then(function (response) {
+                firebase.destroy('players', _this.id);
+                firebase.push('players/' + _this.id, _this);
+            });
+        }
         storage.addItem('id', this.id);
         storage.addItem('name', this.name);
         storage.addItem('email', this.email);

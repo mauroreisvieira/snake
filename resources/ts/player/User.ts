@@ -1,3 +1,4 @@
+import Util from './../utils/Util';
 import Md5 from './../utils/Md5';
 import Service from './../utils/Service';
 import Storage from './../utils/Storage';
@@ -15,6 +16,7 @@ export default class User {
         this.email = email;
         this.color = color;
 
+        let util = new Util();
         let hash = new Md5();
         let service = new Service();
         let storage = new Storage();
@@ -24,10 +26,12 @@ export default class User {
         this.photo = service.gravatar(this.id);
 
         // Updated in Firebase.
-        firebase.all('players/' + this.id).then(response => {
-            firebase.destroy('players', this.id);
-            firebase.push('players/' + this.id, this);
-        });
+        if (this.util.online) {
+            firebase.all('players/' + this.id).then(response => {
+                firebase.destroy('players', this.id);
+                firebase.push('players/' + this.id, this);
+            });
+        }
 
         storage.addItem('id', this.id);
         storage.addItem('name', this.name);

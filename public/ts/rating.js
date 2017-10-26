@@ -223,17 +223,29 @@ var Rating = (function () {
             this.util.redirect('index');
         }
         // Check if user hava internet connection.
-        if (this.util.online) {
-            this.firebase.all('players').then(function (response) {
-                _this.players = response;
-                _this.storage.addItem('players', JSON.stringify(_this.players));
-                _this.view();
+        // this.firebase.all('players').then(response => {
+        //     this.players = response;
+        //     this.storage.addItem('players', JSON.stringify(this.players));
+        //     this.view();
+        // });
+        fetch('https://randomuser.me/api/?results=9&nat=us')
+            .then(function (response) { return response.json(); })
+            .then(function (data) {
+            var playerList = [];
+            var points = 1400;
+            data.results.forEach(function (val) {
+                points = _this.util.rand(100, 2000);
+                playerList.push({
+                    'name': val.name.first + ' ' + val.name.last,
+                    'email': val.email,
+                    'points': points,
+                    'photo': val.picture.medium
+                });
             });
-        }
-        else {
-            this.players = JSON.parse(this.service.getItem('players'));
-            this.view();
-        }
+            _this.players = playerList;
+            _this.view();
+            // this.service.addItem('players', JSON.stringify(playerList));
+        });
         this.addEventListeners();
     }
     Rating.prototype.view = function () {
