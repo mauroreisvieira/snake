@@ -23,29 +23,11 @@ class Rating {
         }
 
         // Check if user hava internet connection.
-        // this.firebase.all('players').then(response => {
-        //     this.players = response;
-        //     this.storage.addItem('players', JSON.stringify(this.players));
-        //     this.view();
-        // });
-
-        fetch('https://randomuser.me/api/?results=9&nat=us')
-        .then( response => { return response.json(); })
-        .then( data => {
-            const playerList = [];
-            var points = 1400;
-            data.results.forEach( (val) => {
-                points = this.util.rand(100, 2000);
-                playerList.push({
-                    'name' : val.name.first + ' ' + val.name.last,
-                    'email' : val.email,
-                    'points' : points,
-                    'photo' : val.picture.medium
-                });
-            });
-            this.players = playerList;
+        this.firebase.all('players').then(response => {
+            this.players = response;
+            this.players = Object.entries(response);
+            this.storage.addItem('players', JSON.stringify(this.players));
             this.view();
-            // this.service.addItem('players', JSON.stringify(playerList));
         });
 
         this.addEventListeners();
@@ -53,19 +35,21 @@ class Rating {
 
     view(): void {
         const table = document.querySelector('.table');
-        this.players.sort(function(a, b) {
-            return a.points - b.points;
-        });
 
+        this.players.sort(function(a, b) {
+            return a[1].score - b[1].score;
+        });
+        // Order Players List.
         this.players.reverse();
+        table.classList.remove("loading");
         table.innerHTML = this.players.map((player) => {
             return `<tr>
-                <td class="table__image">
-                <img src="${player.photo}" alt="${player.name}" title="${player.name}">
-                </td>
-                <td class="table_name">${player.name}</td>
-                <td class="table__scrore">${player.points} /pts</td>
-                <td class="table__stars">★★★★</td>
+                    <td class="table__image">
+                        <img src="${player[1].photo}" alt="${player[1].name}" title="${player[1].name}">
+                    </td>
+                    <td class="table_name">${player[1].name}</td>
+                    <td class="table__scrore">${player[1].score} /pts</td>
+                    <td class="table__stars">★★★★</td>
                 </tr>`;
         }).join('');
     }

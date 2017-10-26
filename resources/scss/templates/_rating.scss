@@ -22,68 +22,18 @@
 
   .main {
     grid-area: main;
+
+    .card {
+      background-color: $color-white;
+      box-shadow: 0 3rem 5rem -2rem rgba($color-black, .3);
+      margin: auto;
+      margin-bottom: 80px;
+      position: relative;
+      z-index: 3;
+    }
   }
 
   .footer {
     grid-area: footer;
-  }
-
-  .card {
-    background-color: $color-white;
-    box-shadow: 0 3rem 5rem -2rem rgba($color-black, .3);
-    margin: auto;
-    margin-bottom: 80px;
-    position: relative;
-    z-index: 3;
-  }
-
-  .photo {
-    border-radius: 50%;
-    height: 80px;
-    object-fit: cover;
-    overflow: hidden;
-    width: 80px;
-    margin: 4px auto;
-
-    img {
-      object-fit: cover;
-      width: 100%;
-    }
-  }
-
-  .stars {
-    margin-top: 10px;
-    font-size: $font-large;
-    color: $color-salmon;
-    width: 100%;
-    text-align: center;
-
-  }
-
-  .details {
-    display: flex;
-    flex-direction: column;
-
-    .details__position {
-      @include typography($font-xxx-large, $font-bold);
-      color: $color-darkblue;
-    }
-
-    .details__name {
-      @include typography($font-large, $font-light);
-      color: $color-text-default;
-    }
-
-    .details__scrore {
-      font-family: $font-family-default;
-      font-size: $font-medium;
-      font-weight: $font-bold;
-      margin-top: 8px;
-    }
-  }
-
-  .winner {
-    font-size: 70px;
-    margin: auto;
   }
 }

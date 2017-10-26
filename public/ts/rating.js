@@ -149,7 +149,7 @@ var Service = (function () {
     * @return void
     */
     Service.prototype.logout = function () {
-        this.storage.removeItem('email');
+        localStorage.clear();
     };
     return Service;
 }());
@@ -223,39 +223,24 @@ var Rating = (function () {
             this.util.redirect('index');
         }
         // Check if user hava internet connection.
-        // this.firebase.all('players').then(response => {
-        //     this.players = response;
-        //     this.storage.addItem('players', JSON.stringify(this.players));
-        //     this.view();
-        // });
-        fetch('https://randomuser.me/api/?results=9&nat=us')
-            .then(function (response) { return response.json(); })
-            .then(function (data) {
-            var playerList = [];
-            var points = 1400;
-            data.results.forEach(function (val) {
-                points = _this.util.rand(100, 2000);
-                playerList.push({
-                    'name': val.name.first + ' ' + val.name.last,
-                    'email': val.email,
-                    'points': points,
-                    'photo': val.picture.medium
-                });
-            });
-            _this.players = playerList;
+        this.firebase.all('players').then(function (response) {
+            _this.players = response;
+            _this.players = Object.entries(response);
+            _this.storage.addItem('players', JSON.stringify(_this.players));
             _this.view();
-            // this.service.addItem('players', JSON.stringify(playerList));
         });
         this.addEventListeners();
     }
     Rating.prototype.view = function () {
         var table = document.querySelector('.table');
         this.players.sort(function (a, b) {
-            return a.points - b.points;
+            return a[1].score - b[1].score;
         });
+        // Order Players List.
         this.players.reverse();
+        table.classList.remove("loading");
         table.innerHTML = this.players.map(function (player) {
-            return "<tr>\n                <td class=\"table__image\">\n                <img src=\"" + player.photo + "\" alt=\"" + player.name + "\" title=\"" + player.name + "\">\n                </td>\n                <td class=\"table_name\">" + player.name + "</td>\n                <td class=\"table__scrore\">" + player.points + " /pts</td>\n                <td class=\"table__stars\">\u2605\u2605\u2605\u2605</td>\n                </tr>";
+            return "<tr>\n                    <td class=\"table__image\">\n                        <img src=\"" + player[1].photo + "\" alt=\"" + player[1].name + "\" title=\"" + player[1].name + "\">\n                    </td>\n                    <td class=\"table_name\">" + player[1].name + "</td>\n                    <td class=\"table__scrore\">" + player[1].score + " /pts</td>\n                    <td class=\"table__stars\">\u2605\u2605\u2605\u2605</td>\n                </tr>";
         }).join('');
     };
     Rating.prototype.addEventListeners = function () {

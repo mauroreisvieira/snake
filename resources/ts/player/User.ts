@@ -10,6 +10,7 @@ export default class User {
     public email: string;
     public photo: any;
     public color: any;
+    public score: any;
 
     constructor (name: string, email: string, color: any) {
         this.name = name;
@@ -34,11 +35,14 @@ export default class User {
             });
         }
 
+        this.score = storage.getItem('score') === 'null' ? 0 : storage.getItem('score');
+
         storage.addItem('id', this.id);
         storage.addItem('name', this.name);
         storage.addItem('email', this.email);
         storage.addItem('photo', this.photo);
         storage.addItem('color', this.color);
+        storage.addItem('score', this.score);
     }
 
     fullName(): string {

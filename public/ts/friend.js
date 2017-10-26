@@ -149,7 +149,7 @@ var Service = (function () {
     * @return void
     */
     Service.prototype.logout = function () {
-        this.storage.removeItem('email');
+        localStorage.clear();
     };
     return Service;
 }());

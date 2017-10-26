@@ -149,7 +149,7 @@ var Service = (function () {
     * @return void
     */
     Service.prototype.logout = function () {
-        this.storage.removeItem('email');
+        localStorage.clear();
     };
     return Service;
 }());
@@ -434,11 +434,13 @@ var User = (function () {
                 firebase.push('players/' + _this.id, _this);
             });
         }
+        this.score = storage.getItem('score') === 'null' ? 0 : storage.getItem('score');
         storage.addItem('id', this.id);
         storage.addItem('name', this.name);
         storage.addItem('email', this.email);
         storage.addItem('photo', this.photo);
         storage.addItem('color', this.color);
+        storage.addItem('score', this.score);
     }
     User.prototype.fullName = function () {
         return this.name;
@@ -492,6 +494,7 @@ var Auth = (function () {
                         _this.storage.addItem('email', user.email);
                         _this.storage.addItem('photo', user.photo);
                         _this.storage.addItem('color', user.color);
+                        _this.storage.addItem('score', user.score);
                     }
                     // Redirect user to game board.
                     _this.util.redirect('game');

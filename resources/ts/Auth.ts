@@ -55,6 +55,7 @@ class Auth {
                         this.storage.addItem('email', user.email);
                         this.storage.addItem('photo', user.photo);
                         this.storage.addItem('color', user.color);
+                        this.storage.addItem('score', user.score);
                     }
 
                     // Redirect user to game board.

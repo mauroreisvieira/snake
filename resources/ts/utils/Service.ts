@@ -34,6 +34,6 @@ export default class Service {
     * @return void
     */
     logout(): void {
-        this.storage.removeItem('email');
+        localStorage.clear();
     }
 }
