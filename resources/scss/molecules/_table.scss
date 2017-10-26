@@ -18,7 +18,7 @@
 
   .table__image {
 
-  @include mobile() {
+    @include mobile() {
       display: none;
     }
 
@@ -36,26 +36,24 @@
     color: $color-darkblue;
   }
 
-  .table_name {
+  .table__name {
     @include typography($font-medium, $font-light);
     color: $color-text-default;
     text-transform: capitalize;
   }
 
+  .table__history {
+    @include typography($font-medium, $font-light);
+    color: $color-text-default;
+    font-style: italic;
+  }
+
   .table__scrore {
+    color: $color-green;
     font-family: $font-family-default;
     font-size: $font-medium;
     font-weight: $font-bold;
-    margin-top: 8px;
-  }
-
-  .table__stars {
-    font-size: $font-medium;
-    color: $color-salmon;
     text-align: right;
-
-    @include mobile() {
-      display: none;
-    }
   }
+
 }

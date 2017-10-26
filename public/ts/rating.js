@@ -233,14 +233,15 @@ var Rating = (function () {
     }
     Rating.prototype.view = function () {
         var table = document.querySelector('.table');
+        var loading = document.querySelector('#loading');
         this.players.sort(function (a, b) {
             return a[1].score - b[1].score;
         });
         // Order Players List.
         this.players.reverse();
-        table.classList.remove("loading");
+        loading.classList.remove("loading--on");
         table.innerHTML = this.players.map(function (player) {
-            return "<tr>\n                    <td class=\"table__image\">\n                        <img src=\"" + player[1].photo + "\" alt=\"" + player[1].name + "\" title=\"" + player[1].name + "\">\n                    </td>\n                    <td class=\"table_name\">" + player[1].name + "</td>\n                    <td class=\"table__scrore\">" + player[1].score + " /pts</td>\n                    <td class=\"table__stars\">\u2605\u2605\u2605\u2605</td>\n                </tr>";
+            return "<tr>\n                    <td class=\"table__image\">\n                        <img src=\"" + player[1].photo + "\" alt=\"" + player[1].name + "\" title=\"" + player[1].name + "\">\n                    </td>\n                    <td class=\"table__name\">" + player[1].name + "</td>\n                    <td class=\"table__scrore\">" + player[1].score + " /pts</td>\n                </tr>";
         }).join('');
     };
     Rating.prototype.addEventListeners = function () {

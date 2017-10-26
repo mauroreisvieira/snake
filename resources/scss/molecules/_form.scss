@@ -7,6 +7,11 @@
     margin-bottom: 20px;
     position: relative;
 
+    svg {
+      position: absolute;
+      height: 44px;
+    }
+
     &:last-child {
       margin-bottom: 0;
     }

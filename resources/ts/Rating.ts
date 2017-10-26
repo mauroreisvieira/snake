@@ -35,21 +35,21 @@ class Rating {
 
     view(): void {
         const table = document.querySelector('.table');
+        const loading = document.querySelector('#loading');
 
         this.players.sort(function(a, b) {
             return a[1].score - b[1].score;
         });
         // Order Players List.
         this.players.reverse();
-        table.classList.remove("loading");
+        loading.classList.remove("loading--on");
         table.innerHTML = this.players.map((player) => {
             return `<tr>
                     <td class="table__image">
                         <img src="${player[1].photo}" alt="${player[1].name}" title="${player[1].name}">
                     </td>
-                    <td class="table_name">${player[1].name}</td>
+                    <td class="table__name">${player[1].name}</td>
                     <td class="table__scrore">${player[1].score} /pts</td>
-                    <td class="table__stars">★★★★</td>
                 </tr>`;
         }).join('');
     }
