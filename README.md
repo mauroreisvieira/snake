@@ -7,7 +7,7 @@
 
 Using a combination of **HTML**, **SCSS** and pure **JavaScript / ES6**.
 
-> [Stewed Battle](http://maurovieirareis.github.io/snake) Start to Play!
+You can play `Snake Battle` in [Github Page](http://maurovieirareis.github.io/snake).
 
 
 ## Supported Browsers:
