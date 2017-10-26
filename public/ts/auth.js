@@ -427,6 +427,7 @@ var User = (function () {
         // Hash (md5) only use to encrypt the email to get photo in Gravatar API.
         this.id = hash.md5(this.email, false, false);
         this.photo = service.gravatar(this.id);
+        this.score = storage.getItem('score') > 0 ? storage.getItem('score') : 0;
         // Updated in Firebase only have connection to internet.
         if (util.online) {
             firebase.all('players/' + this.id).then(function (response) {
@@ -434,8 +435,6 @@ var User = (function () {
                 firebase.push('players/' + _this.id, _this);
             });
         }
-        // Save current scrore of user.
-        this.score = storage.getItem('score') > 0 ? storage.getItem('score') : 0;
         storage.addItem('id', this.id);
         storage.addItem('name', this.name);
         storage.addItem('email', this.email);
