@@ -33,7 +33,7 @@
       box-shadow: 0 3rem 5rem -2rem rgba($color-black, .3);
       box-sizing: border-box;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: space-between;
       margin-bottom: 40px;
       padding: 40px;
@@ -43,23 +43,59 @@
 
       .item__photo {
        border-radius: 50%;
-       height: 60px;
+       height: 80px;
        object-fit: cover;
        overflow: hidden;
-       width: 60px;
-       margin: 4px auto;
+       width: 80px;
+       margin: 0 auto;
 
        img {
         object-fit: cover;
         width: 100%;
       }
+
+      span {
+        background-color: currentColor;
+        border-radius: 50%;
+        border: 8px solid $color-white;
+        height: 20px;
+        left: 60px;
+        position: absolute;
+        right: 0;
+        top: 100px;
+        width: 20px;
+        margin: auto;
+      }
     }
 
-    .item__name {
-      @include typography($font-medium, $font-light);
-      color: $color-text-default;
+    .item__content {
       flex-basis: 80%;
+      margin: 20px 0;
       width: 80%;
+
+      .item__name {
+        @include typography($font-large, $font-bold);
+        color: $color-text-default;
+      }
+
+      .item__mail {
+        @include typography($font-medium, $font-thin);
+        color: $color-pink;
+        font-family: $font-family-default;
+      }
+
+      .item__history {
+        @include typography($font-small, $font-normal);
+        font-family: $font-family-default;
+        color: lighten($color-black , 80%);
+        margin-top: 10px;
+      }
+    }
+
+    .item__options {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
     }
   }
 }

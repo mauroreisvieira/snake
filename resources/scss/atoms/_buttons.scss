@@ -17,6 +17,11 @@
   vertical-align: middle;
   z-index: 0;
 
+  &[disabled] {
+    opacity: .7;
+    pointer-events: none;
+  }
+
   &--fullwidth {
     width: 100%;
   }
@@ -41,8 +46,8 @@
     font-size: $font-small;
     font-weight: $font-light;
     height: 40px;
-    line-height: 32px;
-    padding: 0 18px;
+    line-height: 40px;
+    padding: 0 14px;
   }
 
   @each $key, $values in $buttons {
