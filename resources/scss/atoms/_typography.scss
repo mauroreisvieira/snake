@@ -7,7 +7,6 @@
   }
 }
 
-
 p {
   @include typography($font-medium, $font-light);
   color: $color-text-default;

@@ -241,7 +241,7 @@ var Rating = (function () {
         this.players.reverse();
         loading.classList.remove("loading--on");
         table.innerHTML = this.players.map(function (player) {
-            return "<tr>\n                    <td class=\"table__image\">\n                        <img src=\"" + player[1].photo + "\" alt=\"" + player[1].name + "\" title=\"" + player[1].name + "\">\n                    </td>\n                    <td class=\"table__name\">" + player[1].name + "</td>\n                    <td class=\"table__scrore\">" + player[1].score + " /pts</td>\n                </tr>";
+            return "<tr>\n                    <td class=\"table__image\">\n                        <img src=\"" + player[1].photo + "\" alt=\"" + player[1].name + "\" title=\"" + player[1].name + "\">\n                    </td>\n                    <td class=\"table__name\">" + player[1].name + "</td>\n                    <td class=\"table__scrore\">" + player[1].score + " /pts</td>\n                    <td><button class=\"button button--green button--icon button-add-friend\" data-id=\"" + player[0] + "\"><i class=\"icon ion-person-add\"></i></button></td>\n                </tr>";
         }).join('');
     };
     Rating.prototype.addEventListeners = function () {

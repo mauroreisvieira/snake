@@ -1,5 +1,5 @@
 #loading {
-  background:transparent;
+  background: $color-white;
   border: 0;
   bottom: 0;
   display: none;
@@ -8,13 +8,15 @@
   margin: auto;
   right: 0;
   top: 0;
-  width: 50px;
   visibility: hidden;
+  width: 100%;
 
   svg {
     position: relative;
     stroke: $color-salmon;
     fill: transparent;
+    width: 50px;
+    margin: auto;
 
     stroke: {
       dashoffset: 0;

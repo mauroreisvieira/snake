@@ -50,6 +50,7 @@ class Rating {
                     </td>
                     <td class="table__name">${player[1].name}</td>
                     <td class="table__scrore">${player[1].score} /pts</td>
+                    <td><button class="button button--green button--icon button-add-friend" data-id="${player[0]}"><i class="icon ion-person-add"></i></button></td>
                 </tr>`;
         }).join('');
     }

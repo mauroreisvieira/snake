@@ -56,23 +56,11 @@
     <main class="main" role="main">
         <section class="gird">
             <div class="container">
-                <div class="row">
-                    <div class="cell-large-4 cell-medium-4 cell-small-12">
-                        <div class="item">
-                            <div class="item__photo">
-                                <span style="color: #6F1EFB"></span>
-                                <img src="https://pbs.twimg.com/profile_images/771352999541272576/iVfXX7Ns_400x400.jpg" alt="" title="">
-                            </div>
-                            <div class="item__content">
-                                <div class="item__name">Bruna M. Santos</div>
-                                <div class="item__mail">brrunaa.91@gmail.com</div>
-                                <div class="item__history"><strong>Last Login:</strong> 10 June 2017 </div>
-                            </div>
-                            <div class="item__options">
-                                <button class="button button--small button--yellow" disabled><i class="icon ion-ios-game-controller-b"></i> Challenge</button>
-                                <button class="button button--small button--yellow" disabled><i class="icon ion-android-mail"></i> Message</button>
-                            </div>
-                        </div>
+                <div id="list-friends" class="row">
+                    <div id="loading" class="loading--on">
+                        <svg x="0px" y="0px" viewBox="0 0 150 150">
+                            <circle id="loading-inner" cx="75" cy="75" r="60"/>
+                        </svg>
                     </div>
                 </div>
             </div>

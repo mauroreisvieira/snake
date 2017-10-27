@@ -223,23 +223,19 @@ var Friend = (function () {
             this.util.redirect('index');
         }
         // Check if user hava internet connection.
-        if (this.util.online) {
-            this.firebase.all('friends/' + this.storage.getItem('id')).then(function (response) {
-                _this.friends = response;
-                // Updated storage with info in Firebase.
-                _this.storage.addItem('friends', JSON.stringify(_this.friends));
-                _this.view();
-            });
-        }
-        else {
-            this.friends = JSON.parse(this.service.getItem('friends'));
-            this.view();
-        }
+        this.firebase.all('players').then(function (response) {
+            _this.friends = response;
+            _this.friends = Object.entries(response);
+            _this.storage.addItem('friends', JSON.stringify(_this.friends));
+            _this.view();
+        });
         this.addEventListeners();
     }
     Friend.prototype.view = function () {
-        console.log("VIEW");
-        console.log(this.friends);
+        
+        document.querySelector('#list-friends').innerHTML = this.friends.map(function (friend) {
+            return "<div class=\"cell-large-4 cell-medium-4 cell-small-12\">\n                <div class=\"item\">\n                    <div class=\"item__photo\">\n                        <span style=\"color: " + friend[1].color + "\"></span>\n                        <img src=\"" + friend[1].photo + "\" alt=\"" + friend[1].name + "\" title=\"" + friend[1].name + "\">\n                    </div>\n                    <div class=\"item__content\">\n                        <div class=\"item__name\">" + friend[1].name + "</div>\n                        <a href=\"mailto: " + friend[1].email + "\" class=\"item__mail\">" + friend[1].email + "</a>\n                        <div class=\"item__history\"><strong>Last Login:</strong> 10 June 2017 </div>\n                    </div>\n                    <div class=\"item__options\">\n                        <button class=\"button button--small button--yellow\" disabled><i class=\"icon ion-ios-game-controller-b\"></i> Challenge</button>\n                        <button class=\"button button--small button--yellow\" disabled><i class=\"icon ion-android-mail\"></i> Message</button>\n                    </div>\n                </div>\n            </div>";
+        }).join('');
     };
     Friend.prototype.addEventListeners = function () {
         var _this = this;

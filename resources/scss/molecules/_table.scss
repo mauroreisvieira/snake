@@ -42,14 +42,8 @@
     text-transform: capitalize;
   }
 
-  .table__history {
-    @include typography($font-medium, $font-light);
-    color: $color-text-default;
-    font-style: italic;
-  }
-
   .table__scrore {
-    color: $color-green;
+    color: $color-text-default;
     font-family: $font-family-default;
     font-size: $font-medium;
     font-weight: $font-bold;
