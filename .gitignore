@@ -1,5 +1,7 @@
 # Dependency directory
 /node_modules
 
+!/node_modules/react/**
+
 # Source maps
 /dist/**/*.map
