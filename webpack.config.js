@@ -23,13 +23,13 @@ module.exports = {
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-            {
+
+            { // sass / scss loader for webpack
                 test: /\.scss$/,
-                use: [
-                    { loader: "style-loader" }, // creates style nodes from JS strings
-                    { loader: "css-loader" },  // translates CSS into CommonJS
-                    { loader: "sass-loader" } // compiles Sass to CSS
-                ],
+                exclude: /node_modules/,
+                use: ExtractTextPlugin.extract({
+                    use : ['css-loader', 'sass-loader']
+                })
             },
         ],
         loaders: [
@@ -43,7 +43,8 @@ module.exports = {
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".json"]
+        extensions: [".ts", ".tsx", ".js", ".json"],
+        modules: ['src', 'node_modules']
     },
 
     // When importing a module whose path matches one of the following, just
@@ -57,7 +58,8 @@ module.exports = {
 
     plugins: [
         new ExtractTextPlugin({ // define where to save the file
-            filename: "[name].[contenthash].css",
+            filename: "dist/css/app.css",
+            disable: false,
             allChunks: true
         }),
     ],
