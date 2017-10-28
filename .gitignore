@@ -1,8 +1,8 @@
 # Dependency directory
-!node_modules/
+#!node_modules/
 node_modules/*
-!node_modules/react/
-!node_modules/react-dom/
+#!node_modules/react/
+#!node_modules/react-dom/
 
 # Source maps
 /dist/**/*.map
