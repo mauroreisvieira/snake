@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 const extractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -11,8 +12,9 @@ module.exports = {
     },
 
     output: {
-        path: __dirname + "/dist/js",
-        filename: '[name].js'
+        path: path.resolve(__dirname, 'dist/js'),
+        filename: '[name].js',
+        publicPath: '/dist'
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -64,6 +66,9 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development')
-        })
+        }),
+        new webpack.ProvidePlugin({
+            "React": "react",
+        }),
     ],
 };
