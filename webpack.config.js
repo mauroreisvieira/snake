@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const extractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -61,5 +62,8 @@ module.exports = {
             filename: __dirname + "/dist/css/main.css",
             allChunks: true
         }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development')
+        })
     ],
 };
