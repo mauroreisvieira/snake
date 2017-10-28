@@ -4,7 +4,7 @@
 ![Travis](https://img.shields.io/dub/l/vibe-d.svg)
 
 <div align="center">
-    <img src="assest/images/logo/snake.png" width="400" height="100"/>
+    <img src="assets/images/logo/snake.png" width="400" height="100"/>
 </div>
 
 
