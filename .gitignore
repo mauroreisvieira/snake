@@ -1,2 +1,5 @@
+# Dependency directory
 /node_modules
-/public/**/*.map
+
+# Source maps
+/dist/**/*.map

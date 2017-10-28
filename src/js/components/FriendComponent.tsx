@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export var FriendComponent = function list(props : any): any {
+export const FriendComponent = function list(props : any): any {
     const friends = props.friends;
     const listItems = friends.map((friend) =>
         <div key={friend[0]} className="cell-large-4 cell-medium-4 cell-small-12">

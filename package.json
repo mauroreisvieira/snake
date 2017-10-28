@@ -37,8 +37,6 @@
     "typescript": "^2.5.3",
     "webpack": "^3.8.1"
   },
-  "author": [
-    "@mauroreisvieira"
-  ],
+  "author": "Mauro Reis Vieira <@mauroreisvieira>",
   "license": "MIT"
 }
