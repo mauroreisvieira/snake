@@ -58,8 +58,7 @@ module.exports = {
 
     plugins: [
         new ExtractTextPlugin({ // define where to save the file
-            filename: "dist/css/app.css",
-            disable: false,
+            filename: __dirname + "/dist/css/main.css",
             allChunks: true
         }),
     ],

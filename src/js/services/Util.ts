@@ -26,12 +26,12 @@ export default class Util {
 
     /**
      * Receive array and field used to orde this array.
-     * @param  {array} array
+     * @param  {any} array
      * @param  {string} field
-     * @return {integer}
+     * @return {number}
      */
-     compare(array : any, field : string) : any {
-         return array.sort((a, b) => a.field !== b.field ? a.field < b.field ? -1 : 1 : 0);
+     compare(array : any, field : string) : number {
+         return array.sort((a : any, b : any) => a.field !== b.field ? a.field < b.field ? -1 : 1 : 0);
      }
 
     /**
@@ -64,8 +64,8 @@ export default class Util {
      * @return {any}
      */
     battery(): any {
-        const batteryInfo = {};
-        navigator.getBattery().then(function(battery) {
+        let batteryInfo = {};
+        navigator.getBattery().then(function(battery: any) {
             batteryInfo = battery;
             battery.addEventListener('chargingchange', function() {
                 batteryInfo = battery;

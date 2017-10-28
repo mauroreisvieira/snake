@@ -14,7 +14,6 @@ to create a simple game with multiple options.
 In the current version of game you can play with yourself, in the future in can challenge other players.
 
 
-
 You can play `Snake Battle` in [Github Page](http://maurovieirareis.github.io/snake).
 
 ## Supported Browsers:
@@ -25,13 +24,15 @@ You can play `Snake Battle` in [Github Page](http://maurovieirareis.github.io/sn
 - ~~Firefox~~
 
 ### ⚗️ Technology used?
-1. NPM & Gulp
-2. Rollup JS
-3. HTML, SCSS (CSS), Typescript (JavaScript)
-4. MD5 Hash ( used to ecrypt email to get photo in Gravatar API)
-4. Firebase
-5. Browser Storage
-6. Browser Notification
+- NPM
+- ~~Gulp~~
+- ~~Rollup JS~~
+- Webpack
+- HTML, SCSS (CSS), Typescript (JavaScript)
+- MD5 Hash ( used to ecrypt email to get photo in Gravatar API)
+- Firebase
+- Browser Storage
+- Browser Notification
 
 ### Clone the repo using Git
 
