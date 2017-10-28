@@ -1,0 +1,60 @@
+/**
+ * Utilities
+ * We need a set of system-wide styles to begin our design.
+ * This folder will need to define the foundation, i.e., a set of global classes, mixins, variables and styles
+ * that can be used anywhere and anytime.
+ */
+@import 'utilities/variables';
+@import 'utilities/reset';
+@import 'utilities/mixins';
+@import 'utilities/grid';
+@import 'utilities/helpers';
+@import 'utilities/global';
+
+/**
+ * Atoms
+ *
+ * Atoms are the basic building blocks of matter. Applied to web interfaces, atoms are our HTML tags,
+ * such as a form label, an input or a button.
+ * Atoms can also include more abstract elements like color palettes, fonts and even more invisible
+ * aspects of an interface like animations.
+ */
+@import 'atoms/typography';
+@import 'atoms/tooltip';
+@import 'atoms/inputs';
+@import 'atoms/buttons';
+@import 'atoms/loading';
+
+/**
+ * Molecules
+ * Molecules are groups of atoms combined together and are the smallest fundamental units of a compound, built for reuse.
+ * These molecules take on their own properties and serve as the backbone of our design system.
+ * For example, a search form.
+ */
+@import 'molecules/card';
+@import 'molecules/form';
+@import 'molecules/nav';
+@import 'molecules/snake';
+@import 'molecules/tab';
+@import 'molecules/table';
+
+/**
+ * Organisms
+ * Organisms are groups of molecules joined together to form a relatively complex,
+ * distinct section of an interface, such as a header or a footer.
+ */
+@import 'organisms/footer';
+@import 'organisms/main';
+@import 'organisms/header';
+
+/**
+ * Templates
+ * Templates consist mostly of groups of organisms stitched together to form pages.
+ * Templates are very concrete and provide context to all these
+ * relatively abstract molecules and organisms by applying some layout rules.
+ */
+@import 'templates/login';
+@import 'templates/game';
+@import 'templates/settings';
+@import 'templates/friends';
+@import 'templates/rating';

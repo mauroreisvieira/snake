@@ -61,18 +61,6 @@ var Util = (function () {
         });
         return batteryInfo;
     };
-    /**
-     * Listen for changes to responsiveness.
-     * @return {void}
-     */
-    Util.prototype.orientation = function () {
-        console.log("ORIENTATION");
-        media.addListener(function (mql) { return console.log(mql.matches); });
-        // Orientation of device changes.
-        window.addEventListener('orientationchange', function (e) {
-            console.log(screen.orientation.angle);
-        });
-    };
     Util.SPEED = 200;
     Util.BOARD_COLS = 30;
     Util.BOARD_LINES = 30;
@@ -243,12 +231,39 @@ var Rating = (function () {
         table.innerHTML = this.players.map(function (player) {
             return "<tr>\n                    <td class=\"table__image\">\n                        <img src=\"" + player[1].photo + "\" alt=\"" + player[1].name + "\" title=\"" + player[1].name + "\">\n                    </td>\n                    <td class=\"table__name\">" + player[1].name + "</td>\n                    <td class=\"table__scrore\">" + player[1].score + " /pts</td>\n                    <td><button class=\"button button--green button--icon button-add-friend\" data-id=\"" + player[0] + "\"><i class=\"icon ion-person-add\"></i></button></td>\n                </tr>";
         }).join('');
+        // Bind Options
+        this.bind();
+    };
+    Rating.prototype.bind = function () {
+        var _this = this;
+        document.body.addEventListener('click', function (evt) {
+            var evt = evt || window.event;
+            var target = evt.target || evt.srcElement;
+            if (target.className.match(/button-add-friend/)) {
+                _this.addToFriend(target.dataset.id);
+            }
+        }, false);
+    };
+    /**
+     * Add player to list of friends.
+     *
+     * @param {any} id
+     * @return {void}
+     */
+    Rating.prototype.addToFriend = function (id) {
+        var myID = this.storage.getItem('id');
+        console.log("id", id);
+        console.log("id", this.players);
+        this.firebase.all('friends/' + myID).then(function (response) {
+            if (response === null) {
+            }
+            console.log(response);
+        });
     };
     Rating.prototype.addEventListeners = function () {
         var _this = this;
         // Logout
-        var logout = document.querySelector('#logout');
-        logout.addEventListener('click', function (evt) {
+        document.querySelector('#logout').addEventListener('click', function (evt) {
             evt.preventDefault();
             _this.service.logout();
             _this.util.redirect('index');

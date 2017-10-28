@@ -1,0 +1,54 @@
+.card {
+  border-radius: $border-radius-card;
+  box-shadow: 0 3rem 5rem -2rem rgba($color-black, .4);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  width: 100%;
+  margin: auto;
+
+  &--border {
+    border-right: 2px solid $color-yellow;
+  }
+
+  &--center {
+    align-items: center;
+  }
+
+  &--small {
+    max-width: 400px;
+  }
+
+  &--medium {
+    max-width: 740px;
+  }
+
+  &--large {
+    max-width: 960px;
+  }
+
+  .card__header {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-direction: row;
+    justify-content: baseline;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .card__content {
+    width: 100%;
+    padding: 40px;
+    box-sizing: border-box;
+
+    .card__contentInfo {
+      font-size: $font-medium;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+

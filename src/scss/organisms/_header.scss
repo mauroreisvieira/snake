@@ -1,0 +1,34 @@
+.header {
+  background-color: $color-white;
+
+  .content {
+    align-items: center;
+    display: flex;
+    margin: auto;
+    width: $content-width-default;
+
+    @include tablet() {
+      flex-direction: column;
+      padding: 20px 0;
+      width: 100%;
+    }
+
+    .header__logo {
+      align-items: center;
+      display: flex;
+      flex-basis: 20%;
+      justify-content: center;
+      min-width: 180px;
+      width: 20%;
+
+      .header__logoImage {
+        width: 100%;
+      }
+    }
+
+    .header__nav {
+      flex-basis: 80%;
+      width: 80%;
+    }
+  }
+}

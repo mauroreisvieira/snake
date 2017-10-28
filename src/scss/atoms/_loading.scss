@@ -1,0 +1,48 @@
+#loading {
+  background: $color-white;
+  border: 0;
+  bottom: 0;
+  display: none;
+  height: 100px;
+  left: 0;
+  margin: auto;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  width: 100%;
+
+  svg {
+    position: relative;
+    stroke: $color-salmon;
+    fill: transparent;
+    width: 50px;
+    margin: auto;
+
+    stroke: {
+      dashoffset: 0;
+      dasharray: 300;
+      width: 10;
+      miterlimit: 10;
+      linecap: round;
+    }
+  }
+
+  &.loading--on {
+    display: flex;
+    align-items: center;
+    visibility: visible;
+
+    svg {
+      animation: loading-circle 2s linear infinite;
+    }
+  }
+}
+
+@keyframes loading {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes loading-circle {
+  0% { stroke-dashoffset: 0 }
+  100% { stroke-dashoffset: -600;}
+}

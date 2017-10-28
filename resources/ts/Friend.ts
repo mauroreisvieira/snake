@@ -32,25 +32,29 @@ class Friend {
         this.addEventListeners();
     }
 
-    view(): void {;
+    view(): void {
+
         document.querySelector('#list-friends').innerHTML = this.friends.map((friend) => {
-        return `<div class="cell-large-4 cell-medium-4 cell-small-12">
-                <div class="item">
-                    <div class="item__photo">
-                        <span style="color: ${friend[1].color}"></span>
-                        <img src="${friend[1].photo}" alt="${friend[1].name}" title="${friend[1].name}">
+            if (this.storage.getItem('id') !== friend[1].id) {
+                return `<div class="cell-large-4 cell-medium-4 cell-small-12">
+                    <div class="item">
+                        <div class="item__photo">
+                            <span style="color: ${friend[1].color}"></span>
+                            <img src="${friend[1].photo}" alt="${friend[1].name}" title="${friend[1].name}">
+                        </div>
+                        <div class="item__content">
+                            <div class="item__name">${friend[1].name}</div>
+                            <a href="mailto: ${friend[1].email}" class="item__mail">${friend[1].email}</a>
+                            <div class="item__history"><strong>Last Login:</strong> 10 June 2017 </div>
+                        </div>
+                        <div class="item__options">
+                            <button class="button button--small button--yellow" disabled><i class="icon ion-ios-game-controller-b"></i> Challenge</button>
+                            <button class="button button--small button--yellow" disabled><i class="icon ion-android-mail"></i> Message</button>
+                        </div>
                     </div>
-                    <div class="item__content">
-                        <div class="item__name">${friend[1].name}</div>
-                        <a href="mailto: ${friend[1].email}" class="item__mail">${friend[1].email}</a>
-                        <div class="item__history"><strong>Last Login:</strong> 10 June 2017 </div>
-                    </div>
-                    <div class="item__options">
-                        <button class="button button--small button--yellow" disabled><i class="icon ion-ios-game-controller-b"></i> Challenge</button>
-                        <button class="button button--small button--yellow" disabled><i class="icon ion-android-mail"></i> Message</button>
-                    </div>
-                </div>
-            </div>`;
+                </div>`;
+            }
+
         }).join('');
     }
 

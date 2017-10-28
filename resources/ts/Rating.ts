@@ -53,12 +53,42 @@ class Rating {
                     <td><button class="button button--green button--icon button-add-friend" data-id="${player[0]}"><i class="icon ion-person-add"></i></button></td>
                 </tr>`;
         }).join('');
+
+        // Bind Options
+        this.bind();
+    }
+
+    bind() : void {
+        document.body.addEventListener('click', evt => {
+            let evt = evt || window.event;
+            var target = evt.target || evt.srcElement;
+            if (target.className.match(/button-add-friend/)) {
+                this.addToFriend(target.dataset.id);
+            }
+        }, false);
+    }
+
+    /**
+     * Add player to list of friends.
+     *
+     * @param {any} id
+     * @return {void}
+     */
+    addToFriend(id: any) : void {
+        let myID = this.storage.getItem('id');
+        console.log("id", id);
+        console.log("id", this.players);
+        this.firebase.all('friends/' + myID).then(response => {
+            if (response === null) {
+
+            }
+            console.log(response);
+        });
     }
 
     addEventListeners (): void {
         // Logout
-        let logout = document.querySelector('#logout');
-        logout.addEventListener('click', evt => {
+        document.querySelector('#logout').addEventListener('click', evt => {
             evt.preventDefault();
             this.service.logout();
             this.util.redirect('index');

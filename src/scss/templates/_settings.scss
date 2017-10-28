@@ -1,0 +1,122 @@
+.profile {
+  background-color: $color-darkblue;
+  background-repeat: no-repeat;
+  background: linear-gradient(45deg, lighten($color-darkblue, 8%) 10%, $color-darkblue 40%);
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 100px;
+  grid-auto-columns: 100%;
+  grid-template-areas:
+  "header"
+  "main"
+  "footer";
+
+  @include tablet() {
+    grid-gap: 0;
+  }
+
+  .header {
+    grid-area: header;
+  }
+
+  .main {
+    grid-area: main;
+
+    .photo {
+      border-radius: 50%;
+      height: 220px;
+      margin-top: 25px;
+      overflow: hidden;
+      width: 220px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: $color-white;
+    }
+
+
+    .colors {
+      list-style: none;
+      padding: 0;
+
+      .colors__item {
+        display: inline-block;
+
+        .colors__itemColor {
+          background-color: $color-green;
+          border-radius: 50%;
+          cursor: pointer;
+          display: block;
+          height: 42px;
+          line-height: 42px;
+          margin: 0;
+          overflow: hidden;
+          position: relative;
+          text-align: center;
+          text-indent: -9999px;
+          width: 42px;
+
+          &:after {
+            color: $color-white;
+            content: '✓';
+            display: block;
+            font-size: $font-large;
+            height: 100%;
+            opacity: 0;
+            position: absolute;
+            text-indent: 0;
+            top: 0;
+            width: 100%;
+            will-change: opacity;
+          }
+        }
+
+        [for='colorRed'] {
+          background-color: $color-red;
+        }
+
+        [for='colorBlue'] {
+          background-color: $color-blue;
+        }
+
+        [for='colorGreen'] {
+          background-color: $color-green;
+        }
+
+        [for='colorPink'] {
+          background-color: $color-pink;
+        }
+
+        [for='colorViolet'] {
+          background-color: $color-violet;
+        }
+
+        input {
+          display: none;
+          visibility: hidden;
+
+          &:checked {
+
+            + label {
+
+              &:after {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    grid-area: footer;
+  }
+
+  h1 {
+    color: $color-white;
+    text-align: center;
+  }
+}

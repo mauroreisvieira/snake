@@ -61,18 +61,6 @@ var Util = (function () {
         });
         return batteryInfo;
     };
-    /**
-     * Listen for changes to responsiveness.
-     * @return {void}
-     */
-    Util.prototype.orientation = function () {
-        console.log("ORIENTATION");
-        media.addListener(function (mql) { return console.log(mql.matches); });
-        // Orientation of device changes.
-        window.addEventListener('orientationchange', function (e) {
-            console.log(screen.orientation.angle);
-        });
-    };
     Util.SPEED = 200;
     Util.BOARD_COLS = 30;
     Util.BOARD_LINES = 30;
@@ -232,9 +220,11 @@ var Friend = (function () {
         this.addEventListeners();
     }
     Friend.prototype.view = function () {
-        
+        var _this = this;
         document.querySelector('#list-friends').innerHTML = this.friends.map(function (friend) {
-            return "<div class=\"cell-large-4 cell-medium-4 cell-small-12\">\n                <div class=\"item\">\n                    <div class=\"item__photo\">\n                        <span style=\"color: " + friend[1].color + "\"></span>\n                        <img src=\"" + friend[1].photo + "\" alt=\"" + friend[1].name + "\" title=\"" + friend[1].name + "\">\n                    </div>\n                    <div class=\"item__content\">\n                        <div class=\"item__name\">" + friend[1].name + "</div>\n                        <a href=\"mailto: " + friend[1].email + "\" class=\"item__mail\">" + friend[1].email + "</a>\n                        <div class=\"item__history\"><strong>Last Login:</strong> 10 June 2017 </div>\n                    </div>\n                    <div class=\"item__options\">\n                        <button class=\"button button--small button--yellow\" disabled><i class=\"icon ion-ios-game-controller-b\"></i> Challenge</button>\n                        <button class=\"button button--small button--yellow\" disabled><i class=\"icon ion-android-mail\"></i> Message</button>\n                    </div>\n                </div>\n            </div>";
+            if (_this.storage.getItem('id') !== friend[1].id) {
+                return "<div class=\"cell-large-4 cell-medium-4 cell-small-12\">\n                    <div class=\"item\">\n                        <div class=\"item__photo\">\n                            <span style=\"color: " + friend[1].color + "\"></span>\n                            <img src=\"" + friend[1].photo + "\" alt=\"" + friend[1].name + "\" title=\"" + friend[1].name + "\">\n                        </div>\n                        <div class=\"item__content\">\n                            <div class=\"item__name\">" + friend[1].name + "</div>\n                            <a href=\"mailto: " + friend[1].email + "\" class=\"item__mail\">" + friend[1].email + "</a>\n                            <div class=\"item__history\"><strong>Last Login:</strong> 10 June 2017 </div>\n                        </div>\n                        <div class=\"item__options\">\n                            <button class=\"button button--small button--yellow\" disabled><i class=\"icon ion-ios-game-controller-b\"></i> Challenge</button>\n                            <button class=\"button button--small button--yellow\" disabled><i class=\"icon ion-android-mail\"></i> Message</button>\n                        </div>\n                    </div>\n                </div>";
+            }
         }).join('');
     };
     Friend.prototype.addEventListeners = function () {

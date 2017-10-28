@@ -1,0 +1,23 @@
+.tab {
+  border-bottom: 1px solid $color-border-default;
+
+  .tab__link {
+    color: $color-darkblue;
+    font-family: $font-family-base;
+    font-size: $font-medium;
+    font-weight: $font-bold;
+    text-transform: uppercase;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($color-border-default, .4);
+    }
+
+    &--active {
+      color: $color-green;
+    }
+  }
+}

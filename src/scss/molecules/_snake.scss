@@ -1,0 +1,26 @@
+.snake {
+  border-radius: 50%;
+  position: relative;
+
+
+  &:after,
+  &:before {
+    background-color: $color-white;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 4px;
+    margin: auto;
+    position: absolute;
+    right: 4px;
+    width: 4px;
+  }
+
+  &:after {
+    bottom: 6px;
+  }
+
+  &:before {
+    top: 6px;
+  }
+}

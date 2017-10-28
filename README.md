@@ -14,6 +14,7 @@ to create a simple game with multiple options.
 In the current version of game you can play with yourself, in the future in can challenge other players.
 
 
+
 You can play `Snake Battle` in [Github Page](http://maurovieirareis.github.io/snake).
 
 ## Supported Browsers:

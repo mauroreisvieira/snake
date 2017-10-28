@@ -1,0 +1,24 @@
+@each $key, $values in $headings {
+  #{$key} {
+    @include typography(nth($values, 2), nth($values, 3));
+    color: nth($values, 1);
+    text-transform: uppercase;
+    margin: 22px 0;
+  }
+}
+
+p {
+  @include typography($font-medium, $font-light);
+  color: $color-text-default;
+}
+
+a {
+  @include typography($font-medium, $font-light);
+  color: $color-title-default;
+
+  &:hover {
+    text-decoration: none;
+    color: $color-darkblue;
+  }
+}
+

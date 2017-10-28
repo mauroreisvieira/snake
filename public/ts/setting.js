@@ -127,18 +127,6 @@ var Util = (function () {
         });
         return batteryInfo;
     };
-    /**
-     * Listen for changes to responsiveness.
-     * @return {void}
-     */
-    Util.prototype.orientation = function () {
-        console.log("ORIENTATION");
-        media.addListener(function (mql) { return console.log(mql.matches); });
-        // Orientation of device changes.
-        window.addEventListener('orientationchange', function (e) {
-            console.log(screen.orientation.angle);
-        });
-    };
     Util.SPEED = 200;
     Util.BOARD_COLS = 30;
     Util.BOARD_LINES = 30;

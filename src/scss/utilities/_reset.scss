@@ -1,0 +1,18 @@
+html {
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+
+body {
+  background-color: $color-white;
+  letter-spacing: 1px;
+}
+
+::-moz-selection {
+  color: $color-black;
+}
+
+::selection {
+  color: $color-black;
+}
+

@@ -1,0 +1,116 @@
+.tooltip {
+  cursor: pointer;
+  position: relative;
+
+  &:after {
+    background-color: rgba($color-black, .88);
+    border-radius: $border-radius-default;
+    color: $color-white;
+    content: attr(data-tooltip);
+    font-family: $font-family-default;
+    font-size: $font-small;
+    font-weight: $font-light;
+    line-height: 1.4;
+    opacity: 0;
+    padding: 8px;
+    pointer-events: none;
+    position: absolute;
+    text-align: center;
+    text-transform: none;
+    transform: none;
+    transition: opacity .1s ease-in-out,
+    visibility .2s ease-in-out,
+    transform .2s cubic-bezier(0.31, 0.68, 0.79, 1.15);
+    visibility: hidden;
+    z-index: 1000;
+  }
+
+  &:hover,
+  &:focus {
+
+    &:after {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &--top {
+
+    &:after {
+      bottom: auto;
+      left: 50%;
+      right: auto;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(.6, .6);
+    }
+
+    &:hover,
+    &:focus {
+
+      &:after {
+        top: 0;
+        transform: translate(-50%, calc(-100% + -8px))  scale(1, 1);
+      }
+    }
+  }
+
+  &--right {
+
+    &:after {
+      bottom: auto;
+      left: auto;
+      right: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(.6, .6);
+    }
+
+    &:hover,
+    &:focus {
+
+      &:after {
+        right: 0;
+        transform: translate(calc(100% + 6px), -50%) scale(1, 1);
+      }
+    }
+  }
+
+  &--bottom {
+
+    &:after {
+      bottom: -50%;
+      left: 50%;
+      right: auto;
+      top: auto;
+      transform: translate(-50%, -50%) scale(.6, .6);
+    }
+
+    &:hover,
+    &:focus {
+
+      &:after {
+        bottom: 0;
+        transform: translate(-50%, calc(100% + 8px)) scale(1, 1);
+      }
+    }
+  }
+
+  &--left {
+
+    &:after {
+      bottom: auto;
+      left: 50%;
+      right: auto;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(.6, .6);
+    }
+
+    &:hover,
+    &:focus {
+
+      &:after {
+        left: 0;
+        transform: translate(calc(-100% + -6px), -50%) scale(1, 1);
+      }
+    }
+  }
+}

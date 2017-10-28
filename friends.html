@@ -56,7 +56,7 @@
     <main class="main" role="main">
         <section class="gird">
             <div class="container">
-                <div id="list-friends" class="row">
+                <div id="list-friends">
                     <div id="loading" class="loading--on">
                         <svg x="0px" y="0px" viewBox="0 0 150 150">
                             <circle id="loading-inner" cx="75" cy="75" r="60"/>
@@ -72,7 +72,10 @@
     </footer>
 
     <!-- JAVASCRIPT -->
-    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-    <script type="text/javascript" src="public/ts/friend.js"></script>
+    <script src="./node_modules/react/umd/react.development.js"></script>
+    <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+
+    <script type="text/javascript" src="./dist/js/friend.js"></script>
+
 </body>
 </html>

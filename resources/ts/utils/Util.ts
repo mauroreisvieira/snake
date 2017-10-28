@@ -73,18 +73,4 @@ export default class Util {
         });
         return batteryInfo;
     }
-
-    /**
-     * Listen for changes to responsiveness.
-     * @return {void}
-     */
-    orientation(): void {
-        console.log("ORIENTATION");
-        media.addListener(mql => console.log(mql.matches));
-
-        // Orientation of device changes.
-        window.addEventListener('orientationchange', e => {
-            console.log(screen.orientation.angle)
-        });
-    }
  }
