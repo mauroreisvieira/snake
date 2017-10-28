@@ -24,12 +24,11 @@ You can play `Snake Battle` in [Github Page](http://maurovieirareis.github.io/sn
 - ~~Firefox~~
 
 ### ⚗️ Technology used?
-- NPM
-- ~~Gulp~~
-- ~~Rollup JS~~
-- Webpack
-- HTML, SCSS (CSS), Typescript (JavaScript)
-- MD5 Hash ( used to ecrypt email to get photo in Gravatar API)
+- NPM to install modules.
+- `Gulp` to run SCSS.
+- `Webpack` to run React and Typescript.
+- HTML, SCSS, Typescript and React
+- MD5 Hash ( used to ecrypt email to get photo in **Gravatar API**)
 - Firebase
 - Browser Storage
 - Browser Notification
