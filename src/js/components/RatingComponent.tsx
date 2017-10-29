@@ -5,12 +5,12 @@ export const RatingComponent = function list(props : any): any {
     const listItems = friends.map((friend: any) =>
         <tr key={friend[0]}>
             <td className="table__image">
-                <img src={player[1].photo} alt={player[1].name} title={player[1].name} />
+                <img src={friend[1].photo} alt={friend[1].name} title={friend[1].name} />
             </td>
-            <td className="table__name">{player[1].name}</td>
-            <td className="table__scrore">{player[1].score} /pts</td>
+            <td className="table__name">{friend[1].name}</td>
+            <td className="table__scrore">{friend[1].score} /pts</td>
             <td>
-                <button className="button button--green button--icon button-add-friend" data-id={player[0]}>
+                <button className="button button--green button--icon button-add-friend" data-id={friend[0]}>
                     <i className="icon ion-person-add"></i>
                 </button>
             </td>
@@ -18,7 +18,9 @@ export const RatingComponent = function list(props : any): any {
     );
 
     return (
-        <div className="row">{listItems}</div>
+        <table>
+            <tbody>{listItems}</tbody>
+        </table>
     );
 }
 
