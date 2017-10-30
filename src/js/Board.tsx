@@ -49,7 +49,6 @@ export default class Board {
             lines: this.lines,
             cols: this.cols
         };
-        console.log(data);
 
         ReactDOM.render(
             <BoardComponent

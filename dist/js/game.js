@@ -607,7 +607,6 @@ var Board = /** @class */ (function () {
             lines: this.lines,
             cols: this.cols
         };
-        console.log(data);
         ReactDOM.render(React.createElement(BoardComponent_1.BoardComponent, { board: data.board, lines: data.lines, cols: data.cols }), document.getElementById('board'));
     };
     Board.prototype.clean = function (posX, posY) {
@@ -671,8 +670,6 @@ exports.default = Wall;
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(82);
 exports.BoardComponent = function list(props) {
-    console.log("WIN");
-    console.log(props.lines);
     var board = Array.from(Array(props.lines).keys()).map(function (line) {
         return React.createElement("tr", { key: line + 1 }, Array.from(Array(props.cols).keys()).map(function (col) {
             return React.createElement("td", { key: (line + 1) * col, style: { backgroundColor: props.board[line][col].color } });

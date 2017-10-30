@@ -1,8 +1,6 @@
 import * as React from "react";
 
 export const BoardComponent = function list(props : any): any {
-    console.log("WIN");
-    console.log(props.lines);
     const board = Array.from(Array(props.lines).keys()).map((line: any) =>
         <tr key={line + 1}>
             {Array.from(Array(props.cols).keys()).map((col: any) =>
@@ -13,9 +11,7 @@ export const BoardComponent = function list(props : any): any {
 
     return (
         <table>
-            <tbody>
-                {board}
-            </tbody>
+            <tbody>{board}</tbody>
         </table>
     );
 }
