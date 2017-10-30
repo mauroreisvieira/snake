@@ -10,7 +10,9 @@ export default class User {
     public email: string;
     public photo: any;
     public color: any;
+    public colorBoard: any;
     public score: any;
+    public date: any;
 
     constructor (name: string, email: string, color: any) {
         this.name = name;
