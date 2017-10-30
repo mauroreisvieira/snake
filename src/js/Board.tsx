@@ -1,9 +1,12 @@
+import Service from './services/Service';
 import Util from './services/Util';
 import Wall from './models/Wall';
 import Blank from './models/Blank';
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+
+import {BoardComponent} from './components/BoardComponent';
 
 export default class Board {
     private lines: number;
@@ -41,17 +44,20 @@ export default class Board {
     }
 
     view(): void {
-        var innerHTML = "";
-        innerHTML += "<table>";
-        for (let line = 0; line < this.lines; line++) {
-            innerHTML += "<tr>";
-            for ( let col = 0; col < this.cols; col++) {
-                innerHTML += "<td style='background-color: " + this.board[line][col].color + "'></td>";
-            }
-            innerHTML += "</tr>";
-        }
-        innerHTML += "</table>";
-        this.displayInView.innerHTML = innerHTML;
+        const data = {
+            board: this.board,
+            lines: this.lines,
+            cols: this.cols
+        };
+        console.log(data);
+
+        ReactDOM.render(
+            <BoardComponent
+                board={data.board}
+                lines={data.lines}
+                cols={data.cols} />,
+            document.getElementById('board')
+        );
     }
 
     clean(posX: number, posY: number): void {
@@ -63,8 +69,10 @@ export default class Board {
         let logout = document.querySelector('#logout');
         logout.addEventListener('click', evt => {
             evt.preventDefault();
-            this.service.logout();
-            this.util.redirect('index');
+            let util = new Util();
+            let service = new Service();
+            service.logout();
+            util.redirect('index');
         });
     }
 }

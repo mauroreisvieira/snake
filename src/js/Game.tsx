@@ -46,7 +46,8 @@ class Game {
             this.util.redirect('index');
         }
 
-        this.gamInBoard = document.querySelector('game-board');
+        this.gamInBoard = document.getElementById('board');
+        console.log("this.gamInBoard", this.gamInBoard);
 
         if (this.gamInBoard) {
 

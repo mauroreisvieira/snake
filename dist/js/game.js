@@ -65,7 +65,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 165:
+/***/ 166:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94,6 +94,13 @@ exports.default = Piece;
 
 /***/ }),
 
+/***/ 167:
+/***/ (function(module, exports) {
+
+module.exports = ReactDOM;
+
+/***/ }),
+
 /***/ 170:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -111,7 +118,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Util_1 = __webpack_require__(29);
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Wall = /** @class */ (function (_super) {
     __extends(Wall, _super);
     function Wall(line, column) {
@@ -164,7 +171,8 @@ var Game = /** @class */ (function () {
         if (!this.service.checkAuth()) {
             this.util.redirect('index');
         }
-        this.gamInBoard = document.querySelector('game-board');
+        this.gamInBoard = document.getElementById('board');
+        console.log("this.gamInBoard", this.gamInBoard);
         if (this.gamInBoard) {
             this.tailX = [this.snakePosX];
             this.tailY = [this.snakePosY];
@@ -403,7 +411,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Apple = /** @class */ (function (_super) {
     __extends(Apple, _super);
     function Apple(line, column) {
@@ -436,7 +444,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Chili = /** @class */ (function (_super) {
     __extends(Chili, _super);
     function Chili(line, column) {
@@ -469,7 +477,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Banana = /** @class */ (function (_super) {
     __extends(Banana, _super);
     function Banana(line, column) {
@@ -502,7 +510,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Melon = /** @class */ (function (_super) {
     __extends(Melon, _super);
     function Melon(line, column) {
@@ -535,7 +543,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Strawberry = /** @class */ (function (_super) {
     __extends(Strawberry, _super);
     function Strawberry(line, column) {
@@ -558,9 +566,13 @@ exports.default = Strawberry;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var Service_1 = __webpack_require__(41);
 var Util_1 = __webpack_require__(29);
 var Wall_1 = __webpack_require__(180);
 var Blank_1 = __webpack_require__(170);
+var React = __webpack_require__(82);
+var ReactDOM = __webpack_require__(167);
+var BoardComponent_1 = __webpack_require__(181);
 var Board = /** @class */ (function () {
     function Board(lines, cols, displayInView) {
         this.colorBoard = Util_1.default.COLOR_BOARD;
@@ -590,29 +602,26 @@ var Board = /** @class */ (function () {
         }
     };
     Board.prototype.view = function () {
-        var innerHTML = "";
-        innerHTML += "<table>";
-        for (var line = 0; line < this.lines; line++) {
-            innerHTML += "<tr>";
-            for (var col = 0; col < this.cols; col++) {
-                innerHTML += "<td style='background-color: " + this.board[line][col].color + "'></td>";
-            }
-            innerHTML += "</tr>";
-        }
-        innerHTML += "</table>";
-        this.displayInView.innerHTML = innerHTML;
+        var data = {
+            board: this.board,
+            lines: this.lines,
+            cols: this.cols
+        };
+        console.log(data);
+        ReactDOM.render(React.createElement(BoardComponent_1.BoardComponent, { board: data.board, lines: data.lines, cols: data.cols }), document.getElementById('board'));
     };
     Board.prototype.clean = function (posX, posY) {
         document.querySelectorAll('table tr:nth-child(' + posX + ') td:nth-child(' + posY + ')')[0].style.backgroundColor = this.colorBoard;
     };
     Board.prototype.addEventListeners = function () {
-        var _this = this;
         // Logout
         var logout = document.querySelector('#logout');
         logout.addEventListener('click', function (evt) {
             evt.preventDefault();
-            _this.service.logout();
-            _this.util.redirect('index');
+            var util = new Util_1.default();
+            var service = new Service_1.default();
+            service.logout();
+            util.redirect('index');
         });
     };
     return Board;
@@ -639,7 +648,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Util_1 = __webpack_require__(29);
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Wall = /** @class */ (function (_super) {
     __extends(Wall, _super);
     function Wall(line, column) {
@@ -650,6 +659,28 @@ var Wall = /** @class */ (function (_super) {
     return Wall;
 }(Piece_1.default));
 exports.default = Wall;
+
+
+/***/ }),
+
+/***/ 181:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(82);
+exports.BoardComponent = function list(props) {
+    console.log("WIN");
+    console.log(props.lines);
+    var board = Array.from(Array(props.lines).keys()).map(function (line) {
+        return React.createElement("tr", { key: line + 1 }, Array.from(Array(props.cols).keys()).map(function (col) {
+            return React.createElement("td", { key: (line + 1) * col, style: { backgroundColor: props.board[line][col].color } });
+        }));
+    });
+    return (React.createElement("table", null,
+        React.createElement("tbody", null, board)));
+};
 
 
 /***/ }),
@@ -820,6 +851,13 @@ var Service = /** @class */ (function () {
 }());
 exports.default = Service;
 
+
+/***/ }),
+
+/***/ 82:
+/***/ (function(module, exports) {
+
+module.exports = React;
 
 /***/ })
 
