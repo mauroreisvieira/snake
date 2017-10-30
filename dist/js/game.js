@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 171);
+/******/ 	return __webpack_require__(__webpack_require__.s = 172);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,7 @@ exports.default = Piece;
 
 /***/ }),
 
-/***/ 168:
+/***/ 170:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -126,7 +126,7 @@ exports.default = Wall;
 
 /***/ }),
 
-/***/ 171:
+/***/ 172:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -134,14 +134,14 @@ exports.default = Wall;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Service_1 = __webpack_require__(41);
 var Util_1 = __webpack_require__(29);
-var Blank_1 = __webpack_require__(168);
-var Snake_1 = __webpack_require__(172);
-var Apple_1 = __webpack_require__(173);
-var Chili_1 = __webpack_require__(174);
-var Banana_1 = __webpack_require__(175);
-var Melon_1 = __webpack_require__(176);
-var Strawberry_1 = __webpack_require__(177);
-var Board_1 = __webpack_require__(178);
+var Blank_1 = __webpack_require__(170);
+var Snake_1 = __webpack_require__(173);
+var Apple_1 = __webpack_require__(174);
+var Chili_1 = __webpack_require__(175);
+var Banana_1 = __webpack_require__(176);
+var Melon_1 = __webpack_require__(177);
+var Strawberry_1 = __webpack_require__(178);
+var Board_1 = __webpack_require__(179);
 var Game = /** @class */ (function () {
     function Game() {
         this.listFruit = [0, 1, 2, 3, 4];
@@ -341,7 +341,7 @@ new Game();
 
 /***/ }),
 
-/***/ 172:
+/***/ 173:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -387,7 +387,7 @@ exports.default = Snake;
 
 /***/ }),
 
-/***/ 173:
+/***/ 174:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -420,7 +420,7 @@ exports.default = Apple;
 
 /***/ }),
 
-/***/ 174:
+/***/ 175:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -453,7 +453,7 @@ exports.default = Chili;
 
 /***/ }),
 
-/***/ 175:
+/***/ 176:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -486,7 +486,7 @@ exports.default = Banana;
 
 /***/ }),
 
-/***/ 176:
+/***/ 177:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -519,7 +519,7 @@ exports.default = Melon;
 
 /***/ }),
 
-/***/ 177:
+/***/ 178:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -552,15 +552,15 @@ exports.default = Strawberry;
 
 /***/ }),
 
-/***/ 178:
+/***/ 179:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Util_1 = __webpack_require__(29);
-var Wall_1 = __webpack_require__(179);
-var Blank_1 = __webpack_require__(168);
+var Wall_1 = __webpack_require__(180);
+var Blank_1 = __webpack_require__(170);
 var Board = /** @class */ (function () {
     function Board(lines, cols, displayInView) {
         this.colorBoard = Util_1.default.COLOR_BOARD;
@@ -622,7 +622,7 @@ exports.default = Board;
 
 /***/ }),
 
-/***/ 179:
+/***/ 180:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

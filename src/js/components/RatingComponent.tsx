@@ -18,7 +18,7 @@ export const RatingComponent = function list(props : any): any {
     );
 
     return (
-        <table>
+        <table className="table">
             <tbody>{listItems}</tbody>
         </table>
     );

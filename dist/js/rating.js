@@ -26342,10 +26342,20 @@ function stop(id) {
 
 /***/ }),
 /* 165 */,
-/* 166 */,
+/* 166 */
+/***/ (function(module, exports) {
+
+module.exports = React;
+
+/***/ }),
 /* 167 */,
 /* 168 */,
-/* 169 */,
+/* 169 */
+/***/ (function(module, exports) {
+
+module.exports = ReactDOM;
+
+/***/ }),
 /* 170 */,
 /* 171 */,
 /* 172 */,
@@ -26370,6 +26380,9 @@ var Util_1 = __webpack_require__(29);
 var Service_1 = __webpack_require__(41);
 var Firebase_1 = __webpack_require__(81);
 var Storage_1 = __webpack_require__(28);
+var React = __webpack_require__(166);
+var ReactDOM = __webpack_require__(169);
+var RatingComponent_1 = __webpack_require__(185);
 var Rating = /** @class */ (function () {
     function Rating() {
         var _this = this;
@@ -26387,7 +26400,15 @@ var Rating = /** @class */ (function () {
             _this.players = response;
             _this.players = Object.entries(response);
             _this.storage.addItem('players', JSON.stringify(_this.players));
-            _this.view();
+            _this.players.sort(function (a, b) {
+                return a[1].score - b[1].score;
+            });
+            // Order Players List.
+            _this.players.reverse();
+            var data = {
+                players: _this.players,
+            };
+            ReactDOM.render(React.createElement(RatingComponent_1.RatingComponent, { friends: data.players }), document.getElementById('list-players'));
         });
         this.addEventListeners();
     }
@@ -26444,6 +26465,33 @@ var Rating = /** @class */ (function () {
     return Rating;
 }());
 new Rating();
+
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(166);
+exports.RatingComponent = function list(props) {
+    var friends = props.friends;
+    var listItems = friends.map(function (friend) {
+        return React.createElement("tr", { key: friend[0] },
+            React.createElement("td", { className: "table__image" },
+                React.createElement("img", { src: friend[1].photo, alt: friend[1].name, title: friend[1].name })),
+            React.createElement("td", { className: "table__name" }, friend[1].name),
+            React.createElement("td", { className: "table__scrore" },
+                friend[1].score,
+                " /pts"),
+            React.createElement("td", null,
+                React.createElement("button", { className: "button button--green button--icon button-add-friend", "data-id": friend[0] },
+                    React.createElement("i", { className: "icon ion-person-add" }))));
+    });
+    return (React.createElement("table", { className: "table" },
+        React.createElement("tbody", null, listItems)));
+};
 
 
 /***/ })

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 181);
+/******/ 	return __webpack_require__(__webpack_require__.s = 182);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -26342,13 +26342,18 @@ function stop(id) {
 
 /***/ }),
 /* 165 */,
-/* 166 */,
+/* 166 */
+/***/ (function(module, exports) {
+
+module.exports = React;
+
+/***/ }),
 /* 167 */,
 /* 168 */,
 /* 169 */
 /***/ (function(module, exports) {
 
-module.exports = React;
+module.exports = ReactDOM;
 
 /***/ }),
 /* 170 */,
@@ -26362,7 +26367,8 @@ module.exports = React;
 /* 178 */,
 /* 179 */,
 /* 180 */,
-/* 181 */
+/* 181 */,
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26372,8 +26378,8 @@ var Util_1 = __webpack_require__(29);
 var Service_1 = __webpack_require__(41);
 var Firebase_1 = __webpack_require__(81);
 var Storage_1 = __webpack_require__(28);
-var React = __webpack_require__(169);
-var ReactDOM = __webpack_require__(182);
+var React = __webpack_require__(166);
+var ReactDOM = __webpack_require__(169);
 var FriendComponent_1 = __webpack_require__(183);
 var Friend = /** @class */ (function () {
     function Friend() {
@@ -26414,19 +26420,13 @@ new Friend();
 
 
 /***/ }),
-/* 182 */
-/***/ (function(module, exports) {
-
-module.exports = ReactDOM;
-
-/***/ }),
 /* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(169);
+var React = __webpack_require__(166);
 exports.FriendComponent = function list(props) {
     var friends = props.friends;
     var listItems = friends.map(function (friend) {

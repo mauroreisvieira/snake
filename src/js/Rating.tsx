@@ -6,6 +6,8 @@ import Storage from './services/Storage';
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+import {RatingComponent} from './components/RatingComponent';
+
 class Rating {
     private util: any;
     private service: any;
@@ -30,7 +32,21 @@ class Rating {
             this.players = response;
             this.players = Object.entries(response);
             this.storage.addItem('players', JSON.stringify(this.players));
-            this.view();
+
+            this.players.sort(function(a, b) {
+                return a[1].score - b[1].score;
+            });
+            // Order Players List.
+            this.players.reverse();
+
+            const data = {
+                players: this.players,
+            };
+
+            ReactDOM.render(
+                <RatingComponent friends={data.players} />,
+                document.getElementById('list-players')
+            );
         });
 
         this.addEventListeners();
