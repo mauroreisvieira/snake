@@ -52,35 +52,6 @@ class Rating {
         this.addEventListeners();
     }
 
-
-    bind() : void {
-        document.body.addEventListener('click', evt => {
-            let evt = evt || window.event;
-            var target = evt.target || evt.srcElement;
-            if (target.className.match(/button-add-friend/)) {
-                this.addToFriend(target.dataset.id);
-            }
-        }, false);
-    }
-
-    /**
-     * Add player to list of friends.
-     *
-     * @param {any} id
-     * @return {void}
-     */
-    addToFriend(id: any) : void {
-        let myID = this.storage.getItem('id');
-        console.log("id", id);
-        console.log("id", this.players);
-        this.firebase.all('friends/' + myID).then(response => {
-            if (response === null) {
-
-            }
-            console.log(response);
-        });
-    }
-
     addEventListeners (): void {
         // Logout
         document.querySelector('#logout').addEventListener('click', evt => {

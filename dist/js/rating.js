@@ -26413,32 +26413,6 @@ var Rating = /** @class */ (function () {
         });
         this.addEventListeners();
     }
-    Rating.prototype.bind = function () {
-        var _this = this;
-        document.body.addEventListener('click', function (evt) {
-            var evt = evt || window.event;
-            var target = evt.target || evt.srcElement;
-            if (target.className.match(/button-add-friend/)) {
-                _this.addToFriend(target.dataset.id);
-            }
-        }, false);
-    };
-    /**
-     * Add player to list of friends.
-     *
-     * @param {any} id
-     * @return {void}
-     */
-    Rating.prototype.addToFriend = function (id) {
-        var myID = this.storage.getItem('id');
-        console.log("id", id);
-        console.log("id", this.players);
-        this.firebase.all('friends/' + myID).then(function (response) {
-            if (response === null) {
-            }
-            console.log(response);
-        });
-    };
     Rating.prototype.addEventListeners = function () {
         var _this = this;
         // Logout

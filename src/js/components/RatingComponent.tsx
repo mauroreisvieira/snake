@@ -18,7 +18,7 @@ class RatingComponent extends React.Component {
         let myID = this.storage.getItem('id');
         console.log("friend ID", key);
         console.log("my ID", myID);
-        this.firebase.all('friends/' + myID).then(response => {
+        this.firebase.all('friends/' + myID).then((response: any) => {
             if (response === null) {
 
             }
