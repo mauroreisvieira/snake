@@ -65,7 +65,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 165:
+/***/ 166:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94,14 +94,7 @@ exports.default = Piece;
 
 /***/ }),
 
-/***/ 166:
-/***/ (function(module, exports) {
-
-module.exports = React;
-
-/***/ }),
-
-/***/ 169:
+/***/ 167:
 /***/ (function(module, exports) {
 
 module.exports = ReactDOM;
@@ -125,7 +118,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Util_1 = __webpack_require__(29);
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Wall = /** @class */ (function (_super) {
     __extends(Wall, _super);
     function Wall(line, column) {
@@ -417,7 +410,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Apple = /** @class */ (function (_super) {
     __extends(Apple, _super);
     function Apple(line, column) {
@@ -450,7 +443,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Chili = /** @class */ (function (_super) {
     __extends(Chili, _super);
     function Chili(line, column) {
@@ -483,7 +476,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Banana = /** @class */ (function (_super) {
     __extends(Banana, _super);
     function Banana(line, column) {
@@ -516,7 +509,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Melon = /** @class */ (function (_super) {
     __extends(Melon, _super);
     function Melon(line, column) {
@@ -549,7 +542,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Strawberry = /** @class */ (function (_super) {
     __extends(Strawberry, _super);
     function Strawberry(line, column) {
@@ -576,8 +569,8 @@ var Service_1 = __webpack_require__(41);
 var Util_1 = __webpack_require__(29);
 var Wall_1 = __webpack_require__(180);
 var Blank_1 = __webpack_require__(170);
-var React = __webpack_require__(166);
-var ReactDOM = __webpack_require__(169);
+var React = __webpack_require__(82);
+var ReactDOM = __webpack_require__(167);
 var BoardComponent_1 = __webpack_require__(181);
 var Board = /** @class */ (function () {
     function Board(lines, cols, displayInView) {
@@ -653,7 +646,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Util_1 = __webpack_require__(29);
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Wall = /** @class */ (function (_super) {
     __extends(Wall, _super);
     function Wall(line, column) {
@@ -674,7 +667,7 @@ exports.default = Wall;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(166);
+var React = __webpack_require__(82);
 exports.BoardComponent = function list(props) {
     var board = Array.from(Array(props.lines).keys()).map(function (line) {
         return React.createElement("tr", { key: line + 1 }, Array.from(Array(props.cols).keys()).map(function (col) {
@@ -854,6 +847,13 @@ var Service = /** @class */ (function () {
 }());
 exports.default = Service;
 
+
+/***/ }),
+
+/***/ 82:
+/***/ (function(module, exports) {
+
+module.exports = React;
 
 /***/ })
 
