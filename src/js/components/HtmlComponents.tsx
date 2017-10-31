@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-export default class RatingComponent extends React.Component {
+class HtmlComponents extends React.Component {
     constructor(props: any){
         super(props);
     }
@@ -35,3 +35,4 @@ export default class RatingComponent extends React.Component {
     }
 }
 
+export default HtmlComponents;

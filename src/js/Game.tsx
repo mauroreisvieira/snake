@@ -47,7 +47,6 @@ class Game {
         }
 
         this.gamInBoard = document.getElementById('board');
-        console.log("this.gamInBoard", this.gamInBoard);
 
         if (this.gamInBoard) {
 
