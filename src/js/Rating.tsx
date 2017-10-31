@@ -6,7 +6,7 @@ import Storage from './services/Storage';
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import {RatingComponent} from './components/RatingComponent';
+import RatingComponent from './components/RatingComponent';
 
 class Rating {
     private util: any;
@@ -44,14 +44,13 @@ class Rating {
             };
 
             ReactDOM.render(
-                <RatingComponent friends={data.players} />,
+                <RatingComponent players={data.players} />,
                 document.getElementById('list-players')
             );
         });
 
         this.addEventListeners();
     }
-
 
 
     bind() : void {

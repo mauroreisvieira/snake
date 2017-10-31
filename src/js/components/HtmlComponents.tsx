@@ -12,8 +12,7 @@ class HtmlComponents extends React.Component {
     }
 
     render(): any {
-        const friends = this.props.friends;
-        const listItems = friends.map((friend: any) =>
+        const listItems = this.props.friends.map((friend: any) =>
             <tr key={friend[0]}>
                 <td className="table__image">
                     <img src={friend[1].photo} alt={friend[1].name} title={friend[1].name} />
