@@ -606,7 +606,7 @@ var Board = /** @class */ (function () {
             lines: this.lines,
             cols: this.cols
         };
-        ReactDOM.render(React.createElement(BoardComponent_1.BoardComponent, { board: data.board, lines: data.lines, cols: data.cols }), document.getElementById('board'));
+        ReactDOM.render(React.createElement(BoardComponent_1.default, { board: data.board, lines: data.lines, cols: data.cols }), document.getElementById('board'));
     };
     Board.prototype.clean = function (posX, posY) {
         document.querySelectorAll('table tr:nth-child(' + posX + ') td:nth-child(' + posY + ')')[0].style.backgroundColor = this.colorBoard;
@@ -666,17 +666,36 @@ exports.default = Wall;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(82);
-exports.BoardComponent = function list(props) {
-    var board = Array.from(Array(props.lines).keys()).map(function (line) {
-        return React.createElement("tr", { key: line + 1 }, Array.from(Array(props.cols).keys()).map(function (col) {
-            return React.createElement("td", { key: (line + 1) * col, style: { backgroundColor: props.board[line][col].color } });
-        }));
-    });
-    return (React.createElement("table", null,
-        React.createElement("tbody", null, board)));
-};
+var BoardComponent = /** @class */ (function (_super) {
+    __extends(BoardComponent, _super);
+    function BoardComponent(props) {
+        return _super.call(this, props) || this;
+    }
+    BoardComponent.prototype.render = function () {
+        var _this = this;
+        var board = Array.from(Array(this.props.lines).keys()).map(function (line) {
+            return React.createElement("tr", { key: line + 1 }, Array.from(Array(_this.props.cols).keys()).map(function (col) {
+                return React.createElement("td", { key: (line + 1) * col, style: { backgroundColor: _this.props.board[line][col].color } });
+            }));
+        });
+        return (React.createElement("table", null,
+            React.createElement("tbody", null, board)));
+    };
+    return BoardComponent;
+}(React.Component));
+exports.default = BoardComponent;
 
 
 /***/ }),

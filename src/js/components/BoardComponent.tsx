@@ -1,18 +1,27 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-export const BoardComponent = function list(props : any): any {
-    const board = Array.from(Array(props.lines).keys()).map((line: any) =>
-        <tr key={line + 1}>
-            {Array.from(Array(props.cols).keys()).map((col: any) =>
-                <td key={(line + 1) * col} style={{backgroundColor: props.board[line][col].color}}></td>
-            )}
-        </tr>
-    );
+class BoardComponent extends React.Component {
 
-    return (
+    constructor(props: any){
+        super(props);
+    }
+
+    render(): any {
+        const board = Array.from(Array(this.props.lines).keys()).map((line: any) =>
+            <tr key={line + 1}>
+                {Array.from(Array(this.props.cols).keys()).map((col: any) =>
+                    <td key={(line + 1) * col} style={{backgroundColor: this.props.board[line][col].color}}></td>
+                )}
+            </tr>
+        );
+        return (
         <table>
             <tbody>{board}</tbody>
         </table>
-    );
+        );
+    }
 }
+
+export default BoardComponent;
 

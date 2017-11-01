@@ -6,7 +6,7 @@ import Blank from './models/Blank';
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import {BoardComponent} from './components/BoardComponent';
+import BoardComponent from './components/BoardComponent';
 
 export default class Board {
     private lines: number;

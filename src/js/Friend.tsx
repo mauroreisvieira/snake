@@ -6,7 +6,7 @@ import Storage from './services/Storage';
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import {FriendComponent} from './components/FriendComponent';
+import FriendComponent from './components/FriendComponent';
 
 class Friend {
     private util: any;
