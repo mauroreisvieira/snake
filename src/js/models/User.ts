@@ -32,7 +32,7 @@ export default class User {
 
         // Updated in Firebase only have connection to internet.
         if (util.online) {
-            firebase.all('players/' + this.id).then(response => {
+            firebase.all('players/' + this.id).then((response : any) => {
                 firebase.destroy('players', this.id);
                 firebase.push('players/' + this.id, this);
             });

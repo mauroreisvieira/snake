@@ -35,7 +35,7 @@ class Auth {
         let playerExists = false;
 
         if (email.length > 0) {
-            this.firebase.all('players').then(response  => {
+            this.firebase.all('players').then((response : any) => {
                 // Get size of object.
                 var size = Object.keys(response).length;
                 if (size > 0) {

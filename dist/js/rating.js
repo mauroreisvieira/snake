@@ -26455,14 +26455,22 @@ var RatingComponent = /** @class */ (function (_super) {
         _this.firebase = new Firebase_1.default();
         return _this;
     }
-    RatingComponent.prototype.addToFriendList = function (key) {
+    RatingComponent.prototype.addToFriendList = function (friendID) {
+        var _this = this;
         var myID = this.storage.getItem('id');
-        console.log("friend ID", key);
-        console.log("my ID", myID);
         this.firebase.all('friends/' + myID).then(function (response) {
             if (response === null) {
+                // Get players in storage.
+                var players = JSON.parse(_this.storage.getItem('players'));
+                players.map(function (player) {
+                    if (player[0] === friendID) {
+                        _this.firebase.push('friends/' + myID + '/' + player[0], player[1]);
+                    }
+                });
             }
-            console.log(response);
+            else {
+                console.log(response);
+            }
         });
     };
     RatingComponent.prototype.render = function () {
@@ -26476,7 +26484,7 @@ var RatingComponent = /** @class */ (function (_super) {
                     player[1].score,
                     " /pts"),
                 React.createElement("td", null,
-                    React.createElement("button", { onClick: function () { return _this.addToFriendList(player[0]); }, className: "button button--green button--icon button-add-friend", "data-id": player[0] },
+                    React.createElement("button", { onClick: function () { return _this.addToFriendList(player[0]); }, className: "button button--green button--icon button-add-friend" },
                         React.createElement("i", { className: "icon ion-person-add" }))));
         });
         return (React.createElement("table", { className: "table" },

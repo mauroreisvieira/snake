@@ -47,7 +47,7 @@ export default class Firebase {
      * @return {any}
      */
     all(node: string): any {
-        var promise = new Promise((resolve, reject) => {
+        var promise = new Promise((resolve : any, reject : any) => {
             firebase.app().database().ref(node).on("value", function(snapshot) {
                 resolve(snapshot.val());
             });

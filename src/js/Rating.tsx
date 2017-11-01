@@ -28,7 +28,7 @@ class Rating {
         }
 
         // Check if user hava internet connection.
-        this.firebase.all('players').then(response => {
+        this.firebase.all('players').then((response: any) => {
             this.players = response;
             this.players = Object.entries(response);
             this.storage.addItem('players', JSON.stringify(this.players));

@@ -14,15 +14,20 @@ class RatingComponent extends React.Component {
         this.firebase = new Firebase();
     }
 
-    addToFriendList(key : any): void {
+    addToFriendList(friendID : any): void {
         let myID = this.storage.getItem('id');
-        console.log("friend ID", key);
-        console.log("my ID", myID);
         this.firebase.all('friends/' + myID).then((response: any) => {
             if (response === null) {
-
+                // Get players in storage.
+                let players = JSON.parse(this.storage.getItem('players'));
+                players.map((player: any) => {
+                    if (player[0] === friendID) {
+                        this.firebase.push('friends/' + myID + '/' + player[0], player[1]);
+                    }
+                });
+            } else {
+                console.log(response);
             }
-            console.log(response);
         });
     }
 
@@ -35,7 +40,8 @@ class RatingComponent extends React.Component {
                 <td className="table__name">{player[1].name}</td>
                 <td className="table__scrore">{player[1].score} /pts</td>
                 <td>
-                    <button onClick={() => this.addToFriendList(player[0])} className="button button--green button--icon button-add-friend" data-id={player[0]}>
+                    <button onClick={() => this.addToFriendList(player[0])}
+                        className="button button--green button--icon button-add-friend">
                         <i className="icon ion-person-add"></i>
                     </button>
                 </td>
