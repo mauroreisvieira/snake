@@ -1,23 +1,16 @@
 import Storage from './Storage';
+import Util from './Util';
 
-export default class Service {
+export default class Http {
     private storage: any;
+    private util: any;
 
     constructor () {
         this.storage = new Storage();
+        this.util = new Util();
     }
 
-    /**
-    * Method to return avatar based in email.
-    * @param  {String} hash
-    * @param  {Number} size
-    * @return {String}
-    */
-    gravatar(hash : string, size : number = 200): any {
-        return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
-    }
-
-    /**
+     /**
      * Check if user have info in storage.
      * @return {boolean}
      */
@@ -34,6 +27,12 @@ export default class Service {
     * @return void
     */
     logout(): void {
-        localStorage.clear();
+        // Logout
+        let logout = document.querySelector('#logout');
+        logout.addEventListener('click', evt => {
+            evt.preventDefault();
+            localStorage.clear();
+            this.util.redirect('index');
+        });
     }
 }
