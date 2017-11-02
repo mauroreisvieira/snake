@@ -26534,7 +26534,7 @@ var User = /** @class */ (function () {
         this.id = hash.md5(this.email, false, false);
         this.photo = this.userPhoto(this.id);
         this.score = storage.getItem('score') > 0 ? storage.getItem('score') : 0;
-        this.date = new Date();
+        this.date = new Date().getTime();
         // Updated in Firebase only have connection to internet.
         if (util.online) {
             firebase.all('players/' + this.id).then(function (response) {
@@ -26618,8 +26618,8 @@ var Auth = /** @class */ (function () {
                         _this.storage.addItem('photo', user.photo);
                         _this.storage.addItem('color', user.color);
                         _this.storage.addItem('score', user.score);
+                        _this.storage.addItem('date', new Date().getTime());
                     }
-                    console.log(user);
                     // Redirect user to game board.
                     _this.util.redirect('game');
                 }

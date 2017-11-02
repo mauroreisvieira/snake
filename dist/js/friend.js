@@ -26352,12 +26352,19 @@ var Friend = /** @class */ (function () {
         this.http.logout();
         var myID = this.storage.getItem('id');
         this.firebase.all('friends/' + myID).then(function (response) {
-            _this.friends = response;
-            _this.friends = Object.entries(response);
-            _this.storage.addItem('friends', JSON.stringify(_this.friends));
-            var data = {
-                players: _this.friends,
-            };
+            if (response) {
+                _this.friends = response;
+                _this.friends = Object.entries(response);
+                _this.storage.addItem('friends', JSON.stringify(_this.friends));
+                var data = {
+                    players: _this.friends,
+                };
+            }
+            else {
+                var data = {
+                    players: false,
+                };
+            }
             ReactDOM.render(React.createElement(FriendComponent_1.default, { friends: data.players }), document.getElementById('list-friends'));
         });
     }
@@ -26390,25 +26397,33 @@ var FriendComponent = /** @class */ (function (_super) {
         return _super.call(this, props) || this;
     }
     FriendComponent.prototype.render = function () {
-        var listItems = this.props.friends.map(function (friend) {
-            return React.createElement("div", { key: friend[0], className: "cell-large-4 cell-medium-4 cell-small-12" },
-                React.createElement("div", { className: "item" },
-                    React.createElement("div", { className: "item__photo" },
-                        React.createElement("span", { style: { color: friend[1].color } }),
-                        React.createElement("img", { src: friend[1].photo, alt: friend[1].name, title: friend[1].name })),
-                    React.createElement("div", { className: "item__content" },
-                        React.createElement("div", { className: "item__name" }, friend[1].name),
-                        React.createElement("a", { className: "item__mail" }, friend[1].email),
-                        React.createElement("div", { className: "item__history" },
-                            React.createElement("strong", null, "Last Login:"))),
-                    React.createElement("div", { className: "item__options" },
-                        React.createElement("button", { className: "button button--small button--yellow", disabled: true },
-                            React.createElement("i", { className: "icon ion-ios-game-controller-b" }),
-                            " Challenge"),
-                        React.createElement("button", { className: "button button--small button--yellow", disabled: true },
-                            React.createElement("i", { className: "icon ion-android-mail" }),
-                            " Message"))));
-        });
+        if (this.props.friends) {
+            var listItems = this.props.friends.map(function (friend) {
+                return React.createElement("div", { key: friend[0], className: "cell-large-4 cell-medium-4 cell-small-12" },
+                    React.createElement("div", { className: "item" },
+                        React.createElement("div", { className: "item__photo" },
+                            React.createElement("span", { style: { color: friend[1].color } }),
+                            React.createElement("img", { src: friend[1].photo, alt: friend[1].name, title: friend[1].name })),
+                        React.createElement("div", { className: "item__content" },
+                            React.createElement("div", { className: "item__name" }, friend[1].name),
+                            React.createElement("a", { className: "item__mail" }, friend[1].email),
+                            React.createElement("div", { className: "item__history" },
+                                React.createElement("strong", null, "Last Login:"))),
+                        React.createElement("div", { className: "item__options" },
+                            React.createElement("button", { className: "button button--small button--yellow", disabled: true },
+                                React.createElement("i", { className: "icon ion-ios-game-controller-b" }),
+                                " Challenge"),
+                            React.createElement("button", { className: "button button--small button--yellow", disabled: true },
+                                React.createElement("i", { className: "icon ion-android-mail" }),
+                                " Message"))));
+            });
+        }
+        else {
+            var listItems = React.createElement("div", { className: "cell-large-12 cell-medium-12 cell-small-12" },
+                React.createElement("span", { className: "size-100" }, "\uD83D\uDE0B"),
+                React.createElement("h4", { className: "color-white" }, "You don't have any friends yeat!!"),
+                React.createElement("br", null));
+        }
         return (React.createElement("div", { className: "row" }, listItems));
     };
     return FriendComponent;

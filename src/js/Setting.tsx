@@ -25,6 +25,7 @@ class Settings {
         this.http.logout();
 
         this.view();
+        this.addEventListeners();
     }
 
     view(): void {
@@ -70,7 +71,7 @@ class Settings {
          // If email not empty
          if (email.length > 0) {
              // Check if this email already exists in Players list.
-             firebase.all('players/' + hash.md5(email, false, false)).then(response => {
+             firebase.all('players/' + hash.md5(email, false, false)).then((response : any) => {
                  // If not exists updated user with new email in other case get email in browser storage.
                  if (response !== null) {
                      email = this.storage.getItem('email');

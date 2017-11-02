@@ -26534,7 +26534,7 @@ var User = /** @class */ (function () {
         this.id = hash.md5(this.email, false, false);
         this.photo = this.userPhoto(this.id);
         this.score = storage.getItem('score') > 0 ? storage.getItem('score') : 0;
-        this.date = new Date();
+        this.date = new Date().getTime();
         // Updated in Firebase only have connection to internet.
         if (util.online) {
             firebase.all('players/' + this.id).then(function (response) {
@@ -26603,6 +26603,7 @@ var Settings = /** @class */ (function () {
         }
         this.http.logout();
         this.view();
+        this.addEventListeners();
     }
     Settings.prototype.view = function () {
         var name = document.querySelector('#inputName');

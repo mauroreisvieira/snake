@@ -53,8 +53,8 @@ export default class Auth {
                         this.storage.addItem('photo', user.photo);
                         this.storage.addItem('color', user.color);
                         this.storage.addItem('score', user.score);
+                        this.storage.addItem('date', new Date().getTime());
                     }
-                        console.log(user);
 
                     // Redirect user to game board.
                     this.util.redirect('game');

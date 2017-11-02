@@ -29,13 +29,19 @@ class Friend {
 
         let myID = this.storage.getItem('id');
         this.firebase.all('friends/' + myID).then((response : any)=> {
-            this.friends = response;
-            this.friends = Object.entries(response);
-            this.storage.addItem('friends', JSON.stringify(this.friends));
+            if (response) {
+                this.friends = response;
+                this.friends = Object.entries(response);
+                this.storage.addItem('friends', JSON.stringify(this.friends));
 
-            const data = {
-                players: this.friends,
-            };
+                const data = {
+                    players: this.friends,
+                };
+            } else {
+                const data = {
+                    players: false,
+                };
+            }
 
             ReactDOM.render(
                 <FriendComponent friends={data.players} />,
