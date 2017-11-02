@@ -26364,8 +26364,9 @@ var Rating = /** @class */ (function () {
             _this.players.reverse();
             var data = {
                 players: _this.players,
+                id: _this.storage.getItem('id')
             };
-            ReactDOM.render(React.createElement(RatingComponent_1.default, { players: data.players }), document.getElementById('list-players'));
+            ReactDOM.render(React.createElement(RatingComponent_1.default, { players: data.players, id: data.id }), document.getElementById('list-players'));
         });
     }
     return Rating;
@@ -26399,6 +26400,7 @@ var RatingComponent = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.storage = new Storage_1.default();
         _this.firebase = new Firebase_1.default();
+        _this.state = { value: false };
         return _this;
     }
     RatingComponent.prototype.addToFriendList = function (friendID) {
@@ -26409,7 +26411,7 @@ var RatingComponent = /** @class */ (function (_super) {
             if (response === null) {
                 // Get players in storage.
                 players.map(function (player) {
-                    if (player[0] === friendID) {
+                    if (player[0] === friendID && player[0] !== myID) {
                         _this.firebase.push('friends/' + myID + '/' + player[0], player[1]);
                     }
                 });
@@ -26417,7 +26419,7 @@ var RatingComponent = /** @class */ (function (_super) {
             else {
                 // Get players in storage.
                 players.map(function (player) {
-                    if (player[0] === friendID) {
+                    if (player[0] === friendID && player[0] !== myID) {
                         _this.firebase.push('friends/' + myID + '/' + player[0], player[1]);
                     }
                 });

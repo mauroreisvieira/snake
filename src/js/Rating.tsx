@@ -42,10 +42,11 @@ class Rating {
 
             const data = {
                 players: this.players,
+                id: this.storage.getItem('id')
             };
 
             ReactDOM.render(
-                <RatingComponent players={data.players} />,
+                <RatingComponent players={data.players} id={data.id} />,
                 document.getElementById('list-players')
             );
         });

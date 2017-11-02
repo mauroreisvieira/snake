@@ -12,6 +12,7 @@ class RatingComponent extends React.Component {
         super(props);
         this.storage = new Storage();
         this.firebase = new Firebase();
+        this.state = { value: false };
     }
 
     addToFriendList(friendID : any): void {
@@ -21,14 +22,14 @@ class RatingComponent extends React.Component {
             if (response === null) {
                 // Get players in storage.
                 players.map((player: any) => {
-                    if (player[0] === friendID) {
+                    if (player[0] === friendID && player[0] !== myID) {
                         this.firebase.push('friends/' + myID + '/' + player[0], player[1]);
                     }
                 });
             } else {
                 // Get players in storage.
                 players.map((player: any) => {
-                    if (player[0] === friendID) {
+                    if (player[0] === friendID && player[0] !== myID) {
                         this.firebase.push('friends/' + myID + '/' + player[0], player[1]);
                     }
                 });
