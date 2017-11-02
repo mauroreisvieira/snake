@@ -1,7 +1,7 @@
 .nav {
   display: flex;
-  padding: 0;
   list-style: none;
+  padding: 0;
 
   &--right {
     justify-content: flex-end;
@@ -11,9 +11,9 @@
     }
   }
 
-  .nav__item {
+  &__item {
 
-    .nav__itemLink {
+    &Link {
       color: $color-darkblue;
       display: block;
       font-size: $font-small;

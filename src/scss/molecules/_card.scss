@@ -29,22 +29,21 @@
     max-width: 960px;
   }
 
-  .card__header {
+  &__header {
     align-items: center;
     display: flex;
     flex-direction: column;
     flex-direction: row;
-    justify-content: baseline;
     justify-content: space-around;
     width: 100%;
   }
 
-  .card__content {
+  &__content {
     width: 100%;
     padding: 40px;
     box-sizing: border-box;
 
-    .card__contentInfo {
+    &Info {
       font-size: $font-medium;
       display: flex;
       flex-direction: column;
