@@ -1,5 +1,4 @@
 import Util from './services/Util';
-import Service from './services/Service';
 import Storage from './services/Storage';
 import Firebase from './services/Firebase';
 import User from './models/User';
@@ -7,22 +6,16 @@ import User from './models/User';
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-class Auth {
+export default class Auth {
     private util: any;
-    private service: any;
     private storage: any;
     private firebase: any;
     private form: any;
 
     constructor () {
         this.util = new Util();
-        this.service = new Service();
         this.storage = new Storage();
         this.firebase = new Firebase();
-
-        if (this.service.checkAuth()) {
-            this.util.redirect('game');
-        }
 
         this.form = document.querySelector('form');
         this.addEventListeners();
@@ -61,6 +54,7 @@ class Auth {
                         this.storage.addItem('color', user.color);
                         this.storage.addItem('score', user.score);
                     }
+                        console.log(user);
 
                     // Redirect user to game board.
                     this.util.redirect('game');
@@ -70,7 +64,7 @@ class Auth {
     }
 
     addEventListeners (): void {
-        this.form.addEventListener('submit', evt => {
+        this.form.addEventListener('submit', (evt: any) => {
             evt.preventDefault();
             this.login(evt);
         });

@@ -1,5 +1,5 @@
+import Http from './services/Http';
 import Util from './services/Util';
-import Service from './services/Service';
 import Firebase from './services/Firebase';
 import Storage from './services/Storage';
 
@@ -10,23 +10,25 @@ import FriendComponent from './components/FriendComponent';
 
 class Friend {
     private util: any;
-    private service: any;
+    private http: any;
     private firebase: any;
     private storage: any;
     private friends: any = {};
 
     constructor() {
         this.util = new Util();
-        this.service = new Service();
         this.firebase = new Firebase();
         this.storage = new Storage();
+        this.http = new Http();
 
         // Check if user is Auth
-        if (!this.service.checkAuth()) {
+        if (!this.http.checkAuth()) {
             this.util.redirect('index');
         }
+        this.http.logout();
 
-        this.firebase.all('players').then(response => {
+        let myID = this.storage.getItem('id');
+        this.firebase.all('friends/' + myID).then((response : any)=> {
             this.friends = response;
             this.friends = Object.entries(response);
             this.storage.addItem('friends', JSON.stringify(this.friends));
@@ -40,18 +42,6 @@ class Friend {
                 document.getElementById('list-friends')
             );
         })
-
-        this.addEventListeners();
-    }
-
-    addEventListeners(): void {
-        // Logout
-        let logout = document.querySelector('#logout');
-        logout.addEventListener('click', evt => {
-            evt.preventDefault();
-            this.service.logout();
-            this.util.redirect('index');
-        });
     }
 }
 

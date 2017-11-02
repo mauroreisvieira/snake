@@ -60,12 +60,19 @@
 /******/ 	__webpack_require__.p = "/dist";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 172);
+/******/ 	return __webpack_require__(__webpack_require__.s = 171);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 166:
+/***/ 164:
+/***/ (function(module, exports) {
+
+module.exports = React;
+
+/***/ }),
+
+/***/ 165:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94,7 +101,7 @@ exports.default = Piece;
 
 /***/ }),
 
-/***/ 167:
+/***/ 168:
 /***/ (function(module, exports) {
 
 module.exports = ReactDOM;
@@ -117,8 +124,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(29);
-var Piece_1 = __webpack_require__(166);
+var Util_1 = __webpack_require__(39);
+var Piece_1 = __webpack_require__(165);
 var Wall = /** @class */ (function (_super) {
     __extends(Wall, _super);
     function Wall(line, column) {
@@ -133,22 +140,22 @@ exports.default = Wall;
 
 /***/ }),
 
-/***/ 172:
+/***/ 171:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Service_1 = __webpack_require__(41);
-var Util_1 = __webpack_require__(29);
+var Http_1 = __webpack_require__(186);
+var Util_1 = __webpack_require__(39);
 var Blank_1 = __webpack_require__(170);
-var Snake_1 = __webpack_require__(173);
-var Apple_1 = __webpack_require__(174);
-var Chili_1 = __webpack_require__(175);
-var Banana_1 = __webpack_require__(176);
-var Melon_1 = __webpack_require__(177);
-var Strawberry_1 = __webpack_require__(178);
-var Board_1 = __webpack_require__(179);
+var Snake_1 = __webpack_require__(172);
+var Apple_1 = __webpack_require__(173);
+var Chili_1 = __webpack_require__(174);
+var Banana_1 = __webpack_require__(175);
+var Melon_1 = __webpack_require__(176);
+var Strawberry_1 = __webpack_require__(177);
+var Board_1 = __webpack_require__(178);
 var Game = /** @class */ (function () {
     function Game() {
         this.listFruit = [0, 1, 2, 3, 4];
@@ -167,10 +174,11 @@ var Game = /** @class */ (function () {
         this.numberCols = Util_1.default.BOARD_COLS;
         this.interval = Util_1.default.SPEED;
         this.util = new Util_1.default();
-        this.service = new Service_1.default();
-        if (!this.service.checkAuth()) {
+        this.http = new Http_1.default();
+        if (!this.http.checkAuth()) {
             this.util.redirect('index');
         }
+        this.http.logout();
         this.gamInBoard = document.getElementById('board');
         if (this.gamInBoard) {
             this.tailX = [this.snakePosX];
@@ -333,13 +341,6 @@ var Game = /** @class */ (function () {
         window.addEventListener('keydown', function (evt) {
             _this.keyPressed(evt);
         });
-        // Logout
-        var logout = document.querySelector('#logout');
-        logout.addEventListener('click', function (evt) {
-            evt.preventDefault();
-            _this.service.logout();
-            _this.util.redirect('index');
-        });
     };
     return Game;
 }());
@@ -348,22 +349,20 @@ new Game();
 
 /***/ }),
 
-/***/ 173:
+/***/ 172:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Service_1 = __webpack_require__(41);
-var Storage_1 = __webpack_require__(28);
-var Util_1 = __webpack_require__(29);
+var Storage_1 = __webpack_require__(40);
+var Util_1 = __webpack_require__(39);
 var Snake = /** @class */ (function () {
     function Snake(posX, posY) {
         this.color = Util_1.default.COLOR_SNAKE;
         this.snake = [];
         this.x = posX;
         this.y = posY;
-        this.service = new Service_1.default();
         this.storage = new Storage_1.default();
         this.color = this.storage.getItem('color') === undefined ? this.color : this.storage.getItem('color');
         this.create();
@@ -394,6 +393,39 @@ exports.default = Snake;
 
 /***/ }),
 
+/***/ 173:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Piece_1 = __webpack_require__(165);
+var Apple = /** @class */ (function (_super) {
+    __extends(Apple, _super);
+    function Apple(line, column) {
+        var _this = _super.call(this, line, column, '#009688') || this;
+        _this.speed = 100;
+        _this.power = 20;
+        _this.isFruit = true;
+        return _this;
+    }
+    return Apple;
+}(Piece_1.default));
+exports.default = Apple;
+
+
+/***/ }),
+
 /***/ 174:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -410,19 +442,19 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(166);
-var Apple = /** @class */ (function (_super) {
-    __extends(Apple, _super);
-    function Apple(line, column) {
-        var _this = _super.call(this, line, column, '#009688') || this;
+var Piece_1 = __webpack_require__(165);
+var Chili = /** @class */ (function (_super) {
+    __extends(Chili, _super);
+    function Chili(line, column) {
+        var _this = _super.call(this, line, column, '#9c27b0') || this;
         _this.speed = 100;
         _this.power = 20;
         _this.isFruit = true;
         return _this;
     }
-    return Apple;
+    return Chili;
 }(Piece_1.default));
-exports.default = Apple;
+exports.default = Chili;
 
 
 /***/ }),
@@ -443,19 +475,19 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(166);
-var Chili = /** @class */ (function (_super) {
-    __extends(Chili, _super);
-    function Chili(line, column) {
-        var _this = _super.call(this, line, column, '#9c27b0') || this;
+var Piece_1 = __webpack_require__(165);
+var Banana = /** @class */ (function (_super) {
+    __extends(Banana, _super);
+    function Banana(line, column) {
+        var _this = _super.call(this, line, column, '#ffeb3b') || this;
         _this.speed = 100;
         _this.power = 20;
         _this.isFruit = true;
         return _this;
     }
-    return Chili;
+    return Banana;
 }(Piece_1.default));
-exports.default = Chili;
+exports.default = Banana;
 
 
 /***/ }),
@@ -476,19 +508,19 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(166);
-var Banana = /** @class */ (function (_super) {
-    __extends(Banana, _super);
-    function Banana(line, column) {
-        var _this = _super.call(this, line, column, '#ffeb3b') || this;
+var Piece_1 = __webpack_require__(165);
+var Melon = /** @class */ (function (_super) {
+    __extends(Melon, _super);
+    function Melon(line, column) {
+        var _this = _super.call(this, line, column, '#4caf50') || this;
         _this.speed = 100;
         _this.power = 20;
         _this.isFruit = true;
         return _this;
     }
-    return Banana;
+    return Melon;
 }(Piece_1.default));
-exports.default = Banana;
+exports.default = Melon;
 
 
 /***/ }),
@@ -509,40 +541,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(166);
-var Melon = /** @class */ (function (_super) {
-    __extends(Melon, _super);
-    function Melon(line, column) {
-        var _this = _super.call(this, line, column, '#4caf50') || this;
-        _this.speed = 100;
-        _this.power = 20;
-        _this.isFruit = true;
-        return _this;
-    }
-    return Melon;
-}(Piece_1.default));
-exports.default = Melon;
-
-
-/***/ }),
-
-/***/ 178:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(166);
+var Piece_1 = __webpack_require__(165);
 var Strawberry = /** @class */ (function (_super) {
     __extends(Strawberry, _super);
     function Strawberry(line, column) {
@@ -559,19 +558,18 @@ exports.default = Strawberry;
 
 /***/ }),
 
-/***/ 179:
+/***/ 178:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Service_1 = __webpack_require__(41);
-var Util_1 = __webpack_require__(29);
-var Wall_1 = __webpack_require__(180);
+var Util_1 = __webpack_require__(39);
+var Wall_1 = __webpack_require__(179);
 var Blank_1 = __webpack_require__(170);
-var React = __webpack_require__(82);
-var ReactDOM = __webpack_require__(167);
-var BoardComponent_1 = __webpack_require__(181);
+var React = __webpack_require__(164);
+var ReactDOM = __webpack_require__(168);
+var BoardComponent_1 = __webpack_require__(180);
 var Board = /** @class */ (function () {
     function Board(lines, cols, displayInView) {
         this.colorBoard = Util_1.default.COLOR_BOARD;
@@ -582,7 +580,6 @@ var Board = /** @class */ (function () {
         this.displayInView = displayInView;
         this.board = new Array(this.lines);
         this.create();
-        this.addEventListeners();
     }
     Board.prototype.get = function () {
         return this.board;
@@ -611,20 +608,41 @@ var Board = /** @class */ (function () {
     Board.prototype.clean = function (posX, posY) {
         document.querySelectorAll('table tr:nth-child(' + posX + ') td:nth-child(' + posY + ')')[0].style.backgroundColor = this.colorBoard;
     };
-    Board.prototype.addEventListeners = function () {
-        // Logout
-        var logout = document.querySelector('#logout');
-        logout.addEventListener('click', function (evt) {
-            evt.preventDefault();
-            var util = new Util_1.default();
-            var service = new Service_1.default();
-            service.logout();
-            util.redirect('index');
-        });
-    };
     return Board;
 }());
 exports.default = Board;
+
+
+/***/ }),
+
+/***/ 179:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(39);
+var Piece_1 = __webpack_require__(165);
+var Wall = /** @class */ (function (_super) {
+    __extends(Wall, _super);
+    function Wall(line, column) {
+        var _this = _super.call(this, line, column, Util_1.default.COLOR_WALL) || this;
+        _this.isFruit = false;
+        return _this;
+    }
+    return Wall;
+}(Piece_1.default));
+exports.default = Wall;
 
 
 /***/ }),
@@ -645,39 +663,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(29);
-var Piece_1 = __webpack_require__(166);
-var Wall = /** @class */ (function (_super) {
-    __extends(Wall, _super);
-    function Wall(line, column) {
-        var _this = _super.call(this, line, column, Util_1.default.COLOR_WALL) || this;
-        _this.isFruit = false;
-        return _this;
-    }
-    return Wall;
-}(Piece_1.default));
-exports.default = Wall;
-
-
-/***/ }),
-
-/***/ 181:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(82);
+var React = __webpack_require__(164);
 var BoardComponent = /** @class */ (function (_super) {
     __extends(BoardComponent, _super);
     function BoardComponent(props) {
@@ -700,48 +686,52 @@ exports.default = BoardComponent;
 
 /***/ }),
 
-/***/ 28:
+/***/ 186:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Storage = /** @class */ (function () {
-    function Storage() {
+var Storage_1 = __webpack_require__(40);
+var Util_1 = __webpack_require__(39);
+var Http = /** @class */ (function () {
+    function Http() {
+        this.storage = new Storage_1.default();
+        this.util = new Util_1.default();
     }
     /**
-     * Save items in browser storage.
-     * @param {string} name
-     * @param {string} value
-     * @return {void}
-     */
-    Storage.prototype.addItem = function (name, value) {
-        localStorage.setItem(name, value);
+    * Check if user have info in storage.
+    * @return {boolean}
+    */
+    Http.prototype.checkAuth = function () {
+        var exists = true;
+        if (localStorage.getItem('email') === null) {
+            exists = false;
+        }
+        return exists;
     };
     /**
-     * Get Item in storage.
-     * @param  {string} item
-     * @return {string}
-     */
-    Storage.prototype.getItem = function (item) {
-        return localStorage.getItem(item);
+     * Remove user from storage.
+    * @return void
+    */
+    Http.prototype.logout = function () {
+        var _this = this;
+        // Logout
+        var logout = document.querySelector('#logout');
+        logout.addEventListener('click', function (evt) {
+            evt.preventDefault();
+            localStorage.clear();
+            _this.util.redirect('index');
+        });
     };
-    /**
-     * Remove Item in storage.
-     * @param {string} item [description]
-     * @return {void}
-     */
-    Storage.prototype.removeItem = function (item) {
-        localStorage.removeItem(item);
-    };
-    return Storage;
+    return Http;
 }());
-exports.default = Storage;
+exports.default = Http;
 
 
 /***/ }),
 
-/***/ 29:
+/***/ 39:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -823,56 +813,44 @@ exports.default = Util;
 
 /***/ }),
 
-/***/ 41:
+/***/ 40:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Storage_1 = __webpack_require__(28);
-var Service = /** @class */ (function () {
-    function Service() {
-        this.storage = new Storage_1.default();
+var Storage = /** @class */ (function () {
+    function Storage() {
     }
     /**
-    * Method to return avatar based in email.
-    * @param  {String} hash
-    * @param  {Number} size
-    * @return {String}
-    */
-    Service.prototype.gravatar = function (hash, size) {
-        if (size === void 0) { size = 200; }
-        return 'http://www.gravatar.com/avatar/' + hash + '.jpg?s=' + size;
-    };
-    /**
-     * Check if user have info in storage.
-     * @return {boolean}
+     * Save items in browser storage.
+     * @param {string} name
+     * @param {string} value
+     * @return {void}
      */
-    Service.prototype.checkAuth = function () {
-        var exists = true;
-        if (localStorage.getItem('email') === null) {
-            exists = false;
-        }
-        return exists;
+    Storage.prototype.addItem = function (name, value) {
+        localStorage.setItem(name, value);
     };
     /**
-     * Remove user from storage.
-    * @return void
-    */
-    Service.prototype.logout = function () {
-        localStorage.clear();
+     * Get Item in storage.
+     * @param  {string} item
+     * @return {string}
+     */
+    Storage.prototype.getItem = function (item) {
+        return localStorage.getItem(item);
     };
-    return Service;
+    /**
+     * Remove Item in storage.
+     * @param {string} item [description]
+     * @return {void}
+     */
+    Storage.prototype.removeItem = function (item) {
+        localStorage.removeItem(item);
+    };
+    return Storage;
 }());
-exports.default = Service;
+exports.default = Storage;
 
-
-/***/ }),
-
-/***/ 82:
-/***/ (function(module, exports) {
-
-module.exports = React;
 
 /***/ })
 

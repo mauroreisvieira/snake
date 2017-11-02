@@ -17,16 +17,21 @@ class RatingComponent extends React.Component {
     addToFriendList(friendID : any): void {
         let myID = this.storage.getItem('id');
         this.firebase.all('friends/' + myID).then((response: any) => {
+            let players = JSON.parse(this.storage.getItem('players'));
             if (response === null) {
                 // Get players in storage.
-                let players = JSON.parse(this.storage.getItem('players'));
                 players.map((player: any) => {
                     if (player[0] === friendID) {
                         this.firebase.push('friends/' + myID + '/' + player[0], player[1]);
                     }
                 });
             } else {
-                console.log(response);
+                // Get players in storage.
+                players.map((player: any) => {
+                    if (player[0] === friendID) {
+                        this.firebase.push('friends/' + myID + '/' + player[0], player[1]);
+                    }
+                });
             }
         });
     }

@@ -1,4 +1,4 @@
-import Service from './services/Service';
+import Http from './services/Http';
 import Util from './services/Util';
 import Blank from './models/Blank';
 import Snake from './models/Snake';
@@ -15,7 +15,7 @@ import * as ReactDOM from "react-dom";
 
 class Game {
     private util: any;
-    private service: any;
+    private http: any;
     private gamInBoard: any;
     private listFruit: any = [0,1,2,3,4];
     private length: number = 0;
@@ -40,11 +40,12 @@ class Game {
     constructor () {
 
         this.util = new Util();
-        this.service = new Service();
+        this.http = new Http();
 
-        if (!this.service.checkAuth()) {
+        if (!this.http.checkAuth()) {
             this.util.redirect('index');
         }
+        this.http.logout();
 
         this.gamInBoard = document.getElementById('board');
 
@@ -223,14 +224,6 @@ class Game {
     addEventListeners(): void {
         window.addEventListener('keydown', evt => {
             this.keyPressed(evt);
-        });
-
-        // Logout
-        let logout = document.querySelector('#logout');
-        logout.addEventListener('click', evt => {
-            evt.preventDefault();
-            this.service.logout();
-            this.util.redirect('index');
         });
     }
 }

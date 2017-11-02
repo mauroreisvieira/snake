@@ -1,4 +1,3 @@
-import Service from './../services/Service';
 import Storage from './../services/Storage';
 import Util from './../services/Util';
 
@@ -14,7 +13,6 @@ export default class Snake {
         this.x = posX;
         this.y = posY;
 
-        this.service = new Service();
         this.storage = new Storage();
 
         this.color = this.storage.getItem('color') === undefined ? this.color : this.storage.getItem('color');

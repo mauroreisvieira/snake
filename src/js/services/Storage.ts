@@ -1,8 +1,6 @@
 export default class Storage {
 
-    constructor () {
-
-    }
+    constructor () {}
 
     /**
      * Save items in browser storage.

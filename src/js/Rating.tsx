@@ -1,5 +1,5 @@
+import Http from './services/Http';
 import Util from './services/Util';
-import Service from './services/Service';
 import Firebase from './services/Firebase';
 import Storage from './services/Storage';
 
@@ -10,7 +10,7 @@ import RatingComponent from './components/RatingComponent';
 
 class Rating {
     private util: any;
-    private service: any;
+    private http: any;
     private storage: any;
     private firebase: any;
     private players: any = {};
@@ -18,14 +18,15 @@ class Rating {
     constructor() {
 
         this.util = new Util();
-        this.service = new Service();
         this.storage = new Storage();
         this.firebase = new Firebase();
+        this.http = new Http();
 
         // Check if user is Auth
-        if (!this.service.checkAuth()) {
+        if (!this.http.checkAuth()) {
             this.util.redirect('index');
         }
+        this.http.logout();
 
         // Check if user hava internet connection.
         this.firebase.all('players').then((response: any) => {
@@ -49,16 +50,6 @@ class Rating {
             );
         });
 
-        this.addEventListeners();
-    }
-
-    addEventListeners (): void {
-        // Logout
-        document.querySelector('#logout').addEventListener('click', evt => {
-            evt.preventDefault();
-            this.service.logout();
-            this.util.redirect('index');
-        });
     }
 }
 

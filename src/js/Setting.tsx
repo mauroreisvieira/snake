@@ -1,4 +1,4 @@
-import Service from './services/Service';
+import Http from './services/Http';
 import Util from './services/Util';
 import Md5 from './services/Md5';
 import Storage from './services/Storage';
@@ -10,23 +10,21 @@ import * as ReactDOM from "react-dom";
 
 class Settings {
     private util: any;
-    private service: any;
     private storage: any;
-    private form: any;
+    private http: any;
 
     constructor () {
         this.util = new Util();
-        this.service = new Service();
         this.storage = new Storage();
+        this.http = new Http();
 
-        if (!this.service.checkAuth()) {
+        // Check if user is Auth
+        if (!this.http.checkAuth()) {
             this.util.redirect('index');
         }
-
-        this.form = document.querySelector('form');
+        this.http.logout();
 
         this.view();
-        this.addEventListeners();
     }
 
     view(): void {
@@ -83,17 +81,9 @@ class Settings {
      }
 
      addEventListeners (): void {
-         this.form.addEventListener('submit', evt => {
+         document.querySelector('form').addEventListener('submit', evt => {
              evt.preventDefault();
              this.updateUser(evt);
-         });
-
-         // Logout
-         let logout = document.querySelector('#logout');
-         logout.addEventListener('click', evt => {
-             evt.preventDefault();
-             this.service.logout();
-             this.util.redirect('index');
          });
      }
  }
