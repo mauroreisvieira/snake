@@ -39,18 +39,10 @@
       margin: 20px 10px;
     }
 
-    .sidebar__item {
+    &__item {
       font-size: $font-large;
       margin: 20px 0;
     }
-  }
-
-  game-board {
-    align-items: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
   }
 
   .aside {
@@ -68,7 +60,7 @@
       margin: 20px 10px;
     }
 
-    .aside__item {
+    &__item {
       font-size: $font-large;
       margin: 20px 0;
     }

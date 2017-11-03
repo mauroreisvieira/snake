@@ -1,3 +1,4 @@
+import Storage from './services/Storage';
 import Http from './services/Http';
 import Util from './services/Util';
 import Blank from './models/Blank';
@@ -24,7 +25,7 @@ class Game {
     private running: boolean = false;
     private gameOver: boolean = false;
     private direction: number = 2;
-    private int: number;
+    private int: any;
     private tempdir = 2;
     private snakePosX: number = 2;
     private snakePosY: number = 2;
@@ -36,6 +37,7 @@ class Game {
     private board: any;
     private matriz: any;
     private snake: any;
+    private colorBoard: any = Util.COLOR_BOARD;
 
     constructor () {
 
@@ -50,6 +52,10 @@ class Game {
         this.gamInBoard = document.getElementById('board');
 
         if (this.gamInBoard) {
+
+            let storage = new Storage();
+            this.colorBoard = storage.getItem('theme') === undefined ? this.colorBoard : storage.getItem('theme');
+            console.log("this.colorBoard", this.colorBoard);
 
             this.tailX = [this.snakePosX];
             this.tailY = [this.snakePosY];
@@ -162,7 +168,7 @@ class Game {
             //checks for collisions with fruit
         } else if (this.matriz[this.snakePosX][this.snakePosY].isFruit === true) {
             this.score += this.matriz[this.snakePosX][this.snakePosY].power;
-            this.matriz[this.snakePosX][this.snakePosY] = new Blank(this.snakePosX, this.snakePosY);
+            this.matriz[this.snakePosX][this.snakePosY] = new Blank(this.snakePosX, this.snakePosY, this.colorBoard);
             this.resetInterval();
 
             this.updateSnake(true);

@@ -16,7 +16,7 @@
     }
   }
 
-  .table__image {
+  &__image {
 
     @include mobile() {
       display: none;
@@ -31,23 +31,17 @@
     }
   }
 
-  .table_postion {
-    @include typography($font-large, $font-bold);
-    color: $color-darkblue;
-  }
-
-  .table__name {
+  &__name {
     @include typography($font-medium, $font-light);
     color: $color-text-default;
     text-transform: capitalize;
   }
 
-  .table__scrore {
+  &__scrore {
     color: $color-text-default;
     font-family: $font-family-default;
     font-size: $font-medium;
     font-weight: $font-bold;
     text-align: right;
   }
-
 }

@@ -8,9 +8,9 @@
   grid-gap: 100px;
   grid-auto-columns: 100%;
   grid-template-areas:
-  "header"
-  "main"
-  "footer";
+    "header"
+    "main"
+    "footer";
 
   @include tablet() {
     grid-gap: 0;
@@ -45,7 +45,7 @@
       width: 100%;
       z-index: 3;
 
-      .item__photo {
+      &__photo {
         border-radius: 50%;
         height: 80px;
         object-fit: cover;
@@ -72,23 +72,23 @@
         }
       }
 
-      .item__content {
+      &__content {
         margin: 20px 0;
         width: 100%;
 
-        .item__name {
+        &-name {
           @include typography($font-large, $font-bold);
           color: $color-text-default;
           text-transform: capitalize;
         }
 
-        .item__mail {
+        &-mail {
           @include typography($font-small, $font-thin);
           color: $color-pink;
           text-decoration: none;
         }
 
-        .item__history {
+        &-history {
           @include typography($font-small, $font-normal);
           font-family: $font-family-default;
           color: lighten($color-black , 80%);
@@ -96,7 +96,7 @@
         }
       }
 
-      .item__options {
+      &__options {
         display: flex;
         justify-content: center;
         width: 100%;

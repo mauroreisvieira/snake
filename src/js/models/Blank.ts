@@ -4,8 +4,8 @@ import Piece from './Piece';
 export default class Wall extends Piece {
     public isFruit: boolean;
 
-    constructor (line: number, column: number) {
-        super(line, column, Util.COLOR_BLANK);
+    constructor (line: number, column: number, color: any) {
+        super(line, column, color);
         this.isFruit = false;
     }
 }

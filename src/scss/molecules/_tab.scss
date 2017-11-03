@@ -1,7 +1,7 @@
 .tab {
   border-bottom: 1px solid $color-border-default;
 
-  .tab__link {
+  &__link {
     color: $color-darkblue;
     font-family: $font-family-base;
     font-size: $font-medium;

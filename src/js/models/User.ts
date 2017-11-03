@@ -9,14 +9,16 @@ export default class User {
     public email: string;
     public photo: any;
     public color: any;
+    public theme: any;
     public colorBoard: any;
     public score: any;
     public date: any;
 
-    constructor (name: string, email: string, color: any) {
+    constructor (name: string, email: string, color: any, theme: any) {
         this.name = name;
         this.email = email;
         this.color = color;
+        this.theme = theme;
 
         let util = new Util();
         let hash = new Md5();
@@ -43,6 +45,7 @@ export default class User {
         storage.addItem('email', this.email);
         storage.addItem('photo', this.photo);
         storage.addItem('color', this.color);
+        storage.addItem('theme', this.theme);
         storage.addItem('score', this.score);
         storage.addItem('date', this.date);
     }

@@ -1,4 +1,5 @@
 import Util from './services/Util';
+import Storage from './services/Storage';
 import Wall from './models/Wall';
 import Blank from './models/Blank';
 
@@ -20,6 +21,9 @@ export default class Board {
         this.cols = cols;
         this.displayInView = displayInView;
 
+        let storage = new Storage();
+        this.colorBoard = storage.getItem('theme') === undefined ? this.colorBoard : storage.getItem('theme');
+
         this.board = new Array(this.lines);
         this.create();
     }
@@ -35,7 +39,7 @@ export default class Board {
                 if (line == 0 || line == this.cols -1 || col == 0 || col == this.lines -1) {
                     this.board[line][col] = new Wall(line, col);
                 } else {
-                    this.board[line][col] = new Blank(line, col);
+                    this.board[line][col] = new Blank(line, col, this.colorBoard);
                 }
             }
         }

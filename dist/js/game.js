@@ -60,19 +60,57 @@
 /******/ 	__webpack_require__.p = "/dist";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 171);
+/******/ 	return __webpack_require__(__webpack_require__.s = 172);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 164:
-/***/ (function(module, exports) {
+/***/ 165:
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = React;
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Storage_1 = __webpack_require__(29);
+var Util_1 = __webpack_require__(18);
+var Http = /** @class */ (function () {
+    function Http() {
+        this.storage = new Storage_1.default();
+        this.util = new Util_1.default();
+    }
+    /**
+    * Check if user have info in storage.
+    * @return {boolean}
+    */
+    Http.prototype.checkAuth = function () {
+        var exists = true;
+        if (localStorage.getItem('email') === null) {
+            exists = false;
+        }
+        return exists;
+    };
+    /**
+     * Remove user from storage.
+    * @return void
+    */
+    Http.prototype.logout = function () {
+        var _this = this;
+        // Logout
+        var logout = document.querySelector('#logout');
+        logout.addEventListener('click', function (evt) {
+            evt.preventDefault();
+            localStorage.clear();
+            _this.util.redirect('index');
+        });
+    };
+    return Http;
+}());
+exports.default = Http;
+
 
 /***/ }),
 
-/***/ 165:
+/***/ 166:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -101,7 +139,7 @@ exports.default = Piece;
 
 /***/ }),
 
-/***/ 168:
+/***/ 167:
 /***/ (function(module, exports) {
 
 module.exports = ReactDOM;
@@ -124,12 +162,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(39);
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
 var Wall = /** @class */ (function (_super) {
     __extends(Wall, _super);
-    function Wall(line, column) {
-        var _this = _super.call(this, line, column, Util_1.default.COLOR_BLANK) || this;
+    function Wall(line, column, color) {
+        var _this = _super.call(this, line, column, color) || this;
         _this.isFruit = false;
         return _this;
     }
@@ -140,22 +177,23 @@ exports.default = Wall;
 
 /***/ }),
 
-/***/ 171:
+/***/ 172:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Http_1 = __webpack_require__(186);
-var Util_1 = __webpack_require__(39);
+var Storage_1 = __webpack_require__(29);
+var Http_1 = __webpack_require__(165);
+var Util_1 = __webpack_require__(18);
 var Blank_1 = __webpack_require__(170);
-var Snake_1 = __webpack_require__(172);
-var Apple_1 = __webpack_require__(173);
-var Chili_1 = __webpack_require__(174);
-var Banana_1 = __webpack_require__(175);
-var Melon_1 = __webpack_require__(176);
-var Strawberry_1 = __webpack_require__(177);
-var Board_1 = __webpack_require__(178);
+var Snake_1 = __webpack_require__(173);
+var Apple_1 = __webpack_require__(174);
+var Chili_1 = __webpack_require__(175);
+var Banana_1 = __webpack_require__(176);
+var Melon_1 = __webpack_require__(177);
+var Strawberry_1 = __webpack_require__(178);
+var Board_1 = __webpack_require__(179);
 var Game = /** @class */ (function () {
     function Game() {
         this.listFruit = [0, 1, 2, 3, 4];
@@ -173,6 +211,7 @@ var Game = /** @class */ (function () {
         this.numberLines = Util_1.default.BOARD_LINES;
         this.numberCols = Util_1.default.BOARD_COLS;
         this.interval = Util_1.default.SPEED;
+        this.colorBoard = Util_1.default.COLOR_BOARD;
         this.util = new Util_1.default();
         this.http = new Http_1.default();
         if (!this.http.checkAuth()) {
@@ -181,6 +220,9 @@ var Game = /** @class */ (function () {
         this.http.logout();
         this.gamInBoard = document.getElementById('board');
         if (this.gamInBoard) {
+            var storage = new Storage_1.default();
+            this.colorBoard = storage.getItem('theme') === undefined ? this.colorBoard : storage.getItem('theme');
+            console.log("this.colorBoard", this.colorBoard);
             this.tailX = [this.snakePosX];
             this.tailY = [this.snakePosY];
             this.gameLoop = this.gameLoop.bind(this);
@@ -284,7 +326,7 @@ var Game = /** @class */ (function () {
         }
         else if (this.matriz[this.snakePosX][this.snakePosY].isFruit === true) {
             this.score += this.matriz[this.snakePosX][this.snakePosY].power;
-            this.matriz[this.snakePosX][this.snakePosY] = new Blank_1.default(this.snakePosX, this.snakePosY);
+            this.matriz[this.snakePosX][this.snakePosY] = new Blank_1.default(this.snakePosX, this.snakePosY, this.colorBoard);
             this.resetInterval();
             this.updateSnake(true);
             // creates new fruit, which automatically replaces the old one
@@ -349,14 +391,14 @@ new Game();
 
 /***/ }),
 
-/***/ 172:
+/***/ 173:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Storage_1 = __webpack_require__(40);
-var Util_1 = __webpack_require__(39);
+var Storage_1 = __webpack_require__(29);
+var Util_1 = __webpack_require__(18);
 var Snake = /** @class */ (function () {
     function Snake(posX, posY) {
         this.color = Util_1.default.COLOR_SNAKE;
@@ -393,39 +435,6 @@ exports.default = Snake;
 
 /***/ }),
 
-/***/ 173:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
-var Apple = /** @class */ (function (_super) {
-    __extends(Apple, _super);
-    function Apple(line, column) {
-        var _this = _super.call(this, line, column, '#009688') || this;
-        _this.speed = 100;
-        _this.power = 20;
-        _this.isFruit = true;
-        return _this;
-    }
-    return Apple;
-}(Piece_1.default));
-exports.default = Apple;
-
-
-/***/ }),
-
 /***/ 174:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -442,19 +451,19 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
-var Chili = /** @class */ (function (_super) {
-    __extends(Chili, _super);
-    function Chili(line, column) {
-        var _this = _super.call(this, line, column, '#9c27b0') || this;
+var Piece_1 = __webpack_require__(166);
+var Apple = /** @class */ (function (_super) {
+    __extends(Apple, _super);
+    function Apple(line, column) {
+        var _this = _super.call(this, line, column, '#009688') || this;
         _this.speed = 100;
         _this.power = 20;
         _this.isFruit = true;
         return _this;
     }
-    return Chili;
+    return Apple;
 }(Piece_1.default));
-exports.default = Chili;
+exports.default = Apple;
 
 
 /***/ }),
@@ -475,19 +484,19 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
-var Banana = /** @class */ (function (_super) {
-    __extends(Banana, _super);
-    function Banana(line, column) {
-        var _this = _super.call(this, line, column, '#ffeb3b') || this;
+var Piece_1 = __webpack_require__(166);
+var Chili = /** @class */ (function (_super) {
+    __extends(Chili, _super);
+    function Chili(line, column) {
+        var _this = _super.call(this, line, column, '#9c27b0') || this;
         _this.speed = 100;
         _this.power = 20;
         _this.isFruit = true;
         return _this;
     }
-    return Banana;
+    return Chili;
 }(Piece_1.default));
-exports.default = Banana;
+exports.default = Chili;
 
 
 /***/ }),
@@ -508,19 +517,19 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
-var Melon = /** @class */ (function (_super) {
-    __extends(Melon, _super);
-    function Melon(line, column) {
-        var _this = _super.call(this, line, column, '#4caf50') || this;
+var Piece_1 = __webpack_require__(166);
+var Banana = /** @class */ (function (_super) {
+    __extends(Banana, _super);
+    function Banana(line, column) {
+        var _this = _super.call(this, line, column, '#ffeb3b') || this;
         _this.speed = 100;
         _this.power = 20;
         _this.isFruit = true;
         return _this;
     }
-    return Melon;
+    return Banana;
 }(Piece_1.default));
-exports.default = Melon;
+exports.default = Banana;
 
 
 /***/ }),
@@ -541,7 +550,40 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Piece_1 = __webpack_require__(165);
+var Piece_1 = __webpack_require__(166);
+var Melon = /** @class */ (function (_super) {
+    __extends(Melon, _super);
+    function Melon(line, column) {
+        var _this = _super.call(this, line, column, '#4caf50') || this;
+        _this.speed = 100;
+        _this.power = 20;
+        _this.isFruit = true;
+        return _this;
+    }
+    return Melon;
+}(Piece_1.default));
+exports.default = Melon;
+
+
+/***/ }),
+
+/***/ 178:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Piece_1 = __webpack_require__(166);
 var Strawberry = /** @class */ (function (_super) {
     __extends(Strawberry, _super);
     function Strawberry(line, column) {
@@ -558,18 +600,19 @@ exports.default = Strawberry;
 
 /***/ }),
 
-/***/ 178:
+/***/ 179:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(39);
-var Wall_1 = __webpack_require__(179);
+var Util_1 = __webpack_require__(18);
+var Storage_1 = __webpack_require__(29);
+var Wall_1 = __webpack_require__(180);
 var Blank_1 = __webpack_require__(170);
-var React = __webpack_require__(164);
-var ReactDOM = __webpack_require__(168);
-var BoardComponent_1 = __webpack_require__(180);
+var React = __webpack_require__(81);
+var ReactDOM = __webpack_require__(167);
+var BoardComponent_1 = __webpack_require__(181);
 var Board = /** @class */ (function () {
     function Board(lines, cols, displayInView) {
         this.colorBoard = Util_1.default.COLOR_BOARD;
@@ -578,6 +621,8 @@ var Board = /** @class */ (function () {
         this.lines = lines;
         this.cols = cols;
         this.displayInView = displayInView;
+        var storage = new Storage_1.default();
+        this.colorBoard = storage.getItem('theme') === undefined ? this.colorBoard : storage.getItem('theme');
         this.board = new Array(this.lines);
         this.create();
     }
@@ -592,7 +637,7 @@ var Board = /** @class */ (function () {
                     this.board[line][col] = new Wall_1.default(line, col);
                 }
                 else {
-                    this.board[line][col] = new Blank_1.default(line, col);
+                    this.board[line][col] = new Blank_1.default(line, col, this.colorBoard);
                 }
             }
         }
@@ -615,123 +660,7 @@ exports.default = Board;
 
 /***/ }),
 
-/***/ 179:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(39);
-var Piece_1 = __webpack_require__(165);
-var Wall = /** @class */ (function (_super) {
-    __extends(Wall, _super);
-    function Wall(line, column) {
-        var _this = _super.call(this, line, column, Util_1.default.COLOR_WALL) || this;
-        _this.isFruit = false;
-        return _this;
-    }
-    return Wall;
-}(Piece_1.default));
-exports.default = Wall;
-
-
-/***/ }),
-
-/***/ 180:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(164);
-var BoardComponent = /** @class */ (function (_super) {
-    __extends(BoardComponent, _super);
-    function BoardComponent(props) {
-        return _super.call(this, props) || this;
-    }
-    BoardComponent.prototype.render = function () {
-        var _this = this;
-        var board = Array.from(Array(this.props.lines).keys()).map(function (line) {
-            return React.createElement("tr", { key: line + 1 }, Array.from(Array(_this.props.cols).keys()).map(function (col) {
-                return React.createElement("td", { key: (line + 1) * col, style: { backgroundColor: _this.props.board[line][col].color } });
-            }));
-        });
-        return (React.createElement("table", null,
-            React.createElement("tbody", null, board)));
-    };
-    return BoardComponent;
-}(React.Component));
-exports.default = BoardComponent;
-
-
-/***/ }),
-
-/***/ 186:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Storage_1 = __webpack_require__(40);
-var Util_1 = __webpack_require__(39);
-var Http = /** @class */ (function () {
-    function Http() {
-        this.storage = new Storage_1.default();
-        this.util = new Util_1.default();
-    }
-    /**
-    * Check if user have info in storage.
-    * @return {boolean}
-    */
-    Http.prototype.checkAuth = function () {
-        var exists = true;
-        if (localStorage.getItem('email') === null) {
-            exists = false;
-        }
-        return exists;
-    };
-    /**
-     * Remove user from storage.
-    * @return void
-    */
-    Http.prototype.logout = function () {
-        var _this = this;
-        // Logout
-        var logout = document.querySelector('#logout');
-        logout.addEventListener('click', function (evt) {
-            evt.preventDefault();
-            localStorage.clear();
-            _this.util.redirect('index');
-        });
-    };
-    return Http;
-}());
-exports.default = Http;
-
-
-/***/ }),
-
-/***/ 39:
+/***/ 18:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -803,9 +732,9 @@ var Util = /** @class */ (function () {
     Util.KEY_RIGHT = 39;
     Util.KEY_DOWN = 40;
     Util.COLOR_SNAKE = '#10A9E7';
-    Util.COLOR_BLANK = '#fff';
-    Util.COLOR_BOARD = '#fff';
-    Util.COLOR_WALL = '#696a6b';
+    Util.COLOR_BLANK = '#424242';
+    Util.COLOR_BOARD = '#424242';
+    Util.COLOR_WALL = '#212121';
     return Util;
 }());
 exports.default = Util;
@@ -813,7 +742,78 @@ exports.default = Util;
 
 /***/ }),
 
-/***/ 40:
+/***/ 180:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(18);
+var Piece_1 = __webpack_require__(166);
+var Wall = /** @class */ (function (_super) {
+    __extends(Wall, _super);
+    function Wall(line, column) {
+        var _this = _super.call(this, line, column, Util_1.default.COLOR_WALL) || this;
+        _this.isFruit = false;
+        return _this;
+    }
+    return Wall;
+}(Piece_1.default));
+exports.default = Wall;
+
+
+/***/ }),
+
+/***/ 181:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(81);
+var BoardComponent = /** @class */ (function (_super) {
+    __extends(BoardComponent, _super);
+    function BoardComponent(props) {
+        return _super.call(this, props) || this;
+    }
+    BoardComponent.prototype.render = function () {
+        var _this = this;
+        var board = Array.from(Array(this.props.lines).keys()).map(function (line) {
+            return React.createElement("tr", { key: line + 1 }, Array.from(Array(_this.props.cols).keys()).map(function (col) {
+                return React.createElement("td", { key: (line + 1) * col, style: { backgroundColor: _this.props.board[line][col].color } });
+            }));
+        });
+        return (React.createElement("table", null,
+            React.createElement("tbody", null, board)));
+    };
+    return BoardComponent;
+}(React.Component));
+exports.default = BoardComponent;
+
+
+/***/ }),
+
+/***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -851,6 +851,13 @@ var Storage = /** @class */ (function () {
 }());
 exports.default = Storage;
 
+
+/***/ }),
+
+/***/ 81:
+/***/ (function(module, exports) {
+
+module.exports = React;
 
 /***/ })
 

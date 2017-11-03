@@ -38,15 +38,15 @@
     <header class="header">
         <div class="content">
             <div class="header__logo">
-                <img src="./assets/images/logo/snake_invert.svg" alt="Snake Battle" title="Snake Battle" class="header__logoImage">
+                <img src="./assets/images/logo/snake_invert.svg" alt="Snake Battle" title="Snake Battle" class="header__logo-image">
             </div>
             <nav class="header__nav">
                 <ul class="nav nav--right">
-                    <li class="nav__item "><a href="./game.html" class="nav__itemLink">Game</a></li>
-                    <li class="nav__item"><a href="./rating.html" class="nav__itemLink">Rating</a></li>
-                    <li class="nav__item"><a href="./friends.html" class="nav__itemLink">Friends</a></li>
-                    <li class="nav__item nav__item--active"><a href="./settings.html" class="nav__itemLink">Settings</a></li>
-                    <li class="nav__item"><a href="./index.html" id="logout" class="nav__itemLink">Logout</a></li>
+                    <li class="nav__item "><a href="./game.html" class="nav__item-link">Game</a></li>
+                    <li class="nav__item"><a href="./rating.html" class="nav__item-link">Rating</a></li>
+                    <li class="nav__item"><a href="./friends.html" class="nav__item-link">Friends</a></li>
+                    <li class="nav__item nav__item--active"><a href="./settings.html" class="nav__item-link">Settings</a></li>
+                    <li class="nav__item"><a href="./index.html" id="logout" class="nav__item-link">Logout</a></li>
                 </ul>
             </nav>
         </div>
@@ -88,26 +88,37 @@
                                         <ul class="colors">
                                             <li class="colors__item tooltip tooltip--top" data-tooltip="Blue">
                                                 <input name="color" id="colorBlue" type="radio" value="#10A9E7" checked="checked" /></input>
-                                                <label class="colors__itemColor" for="colorBlue">Blue</label>
+                                                <label class="colors__item-color" for="colorBlue">Blue</label>
                                             </li>
                                             <li class="colors__item tooltip tooltip--top" data-tooltip="Red">
                                                 <input name="color" id="colorRed" type="radio" value="#ff4d63" /></input>
-                                                <label class="colors__itemColor" for="colorRed">Red</label>
+                                                <label class="colors__item-color" for="colorRed">Red</label>
                                             </li>
                                             <li class="colors__item tooltip tooltip--top" data-tooltip="Green">
                                                 <input name="color" id="colorGreen" type="radio" value="#01D097" /></input>
-                                                <label class="colors__itemColor" for="colorGreen">Green</label>
+                                                <label class="colors__item-color" for="colorGreen">Green</label>
                                             </li>
                                             <li class="colors__item tooltip tooltip--top" data-tooltip="Pink">
                                                 <input name="color" id="colorPink" type="radio" value="#DF1070" /></input>
-                                                <label class="colors__itemColor" for="colorPink">Pink</label>
+                                                <label class="colors__item-color" for="colorPink">Pink</label>
                                             </li>
                                             <li class="colors__item tooltip tooltip--top" data-tooltip="Violet">
                                                 <input name="color" id="colorViolet" type="radio" value="#6F1EFB" /></input>
-                                                <label class="colors__itemColor" for="colorViolet">Violet</label>
+                                                <label class="colors__item-color" for="colorViolet">Violet</label>
                                             </li>
                                         </ul>
 
+                                        <h6>Theme Color:</h6>
+                                        <ul class="colors">
+                                            <li class="colors__item tooltip tooltip--top" data-tooltip="Dark Theme">
+                                                <input name="theme" id="colorDark" type="radio" value="#424242" checked="checked" /></input>
+                                                <label class="colors__item-color" for="colorDark">Dark</label>
+                                            </li>
+                                            <li class="colors__item tooltip tooltip--top" data-tooltip="Light Theme">
+                                                <input name="theme" id="colorLight" type="radio" value="#fff" /></input>
+                                                <label class="colors__item-color" for="colorLight">Light</label>
+                                            </li>
+                                        </ul>
                                         <div class="form__fieldset form__fieldset--column">
                                             <span class="mt--20">
                                                 <button class="button button--large button--medium button--yellow" type="submit">Save Changes</button>
