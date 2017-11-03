@@ -41,12 +41,13 @@
       list-style: none;
       padding: 0;
 
-      .colors__item {
+      &__item {
         display: inline-block;
 
-        .colors__itemColor {
+        &-color {
           background-color: $color-green;
           border-radius: 50%;
+          border: 1px solid $color-border-default;
           cursor: pointer;
           display: block;
           height: 42px;
@@ -59,7 +60,7 @@
           width: 42px;
 
           &:after {
-            color: $color-white;
+            color: $color-yellow;
             content: '✓';
             display: block;
             font-size: $font-large;
@@ -91,6 +92,14 @@
 
         [for='colorViolet'] {
           background-color: $color-violet;
+        }
+
+        [for='colorLight'] {
+          background-color: $color-white;
+        }
+
+        [for='colorDark'] {
+          background-color: $color-darkgrey;
         }
 
         input {
