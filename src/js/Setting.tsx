@@ -51,14 +51,12 @@ class Settings {
         }
 
         const colorChecked = document.querySelector('[name="color"]:checked');
-        console.log("colorChecked", colorChecked);
         if (!colorChecked) {
             colors[0].checked = true;
         }
 
         // Theme
         const currentTheme = this.storage.getItem('theme');
-        console.log(currentTheme);
         for(let i = 0; i < themes.length; i++) {
             themes[i].checked = false;
             if (themes[i].value === currentTheme)
@@ -66,7 +64,6 @@ class Settings {
         }
 
         const themeChecked = document.querySelector('[name="theme"]:checked');
-        console.log("themeChecked", themeChecked);
         if (!themeChecked) {
             themes[0].checked = true;
         }

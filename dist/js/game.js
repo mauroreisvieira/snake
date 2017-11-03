@@ -222,7 +222,6 @@ var Game = /** @class */ (function () {
         if (this.gamInBoard) {
             var storage = new Storage_1.default();
             this.colorBoard = storage.getItem('theme') === undefined ? this.colorBoard : storage.getItem('theme');
-            console.log("this.colorBoard", this.colorBoard);
             this.tailX = [this.snakePosX];
             this.tailY = [this.snakePosY];
             this.gameLoop = this.gameLoop.bind(this);

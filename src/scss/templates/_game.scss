@@ -40,8 +40,21 @@
     }
 
     &__item {
-      font-size: $font-large;
+      color: $color-darkgrey;
+      font-family: $font-family-default;
+      font-size: $font-medium;
       margin: 20px 0;
+      text-align: center;
+      text-transform: uppercase;
+      width: 100%;
+
+      * {
+        color: $color-salmon;
+        display: block;
+        font-size: $font-xx-large;
+        font-weight: $font-extra-bold;
+        width: 100%;
+      }
     }
   }
 
@@ -61,8 +74,17 @@
     }
 
     &__item {
-      font-size: $font-large;
+      color: $color-darkgrey;
+      font-family: $font-family-default;
+      font-size: $font-medium;
       margin: 20px 0;
+      text-align: center;
+      width: 100%;
+      font-weight: $font-extra-bold;
+
+      &--icon {
+        font-size: $font-xxx-large * 2;
+      }
     }
   }
 

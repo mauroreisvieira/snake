@@ -26671,20 +26671,17 @@ var Settings = /** @class */ (function () {
                 colors[i].checked = true;
         }
         var colorChecked = document.querySelector('[name="color"]:checked');
-        console.log("colorChecked", colorChecked);
         if (!colorChecked) {
             colors[0].checked = true;
         }
         // Theme
         var currentTheme = this.storage.getItem('theme');
-        console.log(currentTheme);
         for (var i = 0; i < themes.length; i++) {
             themes[i].checked = false;
             if (themes[i].value === currentTheme)
                 themes[i].checked = true;
         }
         var themeChecked = document.querySelector('[name="theme"]:checked');
-        console.log("themeChecked", themeChecked);
         if (!themeChecked) {
             themes[0].checked = true;
         }

@@ -55,7 +55,6 @@ class Game {
 
             let storage = new Storage();
             this.colorBoard = storage.getItem('theme') === undefined ? this.colorBoard : storage.getItem('theme');
-            console.log("this.colorBoard", this.colorBoard);
 
             this.tailX = [this.snakePosX];
             this.tailY = [this.snakePosY];
