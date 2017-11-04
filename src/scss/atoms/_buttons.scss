@@ -63,6 +63,11 @@
     }
   }
 
+  &--is-loading {
+    opacity: .5;
+    pointer-events: none;
+  }
+
   @each $key, $values in $buttons {
 
     &--#{$key} {

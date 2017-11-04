@@ -26625,6 +26625,7 @@ var Auth = /** @class */ (function () {
         var _this = this;
         this.form.addEventListener('submit', function (evt) {
             evt.preventDefault();
+            _this.form.querySelector('button').classList.add('btn--is-loading');
             _this.login(evt);
         });
     };

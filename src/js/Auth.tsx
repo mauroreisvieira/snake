@@ -56,6 +56,7 @@ export default class Auth {
     addEventListeners (): void {
         this.form.addEventListener('submit', (evt: any) => {
             evt.preventDefault();
+            this.form.querySelector('button').classList.add('btn--is-loading');
             this.login(evt);
         });
     }
