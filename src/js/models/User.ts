@@ -11,14 +11,15 @@ export default class User {
     public color: any;
     public theme: any;
     public colorBoard: any;
-    public score: any;
+    public score: number;
     public date: any;
 
-    constructor (name: string, email: string, color: any, theme: any) {
+    constructor (name: string, email: string, color: any, theme: any, score: number) {
         this.name = name;
         this.email = email;
         this.color = color;
         this.theme = theme;
+        this.score = score;
 
         let util = new Util();
         let hash = new Md5();
@@ -28,7 +29,6 @@ export default class User {
         // Hash (md5) only use to encrypt the email to get photo in Gravatar API.
         this.id = hash.md5(this.email, false, false);
         this.photo = this.userPhoto(this.id);
-        this.score = storage.getItem('score') > 0 ? storage.getItem('score') : 0;
         this.date = new Date().getTime();
 
         // Updated in Firebase only have connection to internet.

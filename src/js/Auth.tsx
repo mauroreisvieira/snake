@@ -38,23 +38,12 @@ export default class Auth {
                             user = response[key]; // get info this player.
                         }
                     }
-
                     // If player not exists in Firebase.
                     if (!playerExists) {
                         // New User.
-                        user = new User(name, email, Util.COLOR_SNAKE, Util.COLOR_BOARD);
-                        // Save in Firebase.
-                        this.firebase.push('players/' + user.id, user);
+                        new User(name, email, Util.COLOR_SNAKE, Util.COLOR_BOARD, 0);
                     } else {
-                        // Save user info in storage.
-                        this.storage.addItem('id', user.id);
-                        this.storage.addItem('name', user.name);
-                        this.storage.addItem('email', user.email);
-                        this.storage.addItem('photo', user.photo);
-                        this.storage.addItem('color', user.color);
-                        this.storage.addItem('theme', user.theme);
-                        this.storage.addItem('score', user.score);
-                        this.storage.addItem('date', new Date().getTime());
+                        new User(user.name, user.email, user.color, user.theme, user.score);
                     }
 
                     // Redirect user to game board.
