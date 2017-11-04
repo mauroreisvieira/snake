@@ -72,7 +72,7 @@
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Storage_1 = __webpack_require__(29);
-var Util_1 = __webpack_require__(18);
+var Util_1 = __webpack_require__(28);
 var Http = /** @class */ (function () {
     function Http() {
         this.storage = new Storage_1.default();
@@ -185,7 +185,7 @@ exports.default = Wall;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Storage_1 = __webpack_require__(29);
 var Http_1 = __webpack_require__(165);
-var Util_1 = __webpack_require__(18);
+var Util_1 = __webpack_require__(28);
 var Blank_1 = __webpack_require__(170);
 var Snake_1 = __webpack_require__(173);
 var Apple_1 = __webpack_require__(174);
@@ -397,7 +397,7 @@ new Game();
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Storage_1 = __webpack_require__(29);
-var Util_1 = __webpack_require__(18);
+var Util_1 = __webpack_require__(28);
 var Snake = /** @class */ (function () {
     function Snake(posX, posY) {
         this.color = Util_1.default.COLOR_SNAKE;
@@ -605,7 +605,7 @@ exports.default = Strawberry;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(18);
+var Util_1 = __webpack_require__(28);
 var Storage_1 = __webpack_require__(29);
 var Wall_1 = __webpack_require__(180);
 var Blank_1 = __webpack_require__(170);
@@ -659,7 +659,78 @@ exports.default = Board;
 
 /***/ }),
 
-/***/ 18:
+/***/ 180:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Util_1 = __webpack_require__(28);
+var Piece_1 = __webpack_require__(166);
+var Wall = /** @class */ (function (_super) {
+    __extends(Wall, _super);
+    function Wall(line, column) {
+        var _this = _super.call(this, line, column, Util_1.default.COLOR_WALL) || this;
+        _this.isFruit = false;
+        return _this;
+    }
+    return Wall;
+}(Piece_1.default));
+exports.default = Wall;
+
+
+/***/ }),
+
+/***/ 181:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(81);
+var BoardComponent = /** @class */ (function (_super) {
+    __extends(BoardComponent, _super);
+    function BoardComponent(props) {
+        return _super.call(this, props) || this;
+    }
+    BoardComponent.prototype.render = function () {
+        var _this = this;
+        var board = Array.from(Array(this.props.lines).keys()).map(function (line) {
+            return React.createElement("tr", { key: line + 1 }, Array.from(Array(_this.props.cols).keys()).map(function (col) {
+                return React.createElement("td", { key: (line + 1) * col, style: { backgroundColor: _this.props.board[line][col].color } });
+            }));
+        });
+        return (React.createElement("table", null,
+            React.createElement("tbody", null, board)));
+    };
+    return BoardComponent;
+}(React.Component));
+exports.default = BoardComponent;
+
+
+/***/ }),
+
+/***/ 28:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -737,77 +808,6 @@ var Util = /** @class */ (function () {
     return Util;
 }());
 exports.default = Util;
-
-
-/***/ }),
-
-/***/ 180:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Util_1 = __webpack_require__(18);
-var Piece_1 = __webpack_require__(166);
-var Wall = /** @class */ (function (_super) {
-    __extends(Wall, _super);
-    function Wall(line, column) {
-        var _this = _super.call(this, line, column, Util_1.default.COLOR_WALL) || this;
-        _this.isFruit = false;
-        return _this;
-    }
-    return Wall;
-}(Piece_1.default));
-exports.default = Wall;
-
-
-/***/ }),
-
-/***/ 181:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(81);
-var BoardComponent = /** @class */ (function (_super) {
-    __extends(BoardComponent, _super);
-    function BoardComponent(props) {
-        return _super.call(this, props) || this;
-    }
-    BoardComponent.prototype.render = function () {
-        var _this = this;
-        var board = Array.from(Array(this.props.lines).keys()).map(function (line) {
-            return React.createElement("tr", { key: line + 1 }, Array.from(Array(_this.props.cols).keys()).map(function (col) {
-                return React.createElement("td", { key: (line + 1) * col, style: { backgroundColor: _this.props.board[line][col].color } });
-            }));
-        });
-        return (React.createElement("table", null,
-            React.createElement("tbody", null, board)));
-    };
-    return BoardComponent;
-}(React.Component));
-exports.default = BoardComponent;
 
 
 /***/ }),

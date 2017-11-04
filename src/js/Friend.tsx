@@ -13,7 +13,7 @@ class Friend {
     private http: any;
     private firebase: any;
     private storage: any;
-    private friends: any = {};
+    private friends: any = [];
 
     constructor() {
         this.util = new Util();
@@ -30,23 +30,27 @@ class Friend {
         let myID = this.storage.getItem('id');
         this.firebase.all('friends/' + myID).then((response : any)=> {
             if (response) {
-                this.friends = response;
-                this.friends = Object.entries(response);
-                this.storage.addItem('friends', JSON.stringify(this.friends));
+                this.firebase.all('players').then((res : any)=> {
+                    let players = Object.entries(res);
+                    players.map((player: any) => {
+                        // Check if exists any player that's my friend.
+                        if (player[0] in response) {
+                            this.friends.push(player);
+                        }
+                    });
 
-                const data = {
-                    players: this.friends,
-                };
-            } else {
-                const data = {
-                    players: false,
-                };
+                    // Save in Storage
+                    this.storage.addItem('friends', JSON.stringify(this.friends));
+                    const data = {
+                        friends: this.friends ? this.friends : false
+                    };
+
+                    ReactDOM.render(
+                        <FriendComponent friends={data.friends} />,
+                        document.getElementById('list-friends')
+                    );
+                });
             }
-
-            ReactDOM.render(
-                <FriendComponent friends={data.players} />,
-                document.getElementById('list-friends')
-            );
         })
     }
 }

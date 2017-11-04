@@ -91,7 +91,8 @@ class Settings {
                  if (response !== null) {
                      email = this.storage.getItem('email');
                  }
-                 let user = new User(name, email, color, theme);
+                let score = this.storage.getItem('score');
+                let user = new User(name, email, color, theme, score);
              });
          }
      }

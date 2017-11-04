@@ -7,6 +7,11 @@ class FriendComponent extends React.Component {
         super(props);
     }
 
+    private formatDate(time: number): any {
+        let d = new Date(time);
+        return d.getDay() + '/' + d.getMonth() + '/' +  d.getFullYear() + ' at '+ d.getHours() + 'h:' + d.getMinutes() + (d.getMinutes() < 9 ? '0' : '') + 'm';
+    };
+
     render(): any {
         if (this.props.friends) {
             const listItems = this.props.friends.map((friend: any) =>
@@ -19,7 +24,7 @@ class FriendComponent extends React.Component {
                         <div className="item__content">
                             <div className="item__content-name">{friend[1].name}</div>
                             <a className="item__content-mail">{friend[1].email}</a>
-                            <div className="item__content-history"><strong>Last Login:</strong></div>
+                            <div className="item__content-history"><strong>Last Login:</strong> {this.formatDate(friend[1].date)}</div>
                         </div>
                         <div className="item__options">
                             <button className="button button--small button--yellow" disabled><i className="icon ion-ios-game-controller-b"></i> Challenge</button>
