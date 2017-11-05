@@ -26408,10 +26408,16 @@ var Friend = /** @class */ (function () {
                     // Save in Storage
                     _this.storage.addItem('friends', JSON.stringify(_this.friends));
                     var data = {
-                        friends: _this.friends ? _this.friends : false
+                        friends: _this.friends
                     };
                     ReactDOM.render(React.createElement(FriendComponent_1.default, { friends: data.friends }), document.getElementById('list-friends'));
                 });
+            }
+            else {
+                var data = {
+                    friends: false
+                };
+                ReactDOM.render(React.createElement(FriendComponent_1.default, { friends: data.friends }), document.getElementById('list-friends'));
             }
         });
     }

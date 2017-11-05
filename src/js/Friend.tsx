@@ -42,14 +42,21 @@ class Friend {
                     // Save in Storage
                     this.storage.addItem('friends', JSON.stringify(this.friends));
                     const data = {
-                        friends: this.friends ? this.friends : false
+                        friends: this.friends
                     };
-
                     ReactDOM.render(
                         <FriendComponent friends={data.friends} />,
                         document.getElementById('list-friends')
                     );
                 });
+            } else {
+                const data = {
+                    friends: false
+                };
+                ReactDOM.render(
+                    <FriendComponent friends={data.friends} />,
+                    document.getElementById('list-friends')
+                );
             }
         })
     }

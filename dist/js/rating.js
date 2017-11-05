@@ -26444,7 +26444,6 @@ var RatingComponent = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.storage = new Storage_1.default();
         _this.firebase = new Firebase_1.default();
-        _this.state = { value: false };
         return _this;
     }
     RatingComponent.prototype.addToFriendList = function (friendID) {

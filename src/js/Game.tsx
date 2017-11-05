@@ -1,6 +1,7 @@
 import Storage from './services/Storage';
 import Http from './services/Http';
 import Util from './services/Util';
+import User from './models/User';
 import Blank from './models/Blank';
 import Snake from './models/Snake';
 import Apple from './models/Apple';
@@ -16,6 +17,7 @@ import * as ReactDOM from "react-dom";
 
 class Game {
     private util: any;
+    private storage: any;
     private http: any;
     private gamInBoard: any;
     private listFruit: any = [0,1,2,3,4];
@@ -53,8 +55,8 @@ class Game {
 
         if (this.gamInBoard) {
 
-            let storage = new Storage();
-            this.colorBoard = storage.getItem('theme') === undefined ? this.colorBoard : storage.getItem('theme');
+            this.storage = new Storage();
+            this.colorBoard = this.storage.getItem('theme') === undefined ? this.colorBoard : this.storage.getItem('theme');
 
             this.tailX = [this.snakePosX];
             this.tailY = [this.snakePosY];
@@ -185,6 +187,14 @@ class Game {
     }
 
     scoreGame(): void {
+        let myScore = this.storage.getItem('score');
+        if (this.score > myScore) {
+            let name = this.storage.getItem('name');
+            let email = this.storage.getItem('email');
+            let color = this.storage.getItem('color');
+            let theme = this.storage.getItem('theme');
+            new User(name, email, color, theme, this.score);
+        }
         document.querySelector("score").innerHTML = this.score;
     }
 

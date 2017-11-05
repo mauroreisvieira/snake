@@ -12,7 +12,6 @@ class RatingComponent extends React.Component {
         super(props);
         this.storage = new Storage();
         this.firebase = new Firebase();
-        this.state = { value: false };
     }
 
     addToFriendList(friendID : any): void {
