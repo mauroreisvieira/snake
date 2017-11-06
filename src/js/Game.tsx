@@ -115,6 +115,8 @@ class Game {
             fruit = new Strawberry(lineRand, columnRand);
         }
 
+        this.fruitType(fruit.image);
+
         this.matriz[lineRand][columnRand] = fruit;
         fruit.view(lineRand, columnRand);
     }
@@ -196,6 +198,10 @@ class Game {
             new User(name, email, color, theme, this.score);
         }
         document.querySelector("score").innerHTML = this.score;
+    }
+
+    fruitType(fruit: string) : void {
+        document.querySelector("fruit").innerHTML = fruit;
     }
 
     timeGame(): void {
