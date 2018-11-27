@@ -14,7 +14,7 @@ to create a simple game with multiple options.
 In the current version of game you can play with yourself, in the future in can challenge other players.
 
 
-You can play `Snake Battle` in [Github Page](http://maurovieirareis.github.io/snake).
+You can play `Snake Battle` in [Github Page](http://mauroreisvieira.github.io/snake).
 
 ## Supported Browsers:
 - Google Chrome 62+
@@ -36,11 +36,11 @@ You can play `Snake Battle` in [Github Page](http://maurovieirareis.github.io/sn
 ### Clone the repo using Git
 
 ```bash
-git clone https://github.com/maurovieirareis/snake
+git clone https://github.com/mauroreisvieira/snake
 ```
 
 
-Alternatively you can [download](https://codeload.github.com/maurovieirareis/snake/zip/master) this repository.
+Alternatively you can [download](https://codeload.github.com/mauroreisvieira/snake/zip/master) this repository.
 
 ## License
 
